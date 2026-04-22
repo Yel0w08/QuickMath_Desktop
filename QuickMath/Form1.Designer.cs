@@ -37,7 +37,8 @@
             MidelTextBetweenUserIntuptAndMath = new Label();
             XPEqualLabel = new Label();
             XPpointLabel = new Label();
-            start_and_stop_button = new Button();
+            start_button = new Button();
+            stopbutton = new Button();
             SuspendLayout();
             // 
             // TypeOfMath
@@ -101,15 +102,25 @@
             XPpointLabel.TabIndex = 5;
             XPpointLabel.Text = "0";
             // 
-            // start_and_stop_button
+            // start_button
             // 
-            start_and_stop_button.Location = new Point(139, 12);
-            start_and_stop_button.Name = "start_and_stop_button";
-            start_and_stop_button.Size = new Size(75, 23);
-            start_and_stop_button.TabIndex = 6;
-            start_and_stop_button.Text = "start";
-            start_and_stop_button.UseVisualStyleBackColor = true;
-            start_and_stop_button.Click += button1_Click;
+            start_button.Location = new Point(139, 12);
+            start_button.Name = "start_button";
+            start_button.Size = new Size(75, 23);
+            start_button.TabIndex = 6;
+            start_button.Text = "start";
+            start_button.UseVisualStyleBackColor = true;
+            start_button.Click += button1_Click;
+            // 
+            // stopbutton
+            // 
+            stopbutton.Location = new Point(220, 12);
+            stopbutton.Name = "stopbutton";
+            stopbutton.Size = new Size(75, 23);
+            stopbutton.TabIndex = 7;
+            stopbutton.Text = "stop";
+            stopbutton.UseVisualStyleBackColor = true;
+            stopbutton.Click += stopbutton_Click;
             // 
             // Form1
             // 
@@ -117,7 +128,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(800, 450);
-            Controls.Add(start_and_stop_button);
+            Controls.Add(stopbutton);
+            Controls.Add(start_button);
             Controls.Add(XPpointLabel);
             Controls.Add(XPEqualLabel);
             Controls.Add(MidelTextBetweenUserIntuptAndMath);
@@ -127,6 +139,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
             Text = "QuickMath";
+            Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -140,6 +153,7 @@
         private Label MidelTextBetweenUserIntuptAndMath;
         private Label XPEqualLabel;
         private Label XPpointLabel;
-        private Button start_and_stop_button;
+        private Button start_button;
+        private Button stopbutton;
     }
 }
