@@ -6,5 +6,10 @@ namespace QuickMath
         {
             InitializeComponent();
         }
+
+        private void MathToResolveText_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

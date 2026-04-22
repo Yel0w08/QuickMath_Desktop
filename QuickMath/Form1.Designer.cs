@@ -29,11 +29,60 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            TypeOfMath = new ComboBox();
+            MathToResolveText = new Label();
+            timer1 = new System.Windows.Forms.Timer(components);
+            MathUserIntupt = new TextBox();
+            SuspendLayout();
+            // 
+            // TypeOfMath
+            // 
+            TypeOfMath.FormattingEnabled = true;
+            TypeOfMath.Location = new Point(12, 12);
+            TypeOfMath.Name = "TypeOfMath";
+            TypeOfMath.Size = new Size(121, 23);
+            TypeOfMath.TabIndex = 0;
+            // 
+            // MathToResolveText
+            // 
+            MathToResolveText.AutoSize = true;
+            MathToResolveText.Font = new Font("Segoe UI", 16F);
+            MathToResolveText.Location = new Point(12, 339);
+            MathToResolveText.Name = "MathToResolveText";
+            MathToResolveText.Size = new Size(127, 30);
+            MathToResolveText.TabIndex = 1;
+            MathToResolveText.Text = "(Math here)";
+            MathToResolveText.Click += MathToResolveText_Click;
+            // 
+            // MathUserIntupt
+            // 
+            MathUserIntupt.Font = new Font("Segoe UI", 16F);
+            MathUserIntupt.Location = new Point(12, 402);
+            MathUserIntupt.Name = "MathUserIntupt";
+            MathUserIntupt.Size = new Size(300, 36);
+            MathUserIntupt.TabIndex = 2;
+            // 
+            // Form1
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Text = "Form1";
+            Controls.Add(MathUserIntupt);
+            Controls.Add(MathToResolveText);
+            Controls.Add(TypeOfMath);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Name = "Form1";
+            Text = "QuickMath";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private ComboBox TypeOfMath;
+        private Label MathToResolveText;
+        private System.Windows.Forms.Timer timer1;
+        private TextBox MathUserIntupt;
     }
 }
