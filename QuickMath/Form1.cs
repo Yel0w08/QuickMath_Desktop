@@ -1,12 +1,21 @@
+using System.Security.Cryptography.X509Certificates;
+
 namespace QuickMath
 {
     public partial class Form1 : Form
     {
+
+        public int XP = 0; //public stuff
+
         public Form1()
         {
             InitializeComponent();
+            ResetGUI();
+
+         
         }
 
+        bool DoAwserIsCorect;
         private void MathToResolveText_Click(object sender, EventArgs e)
         {
 
@@ -60,12 +69,66 @@ namespace QuickMath
 
         }
 
-        private void StartMath_addition()
+        public async Task StartMath_addition()
         {
+            MinimumRandomNumber_trackbar.Show();
+            MinimumRandomNumber_intupt.Show();
+            MaximumRandomNumber_trackbar.Show();
+            MaximumRandomNumber_intupt.Show();
+            MinimumRandomNumber_intupt.Text = MinimumRandomNumber_trackbar.Text;
+            MaximumRandomNumber_trackbar.Text = MaximumRandomNumber_intupt.Text;
+
+            int min_number_addition = 100;
+            int max_number_addition = 100;
+
+            Random random = new Random();
+            int random_1 = random.Next(min_number_addition, max_number_addition);
+            int random_2 = random.Next(min_number_addition, max_number_addition);
+            int result = random_1 + random_2;
+            MathToResolveText.Text = $"{random_1} + {random_2}";
             
+            CheckAwser(result); 
+           
+            
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        }
+
+
+
+        private void CheckAwser(int result)
+        {
+            if (MathUserIntupt.ToString() == result.ToString())
+            {
+                DoAwserIsCorect = true;
+            }
+        }
+
+
+
+        void ResetGUI()
+        {
+            MinimumRandomNumber_trackbar.Hide();
+            MinimumRandomNumber_intupt.Hide();
+            MaximumRandomNumber_trackbar.Hide();
+            MaximumRandomNumber_intupt.Hide();
+
 
         }
 
+        void ReLoadGUI()
+        {
+             
+            XPpointLabel.Text = XP.ToString();
+
+        }
         private void UnlockGUI()
         {
             TypeOfMath.Enabled = true;
@@ -88,6 +151,16 @@ namespace QuickMath
         {
             UnlockGUI();
 
+        }
+
+        private void MathUserIntupt_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Verify_button_Click(object sender, EventArgs e)
+        {
+          
         }
     }
 }
