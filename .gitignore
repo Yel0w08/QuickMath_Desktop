@@ -1,1 +1,6 @@
 /QuickMath/.vs
+/QuickMath/bin
+/QuickMath/bin
+QuickMath/bin/Debug/net10.0-windows/QuickMath.exe
+QuickMath/bin/Debug/net10.0-windows/QuickMath.dll
+QuickMath/bin/Debug/net10.0-windows/QuickMath.pdb
