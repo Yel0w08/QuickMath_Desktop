@@ -44,7 +44,7 @@
             _trackbar = new Label();
             MaximumRandomNumber_intupt = new MaskedTextBox();
             MinimumRandomNumber_intupt = new MaskedTextBox();
-            Verify_button = new Button();
+            DebugLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)MinimumRandomNumber_trackbar).BeginInit();
             ((System.ComponentModel.ISupportInitialize)MaximumRandomNumber_trackbar).BeginInit();
             SuspendLayout();
@@ -93,10 +93,10 @@
             // XPEqualLabel
             // 
             XPEqualLabel.AutoSize = true;
-            XPEqualLabel.Font = new Font("Segoe UI", 16F);
+            XPEqualLabel.Font = new Font("Segoe UI", 12F);
             XPEqualLabel.Location = new Point(12, 50);
             XPEqualLabel.Name = "XPEqualLabel";
-            XPEqualLabel.Size = new Size(59, 30);
+            XPEqualLabel.Size = new Size(43, 21);
             XPEqualLabel.TabIndex = 4;
             XPEqualLabel.Text = "XP =";
             XPEqualLabel.Click += label1_Click_1;
@@ -104,10 +104,10 @@
             // XPpointLabel
             // 
             XPpointLabel.AutoSize = true;
-            XPpointLabel.Font = new Font("Segoe UI", 16F);
-            XPpointLabel.Location = new Point(66, 50);
+            XPpointLabel.Font = new Font("Segoe UI", 12F);
+            XPpointLabel.Location = new Point(45, 50);
             XPpointLabel.Name = "XPpointLabel";
-            XPpointLabel.Size = new Size(25, 30);
+            XPpointLabel.Size = new Size(19, 21);
             XPpointLabel.TabIndex = 5;
             XPpointLabel.Text = "0";
             // 
@@ -176,17 +176,17 @@
             MinimumRandomNumber_intupt.TabIndex = 13;
             MinimumRandomNumber_intupt.Text = "1";
             MinimumRandomNumber_intupt.TextAlign = HorizontalAlignment.Right;
+            MinimumRandomNumber_intupt.MaskInputRejected += MinimumRandomNumber_intupt_MaskInputRejected;
             // 
-            // Verify_button
+            // DebugLabel
             // 
-            Verify_button.Location = new Point(352, 397);
-            Verify_button.Name = "Verify_button";
-            Verify_button.RightToLeft = RightToLeft.Yes;
-            Verify_button.Size = new Size(75, 40);
-            Verify_button.TabIndex = 14;
-            Verify_button.Text = "Verify";
-            Verify_button.UseVisualStyleBackColor = true;
-            Verify_button.Click += Verify_button_Click;
+            DebugLabel.AutoSize = true;
+            DebugLabel.Font = new Font("Segoe UI", 6F);
+            DebugLabel.Location = new Point(12, 78);
+            DebugLabel.Name = "DebugLabel";
+            DebugLabel.Size = new Size(30, 11);
+            DebugLabel.TabIndex = 14;
+            DebugLabel.Text = "Debug";
             // 
             // Form1
             // 
@@ -194,7 +194,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(800, 450);
-            Controls.Add(Verify_button);
+            Controls.Add(DebugLabel);
             Controls.Add(MinimumRandomNumber_intupt);
             Controls.Add(MaximumRandomNumber_intupt);
             Controls.Add(_trackbar);
@@ -234,6 +234,6 @@
         private Label _trackbar;
         private MaskedTextBox MaximumRandomNumber_intupt;
         private MaskedTextBox MinimumRandomNumber_intupt;
-        private Button Verify_button;
+        private Label DebugLabel;
     }
 }

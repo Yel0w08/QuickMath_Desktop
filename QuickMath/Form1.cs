@@ -1,19 +1,22 @@
 using System.Security.Cryptography.X509Certificates;
+using System.Text.Json;
 
 namespace QuickMath
 {
     public partial class Form1 : Form
     {
         private int result;
-        public int XP = 0; //public stuff
+        public int XP; //public stuff
 
         public Form1()
         {
             InitializeComponent();
             ResetGUI();
+            AutoLoadUserData();
 
-         
+
         }
+     
 
         bool DoAwserIsCorect;
         private void MathToResolveText_Click(object sender, EventArgs e)
@@ -86,19 +89,19 @@ namespace QuickMath
             int random_2 = random.Next(min_number_addition, max_number_addition);
             result = random_1 + random_2;
             MathToResolveText.Text = $"{random_1} + {random_2}";
-            
-            CheckAwser(result); 
-           
-            
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+            CheckAwser(result);
+
+
+
+
+
+
+
+
+
+
+
         }
 
 
@@ -125,9 +128,9 @@ namespace QuickMath
 
         void ReLoadGUI()
         {
-             
-            XPpointLabel.Text = XP.ToString();
 
+            XPpointLabel.Text = XP.ToString();
+            saveUserData_Local();
         }
         private void UnlockGUI()
         {
@@ -153,6 +156,31 @@ namespace QuickMath
 
         }
 
+        private void saveUserData_Local()
+        {
+            var SaveData = new
+            {
+                XP = XP
+            };
+
+            string jsonString = JsonSerializer.Serialize(SaveData);
+            DebugLabel.Text = jsonString;
+            string fileName = "QuickMath_UserData.json";
+            File.WriteAllText(fileName, jsonString);
+        }
+
+        void AutoLoadUserData()
+        {
+            string fileName = "QuickMath_UserData.json";
+            if (File.Exists(fileName))
+            {
+                string jsonString = File.ReadAllText(fileName);
+                var SaveData = JsonSerializer.Deserialize<dynamic>(jsonString);
+                XP = SaveData.XP;
+                ReLoadGUI();
+            }
+        }
+
         private void MathUserIntupt_TextChanged(object sender, EventArgs e)
         {
             if (MathUserIntupt.Text == result.ToString())
@@ -168,6 +196,11 @@ namespace QuickMath
         private void Verify_button_Click(object sender, EventArgs e)
         {
             CheckAwser(result);
+        }
+
+        private void MinimumRandomNumber_intupt_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+
         }
     }
 }
