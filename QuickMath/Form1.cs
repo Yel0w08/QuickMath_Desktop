@@ -4,7 +4,7 @@ namespace QuickMath
 {
     public partial class Form1 : Form
     {
-
+        private int result;
         public int XP = 0; //public stuff
 
         public Form1()
@@ -78,13 +78,13 @@ namespace QuickMath
             MinimumRandomNumber_intupt.Text = MinimumRandomNumber_trackbar.Text;
             MaximumRandomNumber_trackbar.Text = MaximumRandomNumber_intupt.Text;
 
-            int min_number_addition = 100;
+            int min_number_addition = 1;
             int max_number_addition = 100;
 
             Random random = new Random();
             int random_1 = random.Next(min_number_addition, max_number_addition);
             int random_2 = random.Next(min_number_addition, max_number_addition);
-            int result = random_1 + random_2;
+            result = random_1 + random_2;
             MathToResolveText.Text = $"{random_1} + {random_2}";
             
             CheckAwser(result); 
@@ -105,7 +105,7 @@ namespace QuickMath
 
         private void CheckAwser(int result)
         {
-            if (MathUserIntupt.ToString() == result.ToString())
+            if (MathUserIntupt.Text == result.ToString())
             {
                 DoAwserIsCorect = true;
             }
@@ -155,12 +155,19 @@ namespace QuickMath
 
         private void MathUserIntupt_TextChanged(object sender, EventArgs e)
         {
-
+            if (MathUserIntupt.Text == result.ToString())
+            {
+                DoAwserIsCorect = true;
+                XP += 10;
+                ReLoadGUI();
+                MathUserIntupt.Text = string.Empty;
+                StartMath_addition();
+            }
         }
 
         private void Verify_button_Click(object sender, EventArgs e)
         {
-          
+            CheckAwser(result);
         }
     }
 }
