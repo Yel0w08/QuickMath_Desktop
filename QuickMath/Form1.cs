@@ -16,7 +16,7 @@ namespace QuickMath
 
 
         }
-     
+
 
         bool DoAwserIsCorect;
         private void MathToResolveText_Click(object sender, EventArgs e)
@@ -31,8 +31,9 @@ namespace QuickMath
 
         private void TypeOfMath_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (TypeOfMath.SelectedItem.ToString() == "more coming !") { MessageBox.Show("More math operations will be added in the future !"); TypeOfMath.Text = ""; } else { }
-            //tell the user more is coming if selecter more is coming....
+            if (TypeOfMath.SelectedItem == string.Empty) { }//why dont it work
+            else if (TypeOfMath.SelectedItem == "more coming !") { MessageBox.Show("More math operations will be added in the future !"); TypeOfMath.Text = ""; } //tell the user more is coming if selecter more is coming....
+            else if (TypeOfMath.SelectedItem.ToString() == "addition"){DifficultySelect.Show();}
         }
 
         private void label1_Click_1(object sender, EventArgs e)
@@ -45,12 +46,12 @@ namespace QuickMath
 
 
 
-            if (TypeOfMath.SelectedItem.ToString() == string.Empty) { }//why dont it work
+            if (TypeOfMath.SelectedItem == string.Empty) { }//why dont it work
             else if (TypeOfMath.SelectedItem.ToString() == "addition")
             {
                 LockGUI();
                 StartMath_addition();
-
+            
             }
             else if (TypeOfMath.SelectedItem.ToString() == "subtraction")
             {
@@ -74,17 +75,17 @@ namespace QuickMath
 
         public async Task StartMath_addition()
         {
-            MinimumRandomNumber_trackbar.Show();
-            MinimumRandomNumber_intupt.Show();
-            MaximumRandomNumber_trackbar.Show();
-            MaximumRandomNumber_intupt.Show();
-            MinimumRandomNumber_intupt.Text = MinimumRandomNumber_trackbar.Text;
-            MaximumRandomNumber_trackbar.Text = MaximumRandomNumber_intupt.Text;
 
             int min_number_addition = 1;
             int max_number_addition = 100;
 
-            Random random = new Random();
+          
+
+            if (DifficultySelect.SelectedItem == "default (1 - 100)")
+            {min_number_addition = 1; max_number_addition = 100;}
+
+
+                Random random = new Random();
             int random_1 = random.Next(min_number_addition, max_number_addition);
             int random_2 = random.Next(min_number_addition, max_number_addition);
             result = random_1 + random_2;
@@ -118,10 +119,7 @@ namespace QuickMath
 
         void ResetGUI()
         {
-            MinimumRandomNumber_trackbar.Hide();
-            MinimumRandomNumber_intupt.Hide();
-            MaximumRandomNumber_trackbar.Hide();
-            MaximumRandomNumber_intupt.Hide();
+            DifficultySelect.Hide();
 
 
         }
@@ -135,13 +133,13 @@ namespace QuickMath
         private void UnlockGUI()
         {
             TypeOfMath.Enabled = true;
-
+            DifficultySelect.Enabled = true;
         }
 
         private void LockGUI()
         {
             TypeOfMath.Enabled = false;
-
+            DifficultySelect.Enabled = false;
 
         }
 
@@ -164,7 +162,6 @@ namespace QuickMath
             };
 
             string jsonString = JsonSerializer.Serialize(SaveData);
-            DebugLabel.Text = jsonString;
             string fileName = "QuickMath_UserData.json";
             File.WriteAllText(fileName, jsonString);
         }
@@ -175,8 +172,8 @@ namespace QuickMath
             if (File.Exists(fileName))
             {
                 string jsonString = File.ReadAllText(fileName);
-                var SaveData = JsonSerializer.Deserialize<dynamic>(jsonString);
-                XP = SaveData.XP;
+                var doc = JsonDocument.Parse(jsonString);
+                XP = doc.RootElement.GetProperty("XP").GetInt32();
                 ReLoadGUI();
             }
         }
@@ -199,6 +196,11 @@ namespace QuickMath
         }
 
         private void MinimumRandomNumber_intupt_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+
+        }
+
+        private void Difficulty_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

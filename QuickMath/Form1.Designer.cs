@@ -39,14 +39,8 @@
             XPpointLabel = new Label();
             start_button = new Button();
             stopbutton = new Button();
-            MinimumRandomNumber_trackbar = new TrackBar();
-            MaximumRandomNumber_trackbar = new TrackBar();
             _trackbar = new Label();
-            MaximumRandomNumber_intupt = new MaskedTextBox();
-            MinimumRandomNumber_intupt = new MaskedTextBox();
-            DebugLabel = new Label();
-            ((System.ComponentModel.ISupportInitialize)MinimumRandomNumber_trackbar).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)MaximumRandomNumber_trackbar).BeginInit();
+            DifficultySelect = new ComboBox();
             SuspendLayout();
             // 
             // TypeOfMath
@@ -94,7 +88,7 @@
             // 
             XPEqualLabel.AutoSize = true;
             XPEqualLabel.Font = new Font("Segoe UI", 12F);
-            XPEqualLabel.Location = new Point(12, 50);
+            XPEqualLabel.Location = new Point(12, 71);
             XPEqualLabel.Name = "XPEqualLabel";
             XPEqualLabel.Size = new Size(43, 21);
             XPEqualLabel.TabIndex = 4;
@@ -105,7 +99,7 @@
             // 
             XPpointLabel.AutoSize = true;
             XPpointLabel.Font = new Font("Segoe UI", 12F);
-            XPpointLabel.Location = new Point(45, 50);
+            XPpointLabel.Location = new Point(46, 71);
             XPpointLabel.Name = "XPpointLabel";
             XPpointLabel.Size = new Size(19, 21);
             XPpointLabel.TabIndex = 5;
@@ -131,26 +125,6 @@
             stopbutton.UseVisualStyleBackColor = true;
             stopbutton.Click += stopbutton_Click;
             // 
-            // MinimumRandomNumber_trackbar
-            // 
-            MinimumRandomNumber_trackbar.Location = new Point(684, 63);
-            MinimumRandomNumber_trackbar.Maximum = 1000;
-            MinimumRandomNumber_trackbar.Minimum = 1;
-            MinimumRandomNumber_trackbar.Name = "MinimumRandomNumber_trackbar";
-            MinimumRandomNumber_trackbar.Size = new Size(104, 45);
-            MinimumRandomNumber_trackbar.TabIndex = 9;
-            MinimumRandomNumber_trackbar.Value = 1;
-            // 
-            // MaximumRandomNumber_trackbar
-            // 
-            MaximumRandomNumber_trackbar.Location = new Point(684, 12);
-            MaximumRandomNumber_trackbar.Maximum = 1000;
-            MaximumRandomNumber_trackbar.Minimum = 10;
-            MaximumRandomNumber_trackbar.Name = "MaximumRandomNumber_trackbar";
-            MaximumRandomNumber_trackbar.Size = new Size(104, 45);
-            MaximumRandomNumber_trackbar.TabIndex = 10;
-            MaximumRandomNumber_trackbar.Value = 10;
-            // 
             // _trackbar
             // 
             _trackbar.AutoSize = true;
@@ -159,34 +133,16 @@
             _trackbar.Size = new Size(0, 15);
             _trackbar.TabIndex = 11;
             // 
-            // MaximumRandomNumber_intupt
+            // DifficultySelect
             // 
-            MaximumRandomNumber_intupt.Location = new Point(649, 13);
-            MaximumRandomNumber_intupt.Name = "MaximumRandomNumber_intupt";
-            MaximumRandomNumber_intupt.Size = new Size(29, 23);
-            MaximumRandomNumber_intupt.TabIndex = 12;
-            MaximumRandomNumber_intupt.Text = "99";
-            MaximumRandomNumber_intupt.TextAlign = HorizontalAlignment.Right;
-            // 
-            // MinimumRandomNumber_intupt
-            // 
-            MinimumRandomNumber_intupt.Location = new Point(649, 63);
-            MinimumRandomNumber_intupt.Name = "MinimumRandomNumber_intupt";
-            MinimumRandomNumber_intupt.Size = new Size(29, 23);
-            MinimumRandomNumber_intupt.TabIndex = 13;
-            MinimumRandomNumber_intupt.Text = "1";
-            MinimumRandomNumber_intupt.TextAlign = HorizontalAlignment.Right;
-            MinimumRandomNumber_intupt.MaskInputRejected += MinimumRandomNumber_intupt_MaskInputRejected;
-            // 
-            // DebugLabel
-            // 
-            DebugLabel.AutoSize = true;
-            DebugLabel.Font = new Font("Segoe UI", 6F);
-            DebugLabel.Location = new Point(12, 78);
-            DebugLabel.Name = "DebugLabel";
-            DebugLabel.Size = new Size(30, 11);
-            DebugLabel.TabIndex = 14;
-            DebugLabel.Text = "Debug";
+            DifficultySelect.FormattingEnabled = true;
+            DifficultySelect.Items.AddRange(new object[] { "default (1 - 100)" });
+            DifficultySelect.Location = new Point(12, 39);
+            DifficultySelect.Name = "DifficultySelect";
+            DifficultySelect.Size = new Size(121, 23);
+            DifficultySelect.TabIndex = 12;
+            DifficultySelect.Visible = false;
+            DifficultySelect.SelectedIndexChanged += Difficulty_SelectedIndexChanged;
             // 
             // Form1
             // 
@@ -194,12 +150,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(800, 450);
-            Controls.Add(DebugLabel);
-            Controls.Add(MinimumRandomNumber_intupt);
-            Controls.Add(MaximumRandomNumber_intupt);
+            Controls.Add(DifficultySelect);
             Controls.Add(_trackbar);
-            Controls.Add(MaximumRandomNumber_trackbar);
-            Controls.Add(MinimumRandomNumber_trackbar);
             Controls.Add(stopbutton);
             Controls.Add(start_button);
             Controls.Add(XPpointLabel);
@@ -212,8 +164,6 @@
             Name = "Form1";
             Text = "QuickMath";
             Load += Form1_Load;
-            ((System.ComponentModel.ISupportInitialize)MinimumRandomNumber_trackbar).EndInit();
-            ((System.ComponentModel.ISupportInitialize)MaximumRandomNumber_trackbar).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -229,11 +179,7 @@
         private Label XPpointLabel;
         private Button start_button;
         private Button stopbutton;
-        private TrackBar MinimumRandomNumber_trackbar;
-        private TrackBar MaximumRandomNumber_trackbar;
         private Label _trackbar;
-        private MaskedTextBox MaximumRandomNumber_intupt;
-        private MaskedTextBox MinimumRandomNumber_intupt;
-        private Label DebugLabel;
+        private ComboBox DifficultySelect;
     }
 }
