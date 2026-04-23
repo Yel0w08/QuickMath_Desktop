@@ -28,11 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             TypeOfMath = new ComboBox();
             MathToResolveText = new Label();
-            timer1 = new System.Windows.Forms.Timer(components);
             MathUserIntupt = new TextBox();
             MidelTextBetweenUserIntuptAndMath = new Label();
             XPEqualLabel = new Label();
@@ -41,6 +39,7 @@
             stopbutton = new Button();
             _trackbar = new Label();
             DifficultySelect = new ComboBox();
+            GrettingLabel = new Label();
             SuspendLayout();
             // 
             // TypeOfMath
@@ -141,8 +140,18 @@
             DifficultySelect.Name = "DifficultySelect";
             DifficultySelect.Size = new Size(121, 23);
             DifficultySelect.TabIndex = 12;
+            DifficultySelect.Text = "default (1 - 100)";
             DifficultySelect.Visible = false;
             DifficultySelect.SelectedIndexChanged += Difficulty_SelectedIndexChanged;
+            // 
+            // GrettingLabel
+            // 
+            GrettingLabel.AutoSize = true;
+            GrettingLabel.Location = new Point(139, 42);
+            GrettingLabel.Name = "GrettingLabel";
+            GrettingLabel.Size = new Size(28, 15);
+            GrettingLabel.TabIndex = 14;
+            GrettingLabel.Text = "Hi...";
             // 
             // Form1
             // 
@@ -150,6 +159,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(800, 450);
+            Controls.Add(GrettingLabel);
             Controls.Add(DifficultySelect);
             Controls.Add(_trackbar);
             Controls.Add(stopbutton);
@@ -172,7 +182,6 @@
 
         private ComboBox TypeOfMath;
         private Label MathToResolveText;
-        private System.Windows.Forms.Timer timer1;
         private TextBox MathUserIntupt;
         private Label MidelTextBetweenUserIntuptAndMath;
         private Label XPEqualLabel;
@@ -181,5 +190,6 @@
         private Button stopbutton;
         private Label _trackbar;
         private ComboBox DifficultySelect;
+        private Label GrettingLabel;
     }
 }

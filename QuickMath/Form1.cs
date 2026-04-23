@@ -1,5 +1,6 @@
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace QuickMath
 {
@@ -11,14 +12,19 @@ namespace QuickMath
         public Form1()
         {
             InitializeComponent();
-            ResetGUI();
             AutoLoadUserData();
-
+            InitializeGUI();
+            ResetGUI();
 
         }
 
+        private void InitializeGUI()
+        {
+            GrettingLabel.Text = $"Welcome back {UserData_UserName} !";
+        }
 
         bool DoAwserIsCorect;
+        string UserData_UserName;
         private void MathToResolveText_Click(object sender, EventArgs e)
         {
 
@@ -158,7 +164,8 @@ namespace QuickMath
         {
             var SaveData = new
             {
-                XP = XP
+                XP = XP,
+                UserName = UserData_UserName
             };
 
             string jsonString = JsonSerializer.Serialize(SaveData);
@@ -174,7 +181,13 @@ namespace QuickMath
                 string jsonString = File.ReadAllText(fileName);
                 var doc = JsonDocument.Parse(jsonString);
                 XP = doc.RootElement.GetProperty("XP").GetInt32();
+                UserData_UserName = doc.RootElement.GetProperty("UserName").GetString();
                 ReLoadGUI();
+            }
+            else if (!File.Exists(fileName))
+            {
+              RegisterForm form2 = new RegisterForm();
+                form2.ShowDialog();
             }
         }
 
