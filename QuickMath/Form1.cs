@@ -13,7 +13,7 @@ namespace QuickMath
 
         public int NumberOfXpGivenForAddition = 10; //XP given for each correct answer for addition.
 
-      
+
 
         public QuickMath()
 
@@ -29,7 +29,7 @@ namespace QuickMath
             {
                 AutoLoadUserData();
                 InitializeGUI();
-               
+
             }
             ResetGUI();
 
@@ -37,9 +37,9 @@ namespace QuickMath
 
         private void InitializeGUI()
         {
-                GrettingLabel.Text = $"Welcome back {UserData_UserName} !"; GrettingLabel.ForeColor = Color.Black; 
-            
-            
+            GrettingLabel.Text = $"Welcome back {UserData_UserName} !"; GrettingLabel.ForeColor = Color.Black;
+
+
         }
 
         bool DoAwserIsCorect;
@@ -96,7 +96,7 @@ namespace QuickMath
             }
             else if (TypeOfMath.SelectedItem == null) { MessageBox.Show("Please select a math operation before starting !"); }
             else { MessageBox.Show("Please select a math operation before starting !"); }//to chekc if thez intput isint null 
-            
+
 
         }
 
@@ -120,7 +120,7 @@ namespace QuickMath
 
             else if (DifficultySelect.SelectedItem == "easy++ (1 - 10)")
             {
-                min_number_addition = 1; max_number_addition = 10; NumberOfXpGivenForAddition = 1; coins += 5/20;
+                min_number_addition = 1; max_number_addition = 10; NumberOfXpGivenForAddition = 1; coins += 5 / 20;
             }
 
             else if (DifficultySelect.SelectedItem == "hard (50 - 500)")
@@ -241,7 +241,7 @@ namespace QuickMath
                 string jsonString = File.ReadAllText(fileName);
                 var doc = JsonDocument.Parse(jsonString);
                 XP = doc.RootElement.GetProperty("XP").GetInt32();
-                coins = doc.RootElement.GetProperty("coins").GetInt32();    
+                coins = doc.RootElement.GetProperty("coins").GetInt32();
                 UserData_UserName = doc.RootElement.GetProperty("UserName").GetString();
                 Difficulty_Insane_addition_unlocked = doc.RootElement.GetProperty("Difficulty_Insane_addition_unlocked").GetBoolean();
                 Difficulty_Hard_addition_unlocked = doc.RootElement.GetProperty("Difficulty_Hard_addition_unlocked").GetBoolean();
@@ -285,8 +285,14 @@ namespace QuickMath
 
         private void OpenShopButton_Click(object sender, EventArgs e)
         {
-           Shop shop = new Shop();
-          shop.ShowDialog();
+            Shop shop = new Shop();
+            shop.ShowDialog();
+        }
+
+        private void statistic_button_Click(object sender, EventArgs e)
+        {
+            Statistics statistics = new Statistics();   
+            statistics.ShowDialog();
         }
     }
 }

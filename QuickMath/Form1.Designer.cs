@@ -42,6 +42,7 @@
             CoinsLabel = new Label();
             OpenShopButton = new Button();
             statistic_button = new Button();
+            button1 = new Button();
             SuspendLayout();
             // 
             // TypeOfMath
@@ -177,6 +178,16 @@
             statistic_button.TabIndex = 18;
             statistic_button.Text = "stats";
             statistic_button.UseVisualStyleBackColor = true;
+            statistic_button.Click += statistic_button_Click;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(221, 16);
+            button1.Name = "button1";
+            button1.Size = new Size(123, 29);
+            button1.TabIndex = 19;
+            button1.Text = "Placeholder";
+            button1.UseVisualStyleBackColor = true;
             // 
             // QuickMath
             // 
@@ -184,6 +195,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(488, 481);
+            Controls.Add(button1);
             Controls.Add(statistic_button);
             Controls.Add(OpenShopButton);
             Controls.Add(CoinsLabel);
@@ -221,5 +233,6 @@
         private Label CoinsLabel;
         private Button OpenShopButton;
         private Button statistic_button;
+        private Button button1;
     }
 }
