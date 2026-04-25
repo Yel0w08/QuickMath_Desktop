@@ -1,6 +1,6 @@
 ﻿namespace QuickMath
 {
-    partial class Form1
+    partial class QuickMath
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuickMath));
             TypeOfMath = new ComboBox();
             MathToResolveText = new Label();
             MathUserIntupt = new TextBox();
@@ -40,15 +40,19 @@
             _trackbar = new Label();
             DifficultySelect = new ComboBox();
             GrettingLabel = new Label();
+            CoinsEqualStaticLabel = new Label();
+            CoinsLabel = new Label();
+            OpenShopButton = new Button();
             SuspendLayout();
             // 
             // TypeOfMath
             // 
             TypeOfMath.FormattingEnabled = true;
             TypeOfMath.Items.AddRange(new object[] { "addition", "more coming !" });
-            TypeOfMath.Location = new Point(12, 12);
+            TypeOfMath.Location = new Point(14, 16);
+            TypeOfMath.Margin = new Padding(3, 4, 3, 4);
             TypeOfMath.Name = "TypeOfMath";
-            TypeOfMath.Size = new Size(121, 23);
+            TypeOfMath.Size = new Size(138, 28);
             TypeOfMath.TabIndex = 0;
             TypeOfMath.SelectedIndexChanged += TypeOfMath_SelectedIndexChanged;
             // 
@@ -56,9 +60,9 @@
             // 
             MathToResolveText.AutoSize = true;
             MathToResolveText.Font = new Font("Segoe UI", 16F);
-            MathToResolveText.Location = new Point(3, 261);
+            MathToResolveText.Location = new Point(3, 348);
             MathToResolveText.Name = "MathToResolveText";
-            MathToResolveText.Size = new Size(52, 30);
+            MathToResolveText.Size = new Size(65, 37);
             MathToResolveText.TabIndex = 1;
             MathToResolveText.Text = "1+1";
             MathToResolveText.Click += MathToResolveText_Click;
@@ -66,9 +70,10 @@
             // MathUserIntupt
             // 
             MathUserIntupt.Font = new Font("Segoe UI", 16F);
-            MathUserIntupt.Location = new Point(37, 313);
+            MathUserIntupt.Location = new Point(42, 417);
+            MathUserIntupt.Margin = new Padding(3, 4, 3, 4);
             MathUserIntupt.Name = "MathUserIntupt";
-            MathUserIntupt.Size = new Size(268, 36);
+            MathUserIntupt.Size = new Size(434, 43);
             MathUserIntupt.TabIndex = 2;
             MathUserIntupt.TextChanged += MathUserIntupt_TextChanged;
             // 
@@ -76,9 +81,9 @@
             // 
             MidelTextBetweenUserIntuptAndMath.AutoSize = true;
             MidelTextBetweenUserIntuptAndMath.Font = new Font("Segoe UI", 16F);
-            MidelTextBetweenUserIntuptAndMath.Location = new Point(3, 313);
+            MidelTextBetweenUserIntuptAndMath.Location = new Point(3, 417);
             MidelTextBetweenUserIntuptAndMath.Name = "MidelTextBetweenUserIntuptAndMath";
-            MidelTextBetweenUserIntuptAndMath.Size = new Size(28, 30);
+            MidelTextBetweenUserIntuptAndMath.Size = new Size(35, 37);
             MidelTextBetweenUserIntuptAndMath.TabIndex = 3;
             MidelTextBetweenUserIntuptAndMath.Text = "=";
             MidelTextBetweenUserIntuptAndMath.Click += label1_Click;
@@ -87,9 +92,9 @@
             // 
             XPEqualLabel.AutoSize = true;
             XPEqualLabel.Font = new Font("Segoe UI", 12F);
-            XPEqualLabel.Location = new Point(12, 71);
+            XPEqualLabel.Location = new Point(14, 95);
             XPEqualLabel.Name = "XPEqualLabel";
-            XPEqualLabel.Size = new Size(43, 21);
+            XPEqualLabel.Size = new Size(54, 28);
             XPEqualLabel.TabIndex = 4;
             XPEqualLabel.Text = "XP =";
             XPEqualLabel.Click += label1_Click_1;
@@ -98,17 +103,18 @@
             // 
             XPpointLabel.AutoSize = true;
             XPpointLabel.Font = new Font("Segoe UI", 12F);
-            XPpointLabel.Location = new Point(46, 71);
+            XPpointLabel.Location = new Point(53, 95);
             XPpointLabel.Name = "XPpointLabel";
-            XPpointLabel.Size = new Size(19, 21);
+            XPpointLabel.Size = new Size(23, 28);
             XPpointLabel.TabIndex = 5;
             XPpointLabel.Text = "0";
             // 
             // start_button
             // 
-            start_button.Location = new Point(139, 12);
+            start_button.Location = new Point(158, 16);
+            start_button.Margin = new Padding(3, 4, 3, 4);
             start_button.Name = "start_button";
-            start_button.Size = new Size(85, 23);
+            start_button.Size = new Size(90, 28);
             start_button.TabIndex = 6;
             start_button.Text = "start";
             start_button.UseVisualStyleBackColor = true;
@@ -116,9 +122,10 @@
             // 
             // stopbutton
             // 
-            stopbutton.Location = new Point(230, 12);
+            stopbutton.Location = new Point(254, 16);
+            stopbutton.Margin = new Padding(3, 4, 3, 4);
             stopbutton.Name = "stopbutton";
-            stopbutton.Size = new Size(75, 23);
+            stopbutton.Size = new Size(90, 28);
             stopbutton.TabIndex = 7;
             stopbutton.Text = "stop";
             stopbutton.UseVisualStyleBackColor = true;
@@ -127,38 +134,73 @@
             // _trackbar
             // 
             _trackbar.AutoSize = true;
-            _trackbar.Location = new Point(716, 42);
+            _trackbar.Location = new Point(818, 56);
             _trackbar.Name = "_trackbar";
-            _trackbar.Size = new Size(0, 15);
+            _trackbar.Size = new Size(0, 20);
             _trackbar.TabIndex = 11;
             // 
             // DifficultySelect
             // 
             DifficultySelect.FormattingEnabled = true;
-            DifficultySelect.Items.AddRange(new object[] { "default (1 - 100)" });
-            DifficultySelect.Location = new Point(12, 39);
+            DifficultySelect.Items.AddRange(new object[] { "easy++ (1 - 10)", "easy (1 - 50)", "medium (1 - 100)", "hard (50 - 500)", "insane (100 - 1000)" });
+            DifficultySelect.Location = new Point(14, 52);
+            DifficultySelect.Margin = new Padding(3, 4, 3, 4);
             DifficultySelect.Name = "DifficultySelect";
-            DifficultySelect.Size = new Size(121, 23);
+            DifficultySelect.Size = new Size(138, 28);
             DifficultySelect.TabIndex = 12;
-            DifficultySelect.Text = "default (1 - 100)";
+            DifficultySelect.Text = "medium (1 - 100)";
             DifficultySelect.Visible = false;
             DifficultySelect.SelectedIndexChanged += Difficulty_SelectedIndexChanged;
             // 
             // GrettingLabel
             // 
             GrettingLabel.AutoSize = true;
-            GrettingLabel.Location = new Point(139, 42);
+            GrettingLabel.Location = new Point(159, 56);
             GrettingLabel.Name = "GrettingLabel";
-            GrettingLabel.Size = new Size(28, 15);
+            GrettingLabel.Size = new Size(33, 20);
             GrettingLabel.TabIndex = 14;
             GrettingLabel.Text = "Hi...";
             // 
-            // Form1
+            // CoinsEqualStaticLabel
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            CoinsEqualStaticLabel.AutoSize = true;
+            CoinsEqualStaticLabel.Font = new Font("Segoe UI", 12F);
+            CoinsEqualStaticLabel.Location = new Point(14, 123);
+            CoinsEqualStaticLabel.Name = "CoinsEqualStaticLabel";
+            CoinsEqualStaticLabel.Size = new Size(49, 28);
+            CoinsEqualStaticLabel.TabIndex = 15;
+            CoinsEqualStaticLabel.Text = "$∑=";
+            CoinsEqualStaticLabel.Click += CoinsEqualStaticLabel_Click;
+            // 
+            // CoinsLabel
+            // 
+            CoinsLabel.AutoSize = true;
+            CoinsLabel.Font = new Font("Segoe UI", 12F);
+            CoinsLabel.Location = new Point(53, 123);
+            CoinsLabel.Name = "CoinsLabel";
+            CoinsLabel.Size = new Size(23, 28);
+            CoinsLabel.TabIndex = 16;
+            CoinsLabel.Text = "0";
+            // 
+            // OpenShopButton
+            // 
+            OpenShopButton.Location = new Point(350, 16);
+            OpenShopButton.Margin = new Padding(3, 4, 3, 4);
+            OpenShopButton.Name = "OpenShopButton";
+            OpenShopButton.Size = new Size(126, 28);
+            OpenShopButton.TabIndex = 17;
+            OpenShopButton.Text = " shop ";
+            OpenShopButton.UseVisualStyleBackColor = true;
+            // 
+            // QuickMath
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
-            ClientSize = new Size(317, 361);
+            ClientSize = new Size(488, 481);
+            Controls.Add(OpenShopButton);
+            Controls.Add(CoinsLabel);
+            Controls.Add(CoinsEqualStaticLabel);
             Controls.Add(GrettingLabel);
             Controls.Add(DifficultySelect);
             Controls.Add(_trackbar);
@@ -171,7 +213,8 @@
             Controls.Add(MathToResolveText);
             Controls.Add(TypeOfMath);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Name = "Form1";
+            Margin = new Padding(3, 4, 3, 4);
+            Name = "QuickMath";
             Text = "QuickMath";
             Load += Form1_Load;
             ResumeLayout(false);
@@ -191,5 +234,8 @@
         private Label _trackbar;
         private ComboBox DifficultySelect;
         private Label GrettingLabel;
+        private Label CoinsEqualStaticLabel;
+        private Label CoinsLabel;
+        private Button OpenShopButton;
     }
 }

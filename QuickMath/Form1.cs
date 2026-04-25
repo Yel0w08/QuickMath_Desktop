@@ -1,15 +1,20 @@
-using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace QuickMath
 {
-    public partial class Form1 : Form
+    public partial class QuickMath : Form
     {
         private int result;
         public int XP; //public stuff
+        public float coins;
 
-        public Form1()
+
+        public int NumberOfXpGivenForAddition = 10; //XP given for each correct answer for addition.
+    
+   
+
+        public QuickMath()
+
         {
             InitializeComponent();
             AutoLoadUserData();
@@ -39,7 +44,7 @@ namespace QuickMath
         {
             if (TypeOfMath.SelectedItem == string.Empty) { }//why dont it work
             else if (TypeOfMath.SelectedItem == "more coming !") { MessageBox.Show("More math operations will be added in the future !"); TypeOfMath.Text = ""; } //tell the user more is coming if selecter more is coming....
-            else if (TypeOfMath.SelectedItem.ToString() == "addition"){DifficultySelect.Show();}
+            else if (TypeOfMath.SelectedItem.ToString() == "addition") { DifficultySelect.Show(); }
         }
 
         private void label1_Click_1(object sender, EventArgs e)
@@ -57,7 +62,7 @@ namespace QuickMath
             {
                 LockGUI();
                 StartMath_addition();
-            
+
             }
             else if (TypeOfMath.SelectedItem.ToString() == "subtraction")
             {
@@ -85,13 +90,34 @@ namespace QuickMath
             int min_number_addition = 1;
             int max_number_addition = 100;
 
-          
-
-            if (DifficultySelect.SelectedItem == "default (1 - 100)")
-            {min_number_addition = 1; max_number_addition = 100;}
 
 
-                Random random = new Random();
+            if (DifficultySelect.SelectedItem == "medium (1 - 100)")
+            {
+                min_number_addition = 1; max_number_addition = 100; NumberOfXpGivenForAddition = 10; 
+            }
+
+            else if (DifficultySelect.SelectedItem == "easy (1 - 50)")
+            {
+                min_number_addition = 1; max_number_addition = 50; NumberOfXpGivenForAddition = 5;
+            }
+
+            else if (DifficultySelect.SelectedItem == "easy++ (1 - 10)")
+            { 
+                min_number_addition = 1; max_number_addition = 10; NumberOfXpGivenForAddition = 1; 
+            }
+
+            else if (DifficultySelect.SelectedItem == "hard (50 - 500)")
+            { 
+                min_number_addition = 50; max_number_addition = 500; NumberOfXpGivenForAddition = 20; 
+            }
+
+            else if (DifficultySelect.SelectedItem == "insane (100 - 1000)")
+            {
+                min_number_addition = 100; max_number_addition = 1000; NumberOfXpGivenForAddition = 40;
+            }
+
+            Random random = new Random();
             int random_1 = random.Next(min_number_addition, max_number_addition);
             int random_2 = random.Next(min_number_addition, max_number_addition);
             result = random_1 + random_2;
@@ -130,10 +156,14 @@ namespace QuickMath
 
         }
 
+        
         void ReLoadGUI()
         {
 
             XPpointLabel.Text = XP.ToString();
+            
+            coins = XP / 10;
+            CoinsLabel.Text = coins.ToString();
             saveUserData_Local();
         }
         private void UnlockGUI()
@@ -186,7 +216,7 @@ namespace QuickMath
             }
             else if (!File.Exists(fileName))
             {
-              RegisterForm form2 = new RegisterForm();
+                RegisterForm form2 = new RegisterForm();
                 form2.ShowDialog();
             }
         }
@@ -196,7 +226,7 @@ namespace QuickMath
             if (MathUserIntupt.Text == result.ToString())
             {
                 DoAwserIsCorect = true;
-                XP += 10;
+                XP += NumberOfXpGivenForAddition;
                 ReLoadGUI();
                 MathUserIntupt.Text = string.Empty;
                 StartMath_addition();
@@ -214,6 +244,11 @@ namespace QuickMath
         }
 
         private void Difficulty_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CoinsEqualStaticLabel_Click(object sender, EventArgs e)//SUMKoins
         {
 
         }
