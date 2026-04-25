@@ -15,6 +15,7 @@ namespace QuickMath
         public Shop()
         {
             InitializeComponent();
+            ShopItems_ClearList();
         }
 
         public class ShopItem
@@ -28,12 +29,30 @@ namespace QuickMath
         {
             if (Shop_Select_Category.SelectedItem.ToString() == "Difficulty")
             {
-                
+                ShopItems_ClearList();
+                shopItem1.Text = "Hard Difficulty for addition 5 ∑∑";
+                shopItem2.Text = "Hard Difficulty for addition 5 ∑∑";
             }
             else if (Shop_Select_Category.SelectedItem.ToString() == "Special")
             {
-              
+                ShopItems_ClearList();
+                shopItem1.Text = "Red Star";
+                shopItem2.Text = "Blu Star";
+
             }
+            else { 
+                ShopItems_ClearList();
+            }
+
+
+        }
+        void ShopItems_ClearList()
+        {
+            shopItem1.Text = "";
+            shopItem2.Text = "";
+            shopItem3.Text = "";
+            shopItem4.Text = "";
+            shopItem5.Text = "";
         }
     }
 }

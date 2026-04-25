@@ -73,15 +73,15 @@
             shopItem1.AutoSize = true;
             shopItem1.Location = new Point(12, 97);
             shopItem1.Name = "shopItem1";
-            shopItem1.Size = new Size(232, 24);
+            shopItem1.Size = new Size(101, 24);
             shopItem1.TabIndex = 4;
-            shopItem1.Text = "Hard Difficulty (addition) 5 ∑∑";
+            shopItem1.Text = "shopItem1";
             shopItem1.UseVisualStyleBackColor = true;
             // 
             // Shop_Select_Category
             // 
             Shop_Select_Category.FormattingEnabled = true;
-            Shop_Select_Category.Items.AddRange(new object[] { "Difficulty" });
+            Shop_Select_Category.Items.AddRange(new object[] { "Difficulty", "Special" });
             Shop_Select_Category.Location = new Point(12, 64);
             Shop_Select_Category.Name = "Shop_Select_Category";
             Shop_Select_Category.Size = new Size(150, 28);
@@ -93,9 +93,9 @@
             shopItem2.AutoSize = true;
             shopItem2.Location = new Point(12, 127);
             shopItem2.Name = "shopItem2";
-            shopItem2.Size = new Size(249, 24);
+            shopItem2.Size = new Size(101, 24);
             shopItem2.TabIndex = 6;
-            shopItem2.Text = "Insane Difficulty (addition) 10 ∑∑";
+            shopItem2.Text = "shopItem2";
             shopItem2.UseVisualStyleBackColor = true;
             // 
             // shopItem3
@@ -103,9 +103,9 @@
             shopItem3.AutoSize = true;
             shopItem3.Location = new Point(12, 157);
             shopItem3.Name = "shopItem3";
-            shopItem3.Size = new Size(34, 24);
+            shopItem3.Size = new Size(101, 24);
             shopItem3.TabIndex = 7;
-            shopItem3.Text = ".";
+            shopItem3.Text = "shopItem3";
             shopItem3.UseVisualStyleBackColor = true;
             // 
             // shopItem4
@@ -113,9 +113,9 @@
             shopItem4.AutoSize = true;
             shopItem4.Location = new Point(12, 187);
             shopItem4.Name = "shopItem4";
-            shopItem4.Size = new Size(34, 24);
+            shopItem4.Size = new Size(101, 24);
             shopItem4.TabIndex = 8;
-            shopItem4.Text = ".";
+            shopItem4.Text = "shopItem4";
             shopItem4.UseVisualStyleBackColor = true;
             // 
             // shopItem5
@@ -123,9 +123,9 @@
             shopItem5.AutoSize = true;
             shopItem5.Location = new Point(12, 217);
             shopItem5.Name = "shopItem5";
-            shopItem5.Size = new Size(34, 24);
+            shopItem5.Size = new Size(101, 24);
             shopItem5.TabIndex = 9;
-            shopItem5.Text = ".";
+            shopItem5.Text = "shopItem5";
             shopItem5.UseVisualStyleBackColor = true;
             // 
             // Shop
