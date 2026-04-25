@@ -248,9 +248,6 @@ namespace QuickMath
 
         }
 
-        private void CoinsEqualStaticLabel_Click(object sender, EventArgs e)//SUMKoins
-        {
-
-        }
+        
     }
 }

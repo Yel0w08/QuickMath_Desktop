@@ -170,7 +170,7 @@
             CoinsEqualStaticLabel.Size = new Size(49, 28);
             CoinsEqualStaticLabel.TabIndex = 15;
             CoinsEqualStaticLabel.Text = "$∑=";
-            CoinsEqualStaticLabel.Click += CoinsEqualStaticLabel_Click;
+
             // 
             // CoinsLabel
             // 
