@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Shop));
-            button1 = new Button();
+            shop_Buy_Button = new Button();
             Nshop_Label = new Label();
             Total_Shop_Label = new Label();
             shopItem1 = new CheckBox();
@@ -42,14 +42,15 @@
             MoneyInAccountLabel = new Label();
             SuspendLayout();
             // 
-            // button1
+            // shop_Buy_Button
             // 
-            button1.Location = new Point(585, 398);
-            button1.Name = "button1";
-            button1.Size = new Size(203, 40);
-            button1.TabIndex = 1;
-            button1.Text = "buy";
-            button1.UseVisualStyleBackColor = true;
+            shop_Buy_Button.Location = new Point(585, 398);
+            shop_Buy_Button.Name = "shop_Buy_Button";
+            shop_Buy_Button.Size = new Size(203, 40);
+            shop_Buy_Button.TabIndex = 1;
+            shop_Buy_Button.Text = "buy";
+            shop_Buy_Button.UseVisualStyleBackColor = true;
+            shop_Buy_Button.Click += Shop_buy_button;
             // 
             // Nshop_Label
             // 
@@ -166,7 +167,7 @@
             Controls.Add(shopItem1);
             Controls.Add(Total_Shop_Label);
             Controls.Add(Nshop_Label);
-            Controls.Add(button1);
+            Controls.Add(shop_Buy_Button);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Shop";
             Text = "Shop";
@@ -176,7 +177,7 @@
         }
 
         #endregion
-        private Button button1;
+        private Button shop_Buy_Button;
         private Label Nshop_Label;
         private Label Total_Shop_Label;
         private CheckBox shopItem1;
