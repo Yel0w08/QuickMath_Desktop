@@ -5,7 +5,7 @@ autoPush = input("Auto git push when commited? (y/n) \n")
 
 for i in range(ip):
 	# os.system('git commit --allow-empty -m "New Commit at: $(date)"')
-	os.system(f'git commit --allow-empty -m "Commit {i} of {ip}"')	
+	os.system(f'git commit --allow-empty -m "fixing {i} bugs out of {ip}"')	
 
 print("Commited " + str(ip) + " times")
 
@@ -14,11 +14,4 @@ if autoPush == "y":
 	
 # git commit --allow-empty -m "New Commit at: $(date)"
 
-#  MADE BY:_            _   _____                        _ 
-#  \ \    / (_)        (_) |  __ \                      (_)
-#   \ \  / / _ _ __ ___ _  | |  | | __ _ ___  __ _ _ __  _ 
-#    \ \/ / | | '__/ _ \ | | |  | |/ _` / __|/ _` | '_ \| |
-#     \  /  | | | |  __/ | | |__| | (_| \__ \ (_| | | | | |
-#      \/   |_|_|  \___| | |_____/ \__,_|___/\__,_|_| |_|_|
-#                     _/ |                                 
-#                    |__/                                  
+                               
