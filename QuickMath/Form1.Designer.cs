@@ -56,7 +56,7 @@
             // 
             MathToResolveText.AutoSize = true;
             MathToResolveText.Font = new Font("Segoe UI", 16F);
-            MathToResolveText.Location = new Point(12, 339);
+            MathToResolveText.Location = new Point(3, 261);
             MathToResolveText.Name = "MathToResolveText";
             MathToResolveText.Size = new Size(52, 30);
             MathToResolveText.TabIndex = 1;
@@ -66,9 +66,9 @@
             // MathUserIntupt
             // 
             MathUserIntupt.Font = new Font("Segoe UI", 16F);
-            MathUserIntupt.Location = new Point(46, 398);
+            MathUserIntupt.Location = new Point(37, 313);
             MathUserIntupt.Name = "MathUserIntupt";
-            MathUserIntupt.Size = new Size(300, 36);
+            MathUserIntupt.Size = new Size(268, 36);
             MathUserIntupt.TabIndex = 2;
             MathUserIntupt.TextChanged += MathUserIntupt_TextChanged;
             // 
@@ -76,7 +76,7 @@
             // 
             MidelTextBetweenUserIntuptAndMath.AutoSize = true;
             MidelTextBetweenUserIntuptAndMath.Font = new Font("Segoe UI", 16F);
-            MidelTextBetweenUserIntuptAndMath.Location = new Point(12, 398);
+            MidelTextBetweenUserIntuptAndMath.Location = new Point(3, 313);
             MidelTextBetweenUserIntuptAndMath.Name = "MidelTextBetweenUserIntuptAndMath";
             MidelTextBetweenUserIntuptAndMath.Size = new Size(28, 30);
             MidelTextBetweenUserIntuptAndMath.TabIndex = 3;
@@ -108,7 +108,7 @@
             // 
             start_button.Location = new Point(139, 12);
             start_button.Name = "start_button";
-            start_button.Size = new Size(75, 23);
+            start_button.Size = new Size(85, 23);
             start_button.TabIndex = 6;
             start_button.Text = "start";
             start_button.UseVisualStyleBackColor = true;
@@ -116,7 +116,7 @@
             // 
             // stopbutton
             // 
-            stopbutton.Location = new Point(220, 12);
+            stopbutton.Location = new Point(230, 12);
             stopbutton.Name = "stopbutton";
             stopbutton.Size = new Size(75, 23);
             stopbutton.TabIndex = 7;
@@ -158,7 +158,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(317, 361);
             Controls.Add(GrettingLabel);
             Controls.Add(DifficultySelect);
             Controls.Add(_trackbar);
