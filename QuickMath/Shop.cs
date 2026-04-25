@@ -22,9 +22,12 @@ namespace QuickMath
         public bool Difficulty_Hard_addition_unlocked = false;
         public Shop()
         {
+            InitializeComponent(); // toujours EN PREMIER
+            ShopItems_HideList();
+            ShopItems_ClearList();
+
             if (DebugMode == true)
             {
-               
                 XP = 99999999;
                 userCoins = 99999999;
             }
@@ -32,9 +35,7 @@ namespace QuickMath
             {
                 AutoLoadUserData();
             }
-            InitializeComponent();
-            ShopItems_HideList();
-            ShopItems_ClearList();
+
             ReLoadGUI();
         }
 
@@ -185,6 +186,8 @@ namespace QuickMath
                 XP = doc.RootElement.GetProperty("XP").GetInt32();
                 userCoins = doc.RootElement.GetProperty("coins").GetInt32();
                 UserData_UserName = doc.RootElement.GetProperty("UserName").GetString();
+                Difficulty_Insane_addition_unlocked = doc.RootElement.GetProperty("Difficulty_Insane_addition_unlocked").GetBoolean();
+                Difficulty_Hard_addition_unlocked = doc.RootElement.GetProperty("Difficulty_Hard_addition_unlocked").GetBoolean();
                 ReLoadGUI();
             }
 
@@ -243,6 +246,7 @@ namespace QuickMath
                 CartListBox.Items.Clear();
                 ShopItems_ResetChecked();
                 ReLoadGUI();
+                AutoLoadUserData();
 
             }
         }

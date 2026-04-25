@@ -8,6 +8,8 @@ namespace QuickMath
         public int XP; //public stuff
         public float coins;
         public bool DebugMode = false; // turn thath shi off before sending it to the prod!!
+        public bool Difficulty_Insane_addition_unlocked = false;
+        public bool Difficulty_Hard_addition_unlocked = false;
 
         public int NumberOfXpGivenForAddition = 10; //XP given for each correct answer for addition.
 
@@ -123,11 +125,23 @@ namespace QuickMath
 
             else if (DifficultySelect.SelectedItem == "hard (50 - 500)")
             {
+                if (Difficulty_Hard_addition_unlocked == false)
+                {
+                    MessageBox.Show("You need to unlock this difficulty in the shop first !");
+                    DifficultySelect.SelectedItem = "medium (1 - 100)";
+                    return;
+                }
                 min_number_addition = 50; max_number_addition = 500; NumberOfXpGivenForAddition = 20; coins += 2;
             }
 
             else if (DifficultySelect.SelectedItem == "insane (100 - 1000)")
             {
+                if (Difficulty_Insane_addition_unlocked == false)
+                {
+                    MessageBox.Show("You need to unlock this difficulty in the shop first !");
+                    DifficultySelect.SelectedItem = "medium (1 - 100)";
+                    return;
+                }
                 min_number_addition = 100; max_number_addition = 1000; NumberOfXpGivenForAddition = 40; coins += 4;
             }
 
@@ -209,7 +223,9 @@ namespace QuickMath
             {
                 XP = XP,
                 coins = coins,
-                UserName = UserData_UserName
+                UserName = UserData_UserName,
+                Difficulty_Insane_addition_unlocked = Difficulty_Insane_addition_unlocked,
+                Difficulty_Hard_addition_unlocked = Difficulty_Hard_addition_unlocked
             };
 
             string jsonString = JsonSerializer.Serialize(SaveData);
@@ -227,6 +243,8 @@ namespace QuickMath
                 XP = doc.RootElement.GetProperty("XP").GetInt32();
                 coins = doc.RootElement.GetProperty("coins").GetInt32();    
                 UserData_UserName = doc.RootElement.GetProperty("UserName").GetString();
+                Difficulty_Insane_addition_unlocked = doc.RootElement.GetProperty("Difficulty_Insane_addition_unlocked").GetBoolean();
+                Difficulty_Hard_addition_unlocked = doc.RootElement.GetProperty("Difficulty_Hard_addition_unlocked").GetBoolean();
                 InitializeGUI();
                 ReLoadGUI();
             }

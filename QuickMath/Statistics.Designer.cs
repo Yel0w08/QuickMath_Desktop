@@ -28,12 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Statistics";
+            TreeViewStats = new TreeView();
+            SuspendLayout();
+            // 
+            // TreeViewStats
+            // 
+            TreeViewStats.Location = new Point(12, 12);
+            TreeViewStats.Name = "TreeViewStats";
+            TreeViewStats.Size = new Size(776, 426);
+            TreeViewStats.TabIndex = 0;
+            TreeViewStats.AfterSelect += treeView1_AfterSelect;
+            // 
+            // Statistics
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(TreeViewStats);
+            Name = "Statistics";
+            Text = "Statistics";
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private TreeView TreeViewStats;
     }
 }
