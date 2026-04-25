@@ -58,29 +58,31 @@ namespace QuickMath
 
 
             if (TypeOfMath.SelectedItem == string.Empty) { }//why dont it work
-            else if (TypeOfMath.SelectedItem.ToString() == "addition")
+            else if (TypeOfMath.SelectedItem == "addition")
             {
                 LockGUI();
                 StartMath_addition();
 
             }
-            else if (TypeOfMath.SelectedItem.ToString() == "subtraction")
+            else if (TypeOfMath.SelectedItem == "subtraction")
             {
                 LockGUI();
                 //StartMath_subtraction();
             }
-            else if (TypeOfMath.SelectedItem.ToString() == "multiplication")
+            else if (TypeOfMath.SelectedItem == "multiplication")
             {
                 LockGUI();
 
             }
-            else if (TypeOfMath.SelectedItem.ToString() == "division")
+            else if (TypeOfMath.SelectedItem == "division")
             {
 
                 LockGUI();
 
             }
+            else if (TypeOfMath.SelectedItem == null) { MessageBox.Show("Please select a math operation before starting !"); }
             else { MessageBox.Show("Please select a math operation before starting !"); }//to chekc if thez intput isint null 
+            
 
         }
 
@@ -94,27 +96,27 @@ namespace QuickMath
 
             if (DifficultySelect.SelectedItem == "medium (1 - 100)")
             {
-                min_number_addition = 1; max_number_addition = 100; NumberOfXpGivenForAddition = 10;
+                min_number_addition = 1; max_number_addition = 100; NumberOfXpGivenForAddition = 10; coins += 1;
             }
 
             else if (DifficultySelect.SelectedItem == "easy (1 - 50)")
             {
-                min_number_addition = 1; max_number_addition = 50; NumberOfXpGivenForAddition = 5;
+                min_number_addition = 1; max_number_addition = 50; NumberOfXpGivenForAddition = 5; coins += 5 / 10;
             }
 
             else if (DifficultySelect.SelectedItem == "easy++ (1 - 10)")
             {
-                min_number_addition = 1; max_number_addition = 10; NumberOfXpGivenForAddition = 1;
+                min_number_addition = 1; max_number_addition = 10; NumberOfXpGivenForAddition = 1; coins += 5/20;
             }
 
             else if (DifficultySelect.SelectedItem == "hard (50 - 500)")
             {
-                min_number_addition = 50; max_number_addition = 500; NumberOfXpGivenForAddition = 20;
+                min_number_addition = 50; max_number_addition = 500; NumberOfXpGivenForAddition = 20; coins += 2;
             }
 
             else if (DifficultySelect.SelectedItem == "insane (100 - 1000)")
             {
-                min_number_addition = 100; max_number_addition = 1000; NumberOfXpGivenForAddition = 40;
+                min_number_addition = 100; max_number_addition = 1000; NumberOfXpGivenForAddition = 40; coins += 4;
             }
 
             Random random = new Random();
@@ -162,7 +164,6 @@ namespace QuickMath
 
             XPpointLabel.Text = XP.ToString();
 
-            coins = XP / 10;
             CoinsLabel.Text = coins.ToString();
             saveUserData_Local();
         }
@@ -195,6 +196,7 @@ namespace QuickMath
             var SaveData = new
             {
                 XP = XP,
+                coins = coins,
                 UserName = UserData_UserName
             };
 
@@ -211,6 +213,7 @@ namespace QuickMath
                 string jsonString = File.ReadAllText(fileName);
                 var doc = JsonDocument.Parse(jsonString);
                 XP = doc.RootElement.GetProperty("XP").GetInt32();
+                coins = doc.RootElement.GetProperty("coins").GetInt32();    
                 UserData_UserName = doc.RootElement.GetProperty("UserName").GetString();
                 InitializeGUI();
                 ReLoadGUI();
