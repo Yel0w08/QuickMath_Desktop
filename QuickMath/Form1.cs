@@ -7,25 +7,37 @@ namespace QuickMath
         private int result;
         public int XP; //public stuff
         public float coins;
-
+        public bool DebugMode = false; // turn thath shi off before sending it to the prod!!
 
         public int NumberOfXpGivenForAddition = 10; //XP given for each correct answer for addition.
 
-
+      
 
         public QuickMath()
 
         {
             InitializeComponent();
-            AutoLoadUserData();
-            InitializeGUI();
+            if (DebugMode == true)
+            {
+                GrettingLabel.Text = $"DEBUG MODE ON | Saves are diabled";
+                GrettingLabel.ForeColor = Color.Red;
+
+            }
+            else
+            {
+                AutoLoadUserData();
+                InitializeGUI();
+               
+            }
             ResetGUI();
 
         }
 
         private void InitializeGUI()
         {
-            GrettingLabel.Text = $"Welcome back {UserData_UserName} !";
+                GrettingLabel.Text = $"Welcome back {UserData_UserName} !"; GrettingLabel.ForeColor = Color.Black; 
+            
+            
         }
 
         bool DoAwserIsCorect;
@@ -249,6 +261,7 @@ namespace QuickMath
 
         private void Difficulty_SelectedIndexChanged(object sender, EventArgs e)
         {
+            StartMath_addition();
 
         }
 

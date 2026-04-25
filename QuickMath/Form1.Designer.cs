@@ -35,14 +35,13 @@
             MidelTextBetweenUserIntuptAndMath = new Label();
             XPEqualLabel = new Label();
             XPpointLabel = new Label();
-            start_button = new Button();
-            stopbutton = new Button();
             _trackbar = new Label();
             DifficultySelect = new ComboBox();
             GrettingLabel = new Label();
             CoinsEqualStaticLabel = new Label();
             CoinsLabel = new Label();
             OpenShopButton = new Button();
+            statistic_button = new Button();
             SuspendLayout();
             // 
             // TypeOfMath
@@ -60,7 +59,7 @@
             // 
             MathToResolveText.AutoSize = true;
             MathToResolveText.Font = new Font("Segoe UI", 16F);
-            MathToResolveText.Location = new Point(3, 348);
+            MathToResolveText.Location = new Point(3, 352);
             MathToResolveText.Name = "MathToResolveText";
             MathToResolveText.Size = new Size(65, 37);
             MathToResolveText.TabIndex = 1;
@@ -103,33 +102,11 @@
             // 
             XPpointLabel.AutoSize = true;
             XPpointLabel.Font = new Font("Segoe UI", 12F);
-            XPpointLabel.Location = new Point(53, 95);
+            XPpointLabel.Location = new Point(64, 95);
             XPpointLabel.Name = "XPpointLabel";
             XPpointLabel.Size = new Size(23, 28);
             XPpointLabel.TabIndex = 5;
             XPpointLabel.Text = "0";
-            // 
-            // start_button
-            // 
-            start_button.Location = new Point(158, 16);
-            start_button.Margin = new Padding(3, 4, 3, 4);
-            start_button.Name = "start_button";
-            start_button.Size = new Size(90, 28);
-            start_button.TabIndex = 6;
-            start_button.Text = "start";
-            start_button.UseVisualStyleBackColor = true;
-            start_button.Click += button1_Click;
-            // 
-            // stopbutton
-            // 
-            stopbutton.Location = new Point(254, 16);
-            stopbutton.Margin = new Padding(3, 4, 3, 4);
-            stopbutton.Name = "stopbutton";
-            stopbutton.Size = new Size(90, 28);
-            stopbutton.TabIndex = 7;
-            stopbutton.Text = "stop";
-            stopbutton.UseVisualStyleBackColor = true;
-            stopbutton.Click += stopbutton_Click;
             // 
             // _trackbar
             // 
@@ -148,7 +125,6 @@
             DifficultySelect.Name = "DifficultySelect";
             DifficultySelect.Size = new Size(138, 28);
             DifficultySelect.TabIndex = 12;
-            DifficultySelect.Text = "medium (1 - 100)";
             DifficultySelect.Visible = false;
             DifficultySelect.SelectedIndexChanged += Difficulty_SelectedIndexChanged;
             // 
@@ -175,7 +151,7 @@
             // 
             CoinsLabel.AutoSize = true;
             CoinsLabel.Font = new Font("Segoe UI", 12F);
-            CoinsLabel.Location = new Point(53, 123);
+            CoinsLabel.Location = new Point(64, 123);
             CoinsLabel.Name = "CoinsLabel";
             CoinsLabel.Size = new Size(23, 28);
             CoinsLabel.TabIndex = 16;
@@ -192,20 +168,29 @@
             OpenShopButton.UseVisualStyleBackColor = true;
             OpenShopButton.Click += OpenShopButton_Click;
             // 
+            // statistic_button
+            // 
+            statistic_button.Location = new Point(158, 16);
+            statistic_button.Margin = new Padding(3, 4, 3, 4);
+            statistic_button.Name = "statistic_button";
+            statistic_button.Size = new Size(57, 28);
+            statistic_button.TabIndex = 18;
+            statistic_button.Text = "stats";
+            statistic_button.UseVisualStyleBackColor = true;
+            // 
             // QuickMath
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(488, 481);
+            Controls.Add(statistic_button);
             Controls.Add(OpenShopButton);
             Controls.Add(CoinsLabel);
             Controls.Add(CoinsEqualStaticLabel);
             Controls.Add(GrettingLabel);
             Controls.Add(DifficultySelect);
             Controls.Add(_trackbar);
-            Controls.Add(stopbutton);
-            Controls.Add(start_button);
             Controls.Add(XPpointLabel);
             Controls.Add(XPEqualLabel);
             Controls.Add(MidelTextBetweenUserIntuptAndMath);
@@ -229,13 +214,12 @@
         private Label MidelTextBetweenUserIntuptAndMath;
         private Label XPEqualLabel;
         private Label XPpointLabel;
-        private Button start_button;
-        private Button stopbutton;
         private Label _trackbar;
         private ComboBox DifficultySelect;
         private Label GrettingLabel;
         private Label CoinsEqualStaticLabel;
         private Label CoinsLabel;
         private Button OpenShopButton;
+        private Button statistic_button;
     }
 }

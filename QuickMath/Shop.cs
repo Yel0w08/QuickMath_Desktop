@@ -17,12 +17,24 @@ namespace QuickMath
         public string UserData_UserName;
         public int XP;
         public float userCoins;
+        public bool DebugMode = false; // turn thath shi off before sending it to the prod!!
+        public bool Difficulty_Insane_addition_unlocked = false;
+        public bool Difficulty_Hard_addition_unlocked = false;
         public Shop()
         {
+            if (DebugMode == true)
+            {
+               
+                XP = 99999999;
+                userCoins = 99999999;
+            }
+            else
+            {
+                AutoLoadUserData();
+            }
             InitializeComponent();
             ShopItems_HideList();
             ShopItems_ClearList();
-            AutoLoadUserData();
             ReLoadGUI();
         }
 
@@ -89,6 +101,14 @@ namespace QuickMath
             shopItem4.ForeColor = Color.Black;
             shopItem5.ForeColor = Color.Black;
 
+        }
+        void ShopItems_ResetChecked()
+        {
+            shopItem1.Checked = false;
+            shopItem2.Checked = false;
+            shopItem3.Checked = false;
+            shopItem4.Checked = false;
+            shopItem5.Checked = false;
         }
         void ShopItems_HideList()
         {
@@ -171,6 +191,7 @@ namespace QuickMath
         }
         void ReLoadGUI()
         {
+            
             Total_Shop_Label.Text = "Total = " + total.ToString() + " ∑∑";
             MoneyInAccountLabel.Text = "Money = " + userCoins.ToString() + " ∑∑";
         }
@@ -205,6 +226,42 @@ namespace QuickMath
         void BuyTheCart(string itemName, int total)
         {
             if (total == 0) { MessageBox.Show("Your cart is empty!"); return; }
+            if (userCoins < total) { MessageBox.Show("Not enough ∑∑ ! You need " + (total - userCoins) + " more ∑∑"); }
+            else if (userCoins >= total)
+            {
+                userCoins -= total;
+                if (shopItem1.Checked && shopItem1.Text == "Hard Difficulty for addition")
+                {
+                   Difficulty_Hard_addition_unlocked = true;
+                }
+                if (shopItem2.Checked && shopItem2.Text == "Insane Difficulty for addition")
+                {
+                    Difficulty_Insane_addition_unlocked = true;
+                }
+                MessageBox.Show("You bought " + CartListBox.Items.Count + " items for a total of " + total + " ∑∑!");
+                saveUserData_Local();
+                CartListBox.Items.Clear();
+                ShopItems_ResetChecked();
+                ReLoadGUI();
+
+            }
         }
+        private void saveUserData_Local()
+        {
+            var SaveData = new
+            {
+                XP = XP,
+                coins = userCoins,
+                UserName = UserData_UserName,
+                 Difficulty_Insane_addition_unlocked = Difficulty_Insane_addition_unlocked,
+                Difficulty_Hard_addition_unlocked = Difficulty_Hard_addition_unlocked
+            };
+
+            string jsonString = JsonSerializer.Serialize(SaveData);
+            string fileName = "QuickMath_UserData.json";
+            File.WriteAllText(fileName, jsonString);
+        }
+
+       
     }
 }
