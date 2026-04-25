@@ -167,10 +167,9 @@
             CoinsEqualStaticLabel.Font = new Font("Segoe UI", 12F);
             CoinsEqualStaticLabel.Location = new Point(14, 123);
             CoinsEqualStaticLabel.Name = "CoinsEqualStaticLabel";
-            CoinsEqualStaticLabel.Size = new Size(49, 28);
+            CoinsEqualStaticLabel.Size = new Size(50, 28);
             CoinsEqualStaticLabel.TabIndex = 15;
-            CoinsEqualStaticLabel.Text = "$∑=";
-
+            CoinsEqualStaticLabel.Text = "∑∑=";
             // 
             // CoinsLabel
             // 
@@ -191,6 +190,7 @@
             OpenShopButton.TabIndex = 17;
             OpenShopButton.Text = " shop ";
             OpenShopButton.UseVisualStyleBackColor = true;
+            OpenShopButton.Click += OpenShopButton_Click;
             // 
             // QuickMath
             // 

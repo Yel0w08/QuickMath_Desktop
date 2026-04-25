@@ -10,8 +10,8 @@ namespace QuickMath
 
 
         public int NumberOfXpGivenForAddition = 10; //XP given for each correct answer for addition.
-    
-   
+
+
 
         public QuickMath()
 
@@ -94,7 +94,7 @@ namespace QuickMath
 
             if (DifficultySelect.SelectedItem == "medium (1 - 100)")
             {
-                min_number_addition = 1; max_number_addition = 100; NumberOfXpGivenForAddition = 10; 
+                min_number_addition = 1; max_number_addition = 100; NumberOfXpGivenForAddition = 10;
             }
 
             else if (DifficultySelect.SelectedItem == "easy (1 - 50)")
@@ -103,13 +103,13 @@ namespace QuickMath
             }
 
             else if (DifficultySelect.SelectedItem == "easy++ (1 - 10)")
-            { 
-                min_number_addition = 1; max_number_addition = 10; NumberOfXpGivenForAddition = 1; 
+            {
+                min_number_addition = 1; max_number_addition = 10; NumberOfXpGivenForAddition = 1;
             }
 
             else if (DifficultySelect.SelectedItem == "hard (50 - 500)")
-            { 
-                min_number_addition = 50; max_number_addition = 500; NumberOfXpGivenForAddition = 20; 
+            {
+                min_number_addition = 50; max_number_addition = 500; NumberOfXpGivenForAddition = 20;
             }
 
             else if (DifficultySelect.SelectedItem == "insane (100 - 1000)")
@@ -156,12 +156,12 @@ namespace QuickMath
 
         }
 
-        
+
         void ReLoadGUI()
         {
 
             XPpointLabel.Text = XP.ToString();
-            
+
             coins = XP / 10;
             CoinsLabel.Text = coins.ToString();
             saveUserData_Local();
@@ -248,6 +248,10 @@ namespace QuickMath
 
         }
 
-        
+        private void OpenShopButton_Click(object sender, EventArgs e)
+        {
+           Shop shop = new Shop();
+          shop.ShowDialog();
+        }
     }
 }
