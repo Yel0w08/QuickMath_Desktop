@@ -195,7 +195,16 @@ namespace QuickMath
 
         private void Shop_buy_button(object sender, EventArgs e)
         {
+            BuyTheCart("", total);
+        }
 
+        private void shopItem2_CheckedChanged_1(object sender, EventArgs e)
+        {
+            UpdateCart();
+        }
+        void BuyTheCart(string itemName, int total)
+        {
+            if (total == 0) { MessageBox.Show("Your cart is empty!"); return; }
         }
     }
 }

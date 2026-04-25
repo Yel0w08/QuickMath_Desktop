@@ -102,6 +102,7 @@
             shopItem2.TabIndex = 6;
             shopItem2.Text = "shopItem2";
             shopItem2.UseVisualStyleBackColor = true;
+            shopItem2.CheckedChanged += shopItem2_CheckedChanged_1;
             // 
             // shopItem3
             // 
