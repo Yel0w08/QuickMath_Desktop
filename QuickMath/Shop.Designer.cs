@@ -28,6 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            TreeNode treeNode1 = new TreeNode("Hard Difficulty");
+            TreeNode treeNode2 = new TreeNode("Insane Difficulty");
+            TreeNode treeNode3 = new TreeNode("Addition", new TreeNode[] { treeNode1, treeNode2 });
+            TreeNode treeNode4 = new TreeNode("Difficulty", new TreeNode[] { treeNode3 });
+            TreeNode treeNode5 = new TreeNode("Special");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Shop));
             button1 = new Button();
             Nshop_Label = new Label();
@@ -38,6 +43,7 @@
             shopItem3 = new CheckBox();
             shopItem4 = new CheckBox();
             shopItem5 = new CheckBox();
+            Cart = new TreeView();
             SuspendLayout();
             // 
             // button1
@@ -71,7 +77,7 @@
             // shopItem1
             // 
             shopItem1.AutoSize = true;
-            shopItem1.Location = new Point(12, 97);
+            shopItem1.Location = new Point(12, 98);
             shopItem1.Name = "shopItem1";
             shopItem1.Size = new Size(101, 24);
             shopItem1.TabIndex = 4;
@@ -128,11 +134,30 @@
             shopItem5.Text = "shopItem5";
             shopItem5.UseVisualStyleBackColor = true;
             // 
+            // Cart
+            // 
+            Cart.Location = new Point(190, 60);
+            Cart.Name = "Cart";
+            treeNode1.Name = "hardDifficulty";
+            treeNode1.Text = "Hard Difficulty";
+            treeNode2.Name = "insaneDifficulty";
+            treeNode2.Text = "Insane Difficulty";
+            treeNode3.Name = "Addition";
+            treeNode3.Text = "Addition";
+            treeNode4.Name = "Difficulty";
+            treeNode4.Text = "Difficulty";
+            treeNode5.Name = "Special";
+            treeNode5.Text = "Special";
+            Cart.Nodes.AddRange(new TreeNode[] { treeNode4, treeNode5 });
+            Cart.Size = new Size(237, 121);
+            Cart.TabIndex = 10;
+            // 
             // Shop
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(Cart);
             Controls.Add(shopItem5);
             Controls.Add(shopItem4);
             Controls.Add(shopItem3);
@@ -159,5 +184,6 @@
         private CheckBox shopItem3;
         private CheckBox shopItem4;
         private CheckBox shopItem5;
+        private TreeView Cart;
     }
 }

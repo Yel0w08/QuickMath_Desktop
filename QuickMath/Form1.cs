@@ -212,6 +212,7 @@ namespace QuickMath
                 var doc = JsonDocument.Parse(jsonString);
                 XP = doc.RootElement.GetProperty("XP").GetInt32();
                 UserData_UserName = doc.RootElement.GetProperty("UserName").GetString();
+                InitializeGUI();
                 ReLoadGUI();
             }
             else if (!File.Exists(fileName))

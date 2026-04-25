@@ -31,7 +31,7 @@ namespace QuickMath
             {
                 ShopItems_ClearList();
                 shopItem1.Text = "Hard Difficulty for addition 5 ∑∑";
-                shopItem2.Text = "Hard Difficulty for addition 5 ∑∑";
+                shopItem2.Text = "Insane Difficulty for addition 5 ∑∑";
             }
             else if (Shop_Select_Category.SelectedItem.ToString() == "Special")
             {
