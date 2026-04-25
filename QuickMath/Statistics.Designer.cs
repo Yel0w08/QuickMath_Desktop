@@ -103,6 +103,7 @@
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "Statistics";
             Text = "Statistics";
+            Load += Statistics_Load;
             ResumeLayout(false);
         }
 

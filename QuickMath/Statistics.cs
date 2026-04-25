@@ -28,7 +28,7 @@ namespace QuickMath
         void LoadStats()
         {
 
-
+            //i will put the code here tomorow 
         }
         void LoadUserData()
         {
@@ -47,6 +47,11 @@ namespace QuickMath
         }
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
+        }
+
+        private void Statistics_Load(object sender, EventArgs e)
         {
 
         }
