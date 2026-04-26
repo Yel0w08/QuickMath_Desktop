@@ -18,7 +18,9 @@ namespace QuickMath
         string UserData_UserName;
         bool Difficulty_Insane_addition_unlocked;
         bool Difficulty_Hard_addition_unlocked;
-
+        public int totalNumberOfMathDone ;
+        public int totalNumberOfAdditionDone ;
+        public int totalNumberOfSubtractionDone ;
         public Statistics()
         {
             InitializeComponent();
@@ -28,8 +30,8 @@ namespace QuickMath
         void LoadStats()
         {
 
-            StatsTreeView.Nodes.Text = $"XP: {XP.ToString()}";
-
+            StatsTreeView.Nodes[3].Nodes[0].Text = $"XP: {XP.ToString()}";
+            StatsTreeView.Nodes[3].Nodes[1].Text = $"Username: {UserData_UserName}";
 
         }
         void LoadUserData()
@@ -44,6 +46,11 @@ namespace QuickMath
                 UserData_UserName = doc.RootElement.GetProperty("UserName").GetString();
                 Difficulty_Insane_addition_unlocked = doc.RootElement.GetProperty("Difficulty_Insane_addition_unlocked").GetBoolean();
                 Difficulty_Hard_addition_unlocked = doc.RootElement.GetProperty("Difficulty_Hard_addition_unlocked").GetBoolean();
+                Difficulty_Insane_addition_unlocked = doc.RootElement.GetProperty("Difficulty_Insane_addition_unlocked").GetBoolean();
+                Difficulty_Hard_addition_unlocked = doc.RootElement.GetProperty("Difficulty_Hard_addition_unlocked").GetBoolean();
+                totalNumberOfMathDone = doc.RootElement.GetProperty("totalNumberOfMathDone").GetInt32();
+                totalNumberOfAdditionDone = doc.RootElement.GetProperty("totalNumberOfAdditionDone").GetInt32();
+                totalNumberOfSubtractionDone = doc.RootElement.GetProperty("totalNumberOfSubtractionDone").GetInt32();
                 LoadStats();
             }
         }

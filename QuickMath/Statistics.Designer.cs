@@ -46,6 +46,9 @@
             TreeNode treeNode16 = new TreeNode("Stars", new TreeNode[] { treeNode12, treeNode13, treeNode14, treeNode15 });
             TreeNode treeNode17 = new TreeNode("Dark Matter");
             TreeNode treeNode18 = new TreeNode("Special", new TreeNode[] { treeNode16, treeNode17 });
+            TreeNode treeNode19 = new TreeNode("Total XP");
+            TreeNode treeNode20 = new TreeNode("Username");
+            TreeNode treeNode21 = new TreeNode("Player", new TreeNode[] { treeNode19, treeNode20 });
             StatsTreeView = new TreeView();
             SuspendLayout();
             // 
@@ -89,7 +92,13 @@
             treeNode17.Text = "Dark Matter";
             treeNode18.Name = "Special";
             treeNode18.Text = "Special";
-            StatsTreeView.Nodes.AddRange(new TreeNode[] { treeNode8, treeNode11, treeNode18 });
+            treeNode19.Name = "Total XP";
+            treeNode19.Text = "Total XP";
+            treeNode20.Name = "Username";
+            treeNode20.Text = "Username";
+            treeNode21.Name = "Player";
+            treeNode21.Text = "Player";
+            StatsTreeView.Nodes.AddRange(new TreeNode[] { treeNode8, treeNode11, treeNode18, treeNode21 });
             StatsTreeView.Size = new Size(358, 426);
             StatsTreeView.TabIndex = 0;
             StatsTreeView.AfterSelect += treeView1_AfterSelect;

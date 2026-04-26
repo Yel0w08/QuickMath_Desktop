@@ -7,6 +7,9 @@ namespace QuickMath
         private int result;
         public int XP; //public stuff
         public float coins;
+        public int totalNumberOfMathDone;
+        public int totalNumberOfAdditionDone;
+        public int totalNumberOfSubtractionDone;
         public bool DebugMode = false; // turn thath shi off before sending it to the prod!!
         public bool Difficulty_Insane_addition_unlocked = false;
         public bool Difficulty_Hard_addition_unlocked = false;
@@ -172,6 +175,8 @@ namespace QuickMath
             if (MathUserIntupt.Text == result.ToString())
             {
                 DoAwserIsCorect = true;
+                totalNumberOfMathDone++;
+
             }
         }
 
@@ -225,7 +230,11 @@ namespace QuickMath
                 coins = coins,
                 UserName = UserData_UserName,
                 Difficulty_Insane_addition_unlocked = Difficulty_Insane_addition_unlocked,
-                Difficulty_Hard_addition_unlocked = Difficulty_Hard_addition_unlocked
+                Difficulty_Hard_addition_unlocked = Difficulty_Hard_addition_unlocked,
+                totalNumberOfMathDone = totalNumberOfMathDone,
+                totalNumberOfSubtractionDone = totalNumberOfSubtractionDone,
+                totalNumberOfAdditionDone = totalNumberOfAdditionDone
+
             };
 
             string jsonString = JsonSerializer.Serialize(SaveData);
@@ -245,6 +254,9 @@ namespace QuickMath
                 UserData_UserName = doc.RootElement.GetProperty("UserName").GetString();
                 Difficulty_Insane_addition_unlocked = doc.RootElement.GetProperty("Difficulty_Insane_addition_unlocked").GetBoolean();
                 Difficulty_Hard_addition_unlocked = doc.RootElement.GetProperty("Difficulty_Hard_addition_unlocked").GetBoolean();
+                totalNumberOfMathDone = doc.RootElement.GetProperty("totalNumberOfMathDone").GetInt32();
+                totalNumberOfAdditionDone = doc.RootElement.GetProperty("totalNumberOfAdditionDone").GetInt32();
+                totalNumberOfSubtractionDone = doc.RootElement.GetProperty("totalNumberOfSubtractionDone").GetInt32();
                 InitializeGUI();
                 ReLoadGUI();
             }

@@ -11,7 +11,9 @@ namespace QuickMath
 {
     public partial class RegisterForm : Form
     {
-
+        public int totalNumberOfMathDone = 0;
+        public int totalNumberOfAdditionDone = 0;
+        public int totalNumberOfSubtractionDone = 0;
         float Coins = 0; // Initialize coins to 0 for new users
         public RegisterForm()
         {
@@ -33,8 +35,11 @@ namespace QuickMath
                 UserName = UsernameIntupt.Text,
                 coins = Coins,
                 Difficulty_Insane_addition_unlocked = false,
-            Difficulty_Hard_addition_unlocked = false
-        };
+            Difficulty_Hard_addition_unlocked = false,
+                totalNumberOfMathDone = 0,
+                totalNumberOfAdditionDone = 0,
+                totalNumberOfSubtractionDone = 0
+            };
 
             string jsonString = JsonSerializer.Serialize(SaveData);
             string fileName = "QuickMath_UserData.json";
