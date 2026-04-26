@@ -1,4 +1,5 @@
-﻿using System;
+﻿using static QuickMath.AppInfo;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,6 +26,7 @@ namespace QuickMath
         {
             InitializeComponent();
             LoadUserData();
+            VersionLabel.Text = $"v{AppInfo.Version} | By {AppInfo.Author} | {AppInfo.Name}";
         }
 
         void LoadStats()

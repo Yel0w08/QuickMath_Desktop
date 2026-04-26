@@ -50,11 +50,12 @@
             TreeNode treeNode20 = new TreeNode("Username");
             TreeNode treeNode21 = new TreeNode("Player", new TreeNode[] { treeNode19, treeNode20 });
             StatsTreeView = new TreeView();
+            VersionLabel = new Label();
             SuspendLayout();
             // 
             // StatsTreeView
             // 
-            StatsTreeView.Location = new Point(12, 12);
+            StatsTreeView.Location = new Point(12, 9);
             StatsTreeView.Name = "StatsTreeView";
             treeNode1.Name = "Total";
             treeNode1.Text = "Total";
@@ -99,25 +100,38 @@
             treeNode21.Name = "Player";
             treeNode21.Text = "Player";
             StatsTreeView.Nodes.AddRange(new TreeNode[] { treeNode8, treeNode11, treeNode18, treeNode21 });
-            StatsTreeView.Size = new Size(358, 426);
+            StatsTreeView.Size = new Size(358, 412);
             StatsTreeView.TabIndex = 0;
             StatsTreeView.AfterSelect += treeView1_AfterSelect;
+            // 
+            // VersionLabel
+            // 
+            VersionLabel.AutoSize = true;
+            VersionLabel.Location = new Point(12, 424);
+            VersionLabel.Name = "VersionLabel";
+            VersionLabel.Size = new Size(43, 20);
+            VersionLabel.TabIndex = 1;
+            VersionLabel.Text = "Build";
+            VersionLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // Statistics
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(382, 453);
+            Controls.Add(VersionLabel);
             Controls.Add(StatsTreeView);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "Statistics";
             Text = "Statistics";
             Load += Statistics_Load;
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private TreeView StatsTreeView;
+        private Label VersionLabel;
     }
 }

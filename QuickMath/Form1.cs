@@ -33,7 +33,6 @@ namespace QuickMath
                 InitializeGUI();
 
             }
-            ResetGUI();
 
         }
 
@@ -76,8 +75,9 @@ namespace QuickMath
             if (TypeOfMath.SelectedItem == string.Empty) { }//why dont it work
             else if (TypeOfMath.SelectedItem == "addition")
             {
-                LockGUI();
+                
                 StartMath_addition();
+                DifficultySelect.Enabled = true;
 
             }
             else if (TypeOfMath.SelectedItem == "subtraction")
@@ -105,6 +105,7 @@ namespace QuickMath
         public async Task StartMath_addition()
         {
 
+            DifficultySelect.Enabled = true;
             int min_number_addition = 1;
             int max_number_addition = 100;
 
@@ -175,7 +176,8 @@ namespace QuickMath
             {
                 DoAwserIsCorect = true;
                 totalNumberOfMathDone++;
-
+                if (TypeOfMath.SelectedItem.ToString() == "addition") { totalNumberOfAdditionDone++; }
+                else if (TypeOfMath.SelectedItem.ToString() == "subtraction") { totalNumberOfSubtractionDone++; }
             }
         }
 
@@ -183,7 +185,7 @@ namespace QuickMath
 
         void ResetGUI()
         {
-            DifficultySelect.Hide();
+            DifficultySelect.Enabled = false;
 
 
         }

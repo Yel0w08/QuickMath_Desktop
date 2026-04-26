@@ -126,7 +126,6 @@
             DifficultySelect.Name = "DifficultySelect";
             DifficultySelect.Size = new Size(138, 28);
             DifficultySelect.TabIndex = 12;
-            DifficultySelect.Visible = false;
             DifficultySelect.SelectedIndexChanged += Difficulty_SelectedIndexChanged;
             // 
             // GrettingLabel
@@ -174,7 +173,7 @@
             statistic_button.Location = new Point(158, 16);
             statistic_button.Margin = new Padding(3, 4, 3, 4);
             statistic_button.Name = "statistic_button";
-            statistic_button.Size = new Size(57, 28);
+            statistic_button.Size = new Size(75, 28);
             statistic_button.TabIndex = 18;
             statistic_button.Text = "stats";
             statistic_button.UseVisualStyleBackColor = true;
@@ -182,11 +181,12 @@
             // 
             // button1
             // 
-            button1.Location = new Point(221, 16);
+            button1.Enabled = false;
+            button1.Location = new Point(239, 16);
             button1.Name = "button1";
-            button1.Size = new Size(123, 29);
+            button1.Size = new Size(105, 29);
             button1.TabIndex = 19;
-            button1.Text = "Placeholder";
+            button1.Text = "WIP";
             button1.UseVisualStyleBackColor = true;
             // 
             // QuickMath
