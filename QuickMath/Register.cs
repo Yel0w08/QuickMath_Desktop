@@ -16,11 +16,11 @@ namespace QuickMath
         public int totalNumberOfAdditionDone = 0;
         public int totalNumberOfSubtractionDone = 0;
         public string UserData_UserName;
-        float Coins = 0; 
+        float Coins = 0;
         public RegisterForm()
         {
             InitializeComponent();
-
+            UsernameIntupt.Text = Environment.UserName;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -46,6 +46,8 @@ namespace QuickMath
                 coins = Coins,
                 Difficulty_Insane_addition_unlocked = false,
                 Difficulty_Hard_addition_unlocked = false,
+                Difficulty_Insane_subtraction_unlocked = false,
+                Difficulty_Hard_subtraction_unlocked = false,
                 totalNumberOfMathDone = totalNumberOfMathDone,
                 totalNumberOfAdditionDone = totalNumberOfAdditionDone,
                 totalNumberOfSubtractionDone = totalNumberOfSubtractionDone,
@@ -54,7 +56,7 @@ namespace QuickMath
                 YellowStarNumber = 0,
                 PurpleStarNumber = 0,
                 DarkMatterNumber = 0,
-                                
+
             };
             var options = new JsonSerializerOptions { WriteIndented = true };
             string jsonString = JsonSerializer.Serialize(SaveData, options);
@@ -68,7 +70,7 @@ namespace QuickMath
 
             SaveDataLocal();
             this.Close();
-          
+
 
 
         }
@@ -79,6 +81,11 @@ namespace QuickMath
         }
 
         private void RegisterForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void UsernameIntupt_TextChanged(object sender, EventArgs e)
         {
 
         }

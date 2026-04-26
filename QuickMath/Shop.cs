@@ -21,6 +21,8 @@ namespace QuickMath
         public bool DebugMode = false; // turn thath shi off before sending it to the prod!!
         public bool Difficulty_Insane_addition_unlocked = false;
         public bool Difficulty_Hard_addition_unlocked = false;
+        public bool Difficulty_Insane_subtraction_unlocked = false;
+        public bool Difficulty_Hard_subtraction_unlocked = false;
         public int RedStarNumber;
         public Shop()
         {
@@ -205,7 +207,7 @@ namespace QuickMath
                 string jsonString = File.ReadAllText(fileName);
                 var doc = JsonDocument.Parse(jsonString);
                 XP = doc.RootElement.GetProperty("XP").GetInt32();
-                userCoins = doc.RootElement.GetProperty("coins").GetInt32();
+                userCoins = doc.RootElement.GetProperty("coins").GetSingle();
                 UserData_UserName = doc.RootElement.GetProperty("UserName").GetString();
                 Difficulty_Insane_addition_unlocked = doc.RootElement.GetProperty("Difficulty_Insane_addition_unlocked").GetBoolean();
                 Difficulty_Hard_addition_unlocked = doc.RootElement.GetProperty("Difficulty_Hard_addition_unlocked").GetBoolean();
@@ -285,6 +287,7 @@ namespace QuickMath
                 UserName = UserData_UserName,
                 Difficulty_Insane_addition_unlocked = Difficulty_Insane_addition_unlocked,
                 Difficulty_Hard_addition_unlocked = Difficulty_Hard_addition_unlocked,
+                Difficulty_Insane_subtraction_unlocked = Difficulty_Insane_subtraction_unlocked,
                 RedStarNumber = RedStarNumber
             };
             var options = new JsonSerializerOptions { WriteIndented = true };

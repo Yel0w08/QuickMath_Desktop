@@ -3,7 +3,7 @@
 ; Non-commercial use only
 
 #define MyAppName "QuickMath"
-#define MyAppVersion "0.1.0-alpha"
+#define MyAppVersion "0.2.0"
 #define MyAppPublisher "PikminTea"
 #define MyAppURL "https://pikmintea.gitbook.io/quickmath-desktop"
 #define MyAppExeName "QuickMath.exe"

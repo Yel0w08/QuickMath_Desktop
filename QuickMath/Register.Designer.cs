@@ -46,12 +46,13 @@
             // 
             resources.ApplyResources(UsernameIntupt, "UsernameIntupt");
             UsernameIntupt.Name = "UsernameIntupt";
+            UsernameIntupt.TextChanged += UsernameIntupt_TextChanged;
             // 
             // Register
             // 
             Register.BackColor = Color.White;
             resources.ApplyResources(Register, "Register");
-            Register.ForeColor = Color.BlueViolet;
+            Register.ForeColor = Color.Black;
             Register.Name = "Register";
             Register.UseVisualStyleBackColor = false;
             Register.Click += Register_Click;

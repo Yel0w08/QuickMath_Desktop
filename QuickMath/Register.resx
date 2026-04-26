@@ -207,6 +207,9 @@
   <data name="&gt;&gt;Register.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="SkipRegisterButton.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="SkipRegisterButton.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 12pt</value>
   </data>
