@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 
 namespace QuickMath
@@ -13,7 +14,10 @@ namespace QuickMath
         public bool DebugMode = false; // turn thath shi off before sending it to the prod!!
         public bool Difficulty_Insane_addition_unlocked = false;
         public bool Difficulty_Hard_addition_unlocked = false;
-        public int NumberOfXpGivenForAddition = 10; //XP given for each correct answer for addition.
+        public bool Difficulty_Hard_subtraction_unlocked = false;
+        public bool Difficulty_Insane_subtraction_unlocked = false;
+        public int NumberOfXpGivenForAddition = 10;
+        public int NumberOfXpGivenForSubtraction = 10;//XP given for each correct answer for subtraction.
 
 
 
@@ -33,9 +37,29 @@ namespace QuickMath
                 InitializeGUI();
 
             }
-
+            CheckForUpdates();
         }
 
+
+        private async Task CheckForUpdates()
+        {
+            try
+            {
+                using HttpClient client = new HttpClient();
+                client.DefaultRequestHeaders.Add("User-Agent", "QuickMath-Desktop");
+
+                string url = "https://api.github.com/repos/Yel0w08/QuickMath_Desktop/releases/latest";
+                string json = await client.GetStringAsync(url);
+                var doc = JsonDocument.Parse(json);
+                string latestVersion = doc.RootElement.GetProperty("tag_name").GetString();
+
+                if (latestVersion != AppInfo.Version)
+                {
+                    MessageBox.Show($"New version available : {latestVersion} !\nCurrent version : {AppInfo.Version}");
+                }
+            }
+            catch { } // No Wifi ? allright then..
+        }
         private void InitializeGUI()
         {
             GrettingLabel.Text = $"Welcome back {UserData_UserName} !"; GrettingLabel.ForeColor = Color.Black;
@@ -59,7 +83,8 @@ namespace QuickMath
         {
             if (TypeOfMath.SelectedItem == string.Empty) { }//why dont it work
             else if (TypeOfMath.SelectedItem == "more coming !") { MessageBox.Show("More math operations will be added in the future !"); TypeOfMath.Text = ""; } //tell the user more is coming if selecter more is coming....
-            else if (TypeOfMath.SelectedItem.ToString() == "addition") { DifficultySelect.Show(); }
+            else if (TypeOfMath.SelectedItem.ToString() == "addition") { DifficultySelect.Show(); StartMath_addition(); }
+            else if (TypeOfMath.SelectedItem.ToString() == "subtraction") { DifficultySelect.Show(); StartMath_subtraction(); }
         }
 
         private void label1_Click_1(object sender, EventArgs e)
@@ -69,21 +94,24 @@ namespace QuickMath
 
         private void button1_Click(object sender, EventArgs e) //start_button
         {
+            StartMath();
 
+        }
 
-
+        private void StartMath()
+        {
             if (TypeOfMath.SelectedItem == string.Empty) { }//why dont it work
             else if (TypeOfMath.SelectedItem == "addition")
             {
-                
+
                 StartMath_addition();
                 DifficultySelect.Enabled = true;
 
             }
             else if (TypeOfMath.SelectedItem == "subtraction")
             {
-                LockGUI();
-                //StartMath_subtraction();
+
+                StartMath_subtraction();
             }
             else if (TypeOfMath.SelectedItem == "multiplication")
             {
@@ -98,8 +126,6 @@ namespace QuickMath
             }
             else if (TypeOfMath.SelectedItem == null) { MessageBox.Show("Please select a math operation before starting !"); }
             else { MessageBox.Show("Please select a math operation before starting !"); }//to chekc if thez intput isint null 
-
-
         }
 
         public async Task StartMath_addition()
@@ -111,38 +137,38 @@ namespace QuickMath
 
 
 
-            if (DifficultySelect.SelectedItem == "medium (1 - 100)")
+            if (DifficultySelect.SelectedItem == "medium")
             {
                 min_number_addition = 1; max_number_addition = 100; NumberOfXpGivenForAddition = 10; coins += 1;
             }
 
-            else if (DifficultySelect.SelectedItem == "easy (1 - 50)")
+            else if (DifficultySelect.SelectedItem == "easy")
             {
                 min_number_addition = 1; max_number_addition = 50; NumberOfXpGivenForAddition = 5; coins += 0.5f;
             }
 
-            else if (DifficultySelect.SelectedItem == "easy++ (1 - 10)")
+            else if (DifficultySelect.SelectedItem == "easy++")
             {
                 min_number_addition = 1; max_number_addition = 10; NumberOfXpGivenForAddition = 1; coins += 0.25f;
             }
 
-            else if (DifficultySelect.SelectedItem == "hard (50 - 500)")
+            else if (DifficultySelect.SelectedItem == "hard")
             {
                 if (Difficulty_Hard_addition_unlocked == false)
                 {
                     MessageBox.Show("You need to unlock this difficulty in the shop first !");
-                    DifficultySelect.SelectedItem = "medium (1 - 100)";
+                    DifficultySelect.SelectedItem = "medium";
                     return;
                 }
                 min_number_addition = 50; max_number_addition = 500; NumberOfXpGivenForAddition = 20; coins += 2;
             }
 
-            else if (DifficultySelect.SelectedItem == "insane (100 - 1000)")
+            else if (DifficultySelect.SelectedItem == "insane")
             {
                 if (Difficulty_Insane_addition_unlocked == false)
                 {
                     MessageBox.Show("You need to unlock this difficulty in the shop first !");
-                    DifficultySelect.SelectedItem = "medium (1 - 100)";
+                    DifficultySelect.SelectedItem = "medium";
                     return;
                 }
                 min_number_addition = 100; max_number_addition = 1000; NumberOfXpGivenForAddition = 40; coins += 4;
@@ -158,8 +184,8 @@ namespace QuickMath
 
 
 
-         
-         
+
+
 
 
 
@@ -167,7 +193,61 @@ namespace QuickMath
 
 
         }
+        public async Task StartMath_subtraction()
+        {
 
+            DifficultySelect.Enabled = true;
+            int min_number_addition = 1;
+            int max_number_addition = 100;
+
+
+
+            if (DifficultySelect.SelectedItem == "medium")
+            {
+                min_number_addition = 1; max_number_addition = 100; NumberOfXpGivenForSubtraction = 15; coins += 1.5f;
+            }
+
+            else if (DifficultySelect.SelectedItem == "easy")
+            {
+                min_number_addition = 1; max_number_addition = 50; NumberOfXpGivenForSubtraction = 10; coins += 1f;
+            }
+
+            else if (DifficultySelect.SelectedItem == "easy++")
+            {
+                min_number_addition = 1; max_number_addition = 10; NumberOfXpGivenForSubtraction = 2; coins += 0.5f;
+            }
+
+            else if (DifficultySelect.SelectedItem == "hard")
+            {
+
+                if (Difficulty_Hard_subtraction_unlocked == false)
+                {
+                    MessageBox.Show("You need to unlock this difficulty in the shop first !");
+                    DifficultySelect.SelectedItem = "medium (1 - 100)";
+                    return;
+                }
+                min_number_addition = 50; max_number_addition = 500; NumberOfXpGivenForSubtraction = 20; coins += 2;
+            }
+
+            else if (DifficultySelect.SelectedItem == "insane")
+            {
+                if (Difficulty_Insane_subtraction_unlocked == false)
+                {
+                    MessageBox.Show("You need to unlock this difficulty in the shop first !");
+                    DifficultySelect.SelectedItem = "medium (1 - 100)";
+                    return;
+                }
+                min_number_addition = 100; max_number_addition = 1000; NumberOfXpGivenForSubtraction = 40; coins += 4;
+            }
+
+            Random random = new Random();
+            int random_1 = random.Next(min_number_addition, max_number_addition);
+            int random_2 = random.Next(min_number_addition, max_number_addition);
+            result = random_1 - random_2;
+            MathToResolveText.Text = $"{random_1} - {random_2}";
+
+            CheckAwser(result);
+        }
 
 
         private void CheckAwser(int result)
@@ -276,7 +356,10 @@ namespace QuickMath
                 XP += NumberOfXpGivenForAddition;
                 ReLoadGUI();
                 MathUserIntupt.Text = string.Empty;
-                StartMath_addition();
+
+
+                if (TypeOfMath.SelectedItem.ToString() == "addition") StartMath_addition();
+                else if (TypeOfMath.SelectedItem.ToString() == "subtraction") StartMath_subtraction();
             }
         }
 
@@ -292,10 +375,9 @@ namespace QuickMath
 
         private void Difficulty_SelectedIndexChanged(object sender, EventArgs e)
         {
-            StartMath_addition();
-
+            if (TypeOfMath.SelectedItem?.ToString() == "addition") StartMath_addition();
+            else if (TypeOfMath.SelectedItem?.ToString() == "subtraction") StartMath_subtraction();
         }
-
         private void OpenShopButton_Click(object sender, EventArgs e)
         {
             Shop shop = new Shop();
@@ -304,9 +386,14 @@ namespace QuickMath
 
         private void statistic_button_Click(object sender, EventArgs e)
         {
-            Statistics statistics = new Statistics();   
+            Statistics statistics = new Statistics();
             statistics.ShowDialog();
             AutoLoadUserData();
+        }
+
+        private void ReSetButton_Click(object sender, EventArgs e)
+        {
+            StartMath();
         }
     }
 }

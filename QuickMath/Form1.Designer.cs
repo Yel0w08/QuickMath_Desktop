@@ -43,12 +43,13 @@
             OpenShopButton = new Button();
             statistic_button = new Button();
             button1 = new Button();
+            ReSetButton = new Button();
             SuspendLayout();
             // 
             // TypeOfMath
             // 
             TypeOfMath.FormattingEnabled = true;
-            TypeOfMath.Items.AddRange(new object[] { "addition", "more coming !" });
+            TypeOfMath.Items.AddRange(new object[] { "addition", "subtraction", "more coming !" });
             TypeOfMath.Location = new Point(14, 16);
             TypeOfMath.Margin = new Padding(3, 4, 3, 4);
             TypeOfMath.Name = "TypeOfMath";
@@ -120,7 +121,7 @@
             // DifficultySelect
             // 
             DifficultySelect.FormattingEnabled = true;
-            DifficultySelect.Items.AddRange(new object[] { "easy++ (1 - 10)", "easy (1 - 50)", "medium (1 - 100)", "hard (50 - 500)", "insane (100 - 1000)" });
+            DifficultySelect.Items.AddRange(new object[] { "easy++", "easy", "medium", "hard", "insane" });
             DifficultySelect.Location = new Point(14, 52);
             DifficultySelect.Margin = new Padding(3, 4, 3, 4);
             DifficultySelect.Name = "DifficultySelect";
@@ -189,12 +190,28 @@
             button1.Text = "WIP";
             button1.UseVisualStyleBackColor = true;
             // 
+            // ReSetButton
+            // 
+            ReSetButton.BackColor = Color.Transparent;
+            ReSetButton.FlatAppearance.BorderColor = Color.White;
+            ReSetButton.FlatAppearance.BorderSize = 0;
+            ReSetButton.FlatStyle = FlatStyle.Flat;
+            ReSetButton.Location = new Point(443, 381);
+            ReSetButton.Margin = new Padding(3, 4, 3, 4);
+            ReSetButton.Name = "ReSetButton";
+            ReSetButton.Size = new Size(33, 28);
+            ReSetButton.TabIndex = 20;
+            ReSetButton.Text = "🔄️";
+            ReSetButton.UseVisualStyleBackColor = false;
+            ReSetButton.Click += ReSetButton_Click;
+            // 
             // QuickMath
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(488, 481);
+            Controls.Add(ReSetButton);
             Controls.Add(button1);
             Controls.Add(statistic_button);
             Controls.Add(OpenShopButton);
@@ -234,5 +251,6 @@
         private Button OpenShopButton;
         private Button statistic_button;
         private Button button1;
+        private Button ReSetButton;
     }
 }
