@@ -13,7 +13,6 @@ namespace QuickMath
         public bool DebugMode = false; // turn thath shi off before sending it to the prod!!
         public bool Difficulty_Insane_addition_unlocked = false;
         public bool Difficulty_Hard_addition_unlocked = false;
-
         public int NumberOfXpGivenForAddition = 10; //XP given for each correct answer for addition.
 
 
@@ -118,12 +117,12 @@ namespace QuickMath
 
             else if (DifficultySelect.SelectedItem == "easy (1 - 50)")
             {
-                min_number_addition = 1; max_number_addition = 50; NumberOfXpGivenForAddition = 5; coins += 5 / 10;
+                min_number_addition = 1; max_number_addition = 50; NumberOfXpGivenForAddition = 5; coins += 0.5f;
             }
 
             else if (DifficultySelect.SelectedItem == "easy++ (1 - 10)")
             {
-                min_number_addition = 1; max_number_addition = 10; NumberOfXpGivenForAddition = 1; coins += 5 / 20;
+                min_number_addition = 1; max_number_addition = 10; NumberOfXpGivenForAddition = 1; coins += 0.25f;
             }
 
             else if (DifficultySelect.SelectedItem == "hard (50 - 500)")
@@ -158,8 +157,8 @@ namespace QuickMath
 
 
 
-
-
+         
+         
 
 
 
@@ -236,8 +235,8 @@ namespace QuickMath
                 totalNumberOfAdditionDone = totalNumberOfAdditionDone
 
             };
-
-            string jsonString = JsonSerializer.Serialize(SaveData);
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            string jsonString = JsonSerializer.Serialize(SaveData, options);
             string fileName = "QuickMath_UserData.json";
             File.WriteAllText(fileName, jsonString);
         }
@@ -250,7 +249,7 @@ namespace QuickMath
                 string jsonString = File.ReadAllText(fileName);
                 var doc = JsonDocument.Parse(jsonString);
                 XP = doc.RootElement.GetProperty("XP").GetInt32();
-                coins = doc.RootElement.GetProperty("coins").GetInt32();
+                coins = doc.RootElement.GetProperty("coins").GetSingle();
                 UserData_UserName = doc.RootElement.GetProperty("UserName").GetString();
                 Difficulty_Insane_addition_unlocked = doc.RootElement.GetProperty("Difficulty_Insane_addition_unlocked").GetBoolean();
                 Difficulty_Hard_addition_unlocked = doc.RootElement.GetProperty("Difficulty_Hard_addition_unlocked").GetBoolean();

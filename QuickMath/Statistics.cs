@@ -32,7 +32,9 @@ namespace QuickMath
 
             StatsTreeView.Nodes[3].Nodes[0].Text = $"XP: {XP.ToString()}";
             StatsTreeView.Nodes[3].Nodes[1].Text = $"Username: {UserData_UserName}";
-
+            StatsTreeView.Nodes[0].Nodes[0].Text = $"Total Math done: {totalNumberOfMathDone}";
+            StatsTreeView.Nodes[0].Nodes[0].Text = $"Total Math done: {totalNumberOfMathDone}";
+            StatsTreeView.Nodes[0].Nodes[1].Text = $"Total Addtiton done: {totalNumberOfAdditionDone}";
         }
         void LoadUserData()
         {
@@ -42,7 +44,7 @@ namespace QuickMath
                 string jsonString = File.ReadAllText(fileName);
                 var doc = JsonDocument.Parse(jsonString);
                 XP = doc.RootElement.GetProperty("XP").GetInt32();
-                coins = doc.RootElement.GetProperty("coins").GetInt32();
+                coins = doc.RootElement.GetProperty("coins").GetSingle();
                 UserData_UserName = doc.RootElement.GetProperty("UserName").GetString();
                 Difficulty_Insane_addition_unlocked = doc.RootElement.GetProperty("Difficulty_Insane_addition_unlocked").GetBoolean();
                 Difficulty_Hard_addition_unlocked = doc.RootElement.GetProperty("Difficulty_Hard_addition_unlocked").GetBoolean();
@@ -51,6 +53,7 @@ namespace QuickMath
                 totalNumberOfMathDone = doc.RootElement.GetProperty("totalNumberOfMathDone").GetInt32();
                 totalNumberOfAdditionDone = doc.RootElement.GetProperty("totalNumberOfAdditionDone").GetInt32();
                 totalNumberOfSubtractionDone = doc.RootElement.GetProperty("totalNumberOfSubtractionDone").GetInt32();
+                
                 LoadStats();
             }
         }

@@ -49,14 +49,17 @@
             // 
             // Register
             // 
+            Register.BackColor = Color.White;
             resources.ApplyResources(Register, "Register");
+            Register.ForeColor = Color.BlueViolet;
             Register.Name = "Register";
-            Register.UseVisualStyleBackColor = true;
+            Register.UseVisualStyleBackColor = false;
             Register.Click += Register_Click;
             // 
             // SkipRegisterButton
             // 
             resources.ApplyResources(SkipRegisterButton, "SkipRegisterButton");
+            SkipRegisterButton.ForeColor = Color.Red;
             SkipRegisterButton.Name = "SkipRegisterButton";
             SkipRegisterButton.UseVisualStyleBackColor = true;
             SkipRegisterButton.Click += SkipRegisterButton_Click;
@@ -65,12 +68,14 @@
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Window;
             Controls.Add(SkipRegisterButton);
             Controls.Add(Register);
             Controls.Add(UsernameIntupt);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "RegisterForm";
+            Load += RegisterForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }

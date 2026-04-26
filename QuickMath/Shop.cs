@@ -13,6 +13,7 @@ namespace QuickMath
 
     public partial class Shop : Form
     {
+        
         public int total = 0;
         public string UserData_UserName;
         public int XP;
@@ -20,6 +21,7 @@ namespace QuickMath
         public bool DebugMode = false; // turn thath shi off before sending it to the prod!!
         public bool Difficulty_Insane_addition_unlocked = false;
         public bool Difficulty_Hard_addition_unlocked = false;
+        public int RedStarNumber;
         public Shop()
         {
             InitializeComponent(); // toujours EN PREMIER
@@ -55,9 +57,28 @@ namespace QuickMath
                 ShopItems_ShowList(2);
                 //shopItem1.ForeColor = Color.Blue;
                 //shopItem2.ForeColor = Color.Orange;
-                shopItem1.Text = "Hard Difficulty for addition";
-                shopItem2.Text = "Insane Difficulty for addition";
+                if (Difficulty_Hard_addition_unlocked == true)
+                {
+                    shopItem1.ForeColor = Color.Green;
+                    shopItem1.Text = "Hard Difficulty for addition (Owned)";
+                }
+                else
+
+                    shopItem1.Text = "Hard Difficulty for addition";
+                if (Difficulty_Insane_addition_unlocked == true)
+                {
+
+                    shopItem2.ForeColor = Color.Green;
+                    shopItem2.Text = "Insane Difficulty for addition (Owned)";
+                }
+                else
+                {
+
+                    shopItem2.Text = "Insane Difficulty for addition";
+                }
             }
+
+
             else if (Shop_Select_Category.SelectedItem.ToString() == "Stars")
                 if (XP <= 100)
                 {
@@ -241,6 +262,11 @@ namespace QuickMath
                 {
                     Difficulty_Insane_addition_unlocked = true;
                 }
+                if (shopItem1.Checked && shopItem1.Text == "Red Star")
+                {
+                    RedStarNumber++;
+
+                }
                 MessageBox.Show("You bought " + CartListBox.Items.Count + " items for a total of " + total + " ∑∑!");
                 saveUserData_Local();
                 CartListBox.Items.Clear();
@@ -257,11 +283,12 @@ namespace QuickMath
                 XP = XP,
                 coins = userCoins,
                 UserName = UserData_UserName,
-                 Difficulty_Insane_addition_unlocked = Difficulty_Insane_addition_unlocked,
-                Difficulty_Hard_addition_unlocked = Difficulty_Hard_addition_unlocked
+                Difficulty_Insane_addition_unlocked = Difficulty_Insane_addition_unlocked,
+                Difficulty_Hard_addition_unlocked = Difficulty_Hard_addition_unlocked,
+                RedStarNumber = RedStarNumber
             };
-
-            string jsonString = JsonSerializer.Serialize(SaveData);
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            string jsonString = JsonSerializer.Serialize(SaveData, options);
             string fileName = "QuickMath_UserData.json";
             File.WriteAllText(fileName, jsonString);
         }
