@@ -11,6 +11,8 @@ namespace QuickMath
 {
     public partial class RegisterForm : Form
     {
+
+        float Coins = 0; // Initialize coins to 0 for new users
         public RegisterForm()
         {
             InitializeComponent();
@@ -28,9 +30,11 @@ namespace QuickMath
             var SaveData = new
             {
                 XP = XP,
-                UserName = UsernameIntupt.Text
-
-            };
+                UserName = UsernameIntupt.Text,
+                coins = Coins,
+                Difficulty_Insane_addition_unlocked = false,
+            Difficulty_Hard_addition_unlocked = false
+        };
 
             string jsonString = JsonSerializer.Serialize(SaveData);
             string fileName = "QuickMath_UserData.json";

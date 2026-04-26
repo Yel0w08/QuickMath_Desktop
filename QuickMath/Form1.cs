@@ -293,6 +293,7 @@ namespace QuickMath
         {
             Statistics statistics = new Statistics();   
             statistics.ShowDialog();
+            AutoLoadUserData();
         }
     }
 }
