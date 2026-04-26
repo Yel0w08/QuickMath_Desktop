@@ -1,0 +1,30 @@
+name: .NET Core Desktop
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Install .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 10.0.x
+
+    - name: Restore
+      run: dotnet restore QuickMath/QuickMath.slnx
+
+    - name: Build
+      run: dotnet build QuickMath/QuickMath.slnx --configuration Release
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: QuickMath-Desktop
+        path: QuickMath/QuickMath/bin/Release/
