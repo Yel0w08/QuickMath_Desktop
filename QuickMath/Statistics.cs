@@ -28,7 +28,9 @@ namespace QuickMath
         void LoadStats()
         {
 
-            //i will put the code here tomorow 
+            StatsTreeView.Nodes.Text = $"XP: {XP.ToString()}";
+
+
         }
         void LoadUserData()
         {
