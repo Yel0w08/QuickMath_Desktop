@@ -206,15 +206,46 @@ namespace QuickMath
             {
                 string jsonString = File.ReadAllText(fileName);
                 var doc = JsonDocument.Parse(jsonString);
-                XP = doc.RootElement.GetProperty("XP").GetInt32();
-                userCoins = doc.RootElement.GetProperty("coins").GetSingle();
-                UserData_UserName = doc.RootElement.GetProperty("UserName").GetString();
-                Difficulty_Insane_addition_unlocked = doc.RootElement.GetProperty("Difficulty_Insane_addition_unlocked").GetBoolean();
-                Difficulty_Hard_addition_unlocked = doc.RootElement.GetProperty("Difficulty_Hard_addition_unlocked").GetBoolean();
+
+                if (doc.RootElement.TryGetProperty("XP", out var xpProp))
+                    XP = xpProp.GetInt32();
+
+                if (doc.RootElement.TryGetProperty("coins", out var coinsProp))
+                    userCoins = coinsProp.GetSingle();
+
+                if (doc.RootElement.TryGetProperty("UserName", out var userNameProp))
+                    UserData_UserName = userNameProp.GetString();
+
+                if (UserData_UserName == string.Empty || UserData_UserName == null)
+                {
+                    RegisterForm form2 = new RegisterForm();
+                    form2.ShowDialog();
+                    return;
+                }
+
+                if (doc.RootElement.TryGetProperty("Difficulty_Insane_addition_unlocked", out var insaneAdd))
+                    Difficulty_Insane_addition_unlocked = insaneAdd.GetBoolean();
+
+                if (doc.RootElement.TryGetProperty("Difficulty_Hard_addition_unlocked", out var hardAdd))
+                    Difficulty_Hard_addition_unlocked = hardAdd.GetBoolean();
+
+                if (doc.RootElement.TryGetProperty("Difficulty_Hard_subtraction_unlocked", out var hardSub))
+                    Difficulty_Hard_subtraction_unlocked = hardSub.GetBoolean();
+
+                if (doc.RootElement.TryGetProperty("Difficulty_Insane_subtraction_unlocked", out var insaneSub))
+                    Difficulty_Insane_subtraction_unlocked = insaneSub.GetBoolean();
+
+        
+
                 ReLoadGUI();
             }
-
+            else
+            {
+                RegisterForm form2 = new RegisterForm();
+                form2.ShowDialog();
+            }
         }
+
         void ReLoadGUI()
         {
             
