@@ -19,10 +19,10 @@ namespace QuickMath
         public int XP;
         public float userCoins;
         public bool DebugMode = false; // turn thath shi off before sending it to the prod!!
-        public bool Difficulty_Insane_addition_unlocked = false;
-        public bool Difficulty_Hard_addition_unlocked = false;
-        public bool Difficulty_Insane_subtraction_unlocked = false;
-        public bool Difficulty_Hard_subtraction_unlocked = false;
+        public bool Difficulty_Insane_addition_unlocked;
+        public bool Difficulty_Hard_addition_unlocked;
+        public bool Difficulty_Insane_subtraction_unlocked;
+        public bool Difficulty_Hard_subtraction_unlocked;
         public int RedStarNumber;
         public Shop()
         {
@@ -63,19 +63,23 @@ namespace QuickMath
                 {
                     shopItem1.ForeColor = Color.Green;
                     shopItem1.Text = "Hard Difficulty for addition (Owned)";
+                    shopItem1.Enabled = false;
                 }
                 else
+                    shopItem2.Enabled = true;
 
-                    shopItem1.Text = "Hard Difficulty for addition";
+
+                shopItem1.Text = "Hard Difficulty for addition";
                 if (Difficulty_Insane_addition_unlocked == true)
                 {
 
                     shopItem2.ForeColor = Color.Green;
                     shopItem2.Text = "Insane Difficulty for addition (Owned)";
+                    shopItem2.Enabled = false;
                 }
                 else
                 {
-
+                    shopItem2.Enabled = true;
                     shopItem2.Text = "Insane Difficulty for addition";
                 }
             }
