@@ -2,7 +2,7 @@
 
 ## Goal
 
-QuickMath is a **mono-user Windows Forms desktop app** that stores all business data in a **local SQL Server LocalDB** database.
+QuickMath is a **mono-user Windows Forms desktop app** that stores all data in a local SQL database.
 
 The project follows a simple layered architecture:
 
