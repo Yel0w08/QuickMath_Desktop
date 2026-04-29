@@ -1,4 +1,5 @@
 using QuickMath.Domain;
+using QuickMath.Presentation;
 using QuickMath.Services;
 
 namespace QuickMath;
@@ -24,16 +25,12 @@ public partial class Shop : Form
 
         _shopItemCheckboxes = [shopItem1, shopItem2, shopItem3, shopItem4, shopItem5];
         Shop_Select_Category.SelectedIndex = 0;
-        LoadCategory(ShopCategory.Difficulty);
+        LoadCategory(ShopUiMappings.ParseCategory(Shop_Select_Category.SelectedItem?.ToString()));
     }
 
     private void Shop_Select_Category_SelectedIndexChanged(object sender, EventArgs e)
     {
-        var category = Shop_Select_Category.SelectedItem?.ToString() == "Stars"
-            ? ShopCategory.Stars
-            : ShopCategory.Difficulty;
-
-        LoadCategory(category);
+        LoadCategory(ShopUiMappings.ParseCategory(Shop_Select_Category.SelectedItem?.ToString()));
     }
 
     private void LoadCategory(ShopCategory category)
@@ -42,10 +39,9 @@ public partial class Shop : Form
         // category load comes from SQL through the service layer.
         _currentItems = _shopService.GetCatalog(_userSession.CurrentUserId, category);
 
-        for (var index = 0; index < _shopItemCheckboxes.Length; index++)
+        foreach (var (checkBox, item) in GetItemSlots())
         {
-            var checkBox = _shopItemCheckboxes[index];
-            if (index >= _currentItems.Count)
+            if (item is null)
             {
                 checkBox.Visible = false;
                 checkBox.Checked = false;
@@ -53,7 +49,6 @@ public partial class Shop : Form
                 continue;
             }
 
-            var item = _currentItems[index];
             checkBox.Visible = true;
             checkBox.Checked = false;
             checkBox.Enabled = item.IsRepeatable || !item.IsOwned;
@@ -79,14 +74,13 @@ public partial class Shop : Form
 
         // The UI cart is only a transient projection; prices are always revalidated
         // in the repository before a purchase is committed.
-        for (var index = 0; index < _currentItems.Count && index < _shopItemCheckboxes.Length; index++)
+        foreach (var (checkBox, item) in GetItemSlots())
         {
-            if (!_shopItemCheckboxes[index].Checked)
+            if (item is null || !checkBox.Checked)
             {
                 continue;
             }
 
-            var item = _currentItems[index];
             CartListBox.Items.Add($"{item.DisplayName} [{item.PriceCoins:0.##}]");
             total += item.PriceCoins;
         }
@@ -106,19 +100,30 @@ public partial class Shop : Form
     {
         try
         {
-            var selectedIds = _currentItems
-                .Select((item, index) => new { item.ShopItemId, Selected = _shopItemCheckboxes[index].Checked })
-                .Where(static selection => selection.Selected)
-                .Select(static selection => selection.ShopItemId)
-                .ToArray();
+            var selectedIds = GetSelectedShopItemIds();
 
             var result = _shopService.Purchase(_userSession.CurrentUserId, selectedIds);
             MessageBox.Show(result.Message, "Shop", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            LoadCategory(Shop_Select_Category.SelectedItem?.ToString() == "Stars" ? ShopCategory.Stars : ShopCategory.Difficulty);
+            LoadCategory(ShopUiMappings.ParseCategory(Shop_Select_Category.SelectedItem?.ToString()));
         }
         catch (Exception exception)
         {
             MessageBox.Show(exception.Message, "Purchase error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+    }
+
+    private IReadOnlyList<int> GetSelectedShopItemIds() =>
+        GetItemSlots()
+            .Where(static slot => slot.Item is not null && slot.CheckBox.Checked)
+            .Select(static slot => slot.Item!.ShopItemId)
+            .ToArray();
+
+    private IEnumerable<(CheckBox CheckBox, ShopCatalogItem? Item)> GetItemSlots()
+    {
+        for (var index = 0; index < _shopItemCheckboxes.Length; index++)
+        {
+            var item = index < _currentItems.Count ? _currentItems[index] : null;
+            yield return (_shopItemCheckboxes[index], item);
         }
     }
 

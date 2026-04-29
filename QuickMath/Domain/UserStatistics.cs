@@ -8,11 +8,17 @@ public sealed class UserStatistics
     public string UserName { get; init; } = string.Empty;
     public int XP { get; init; }
     public decimal Coins { get; init; }
+    public int TotalAttempts { get; init; }
     public int TotalMathDone { get; init; }
     public int TotalAdditionDone { get; init; }
     public int TotalSubtractionDone { get; init; }
     public decimal TotalCoinsSpent { get; init; }
     public decimal TotalCoinsEarned { get; init; }
+    public decimal NetCoins { get; init; }
+    public decimal AverageXpPerCorrectAnswer { get; init; }
+    public decimal AverageCoinsPerCorrectAnswer { get; init; }
+    public int DifficultyUnlocksOwned { get; init; }
+    public int TotalCollectibles { get; init; }
     public int RedStars { get; init; }
     public int BlueStars { get; init; }
     public int YellowStars { get; init; }

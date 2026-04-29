@@ -1,4 +1,5 @@
 using QuickMath.Domain;
+using QuickMath.Presentation;
 using QuickMath.Services;
 
 namespace QuickMath;
@@ -23,8 +24,8 @@ public partial class QuickMath : Form
         try
         {
             RefreshUserSummary();
-            DifficultySelect.SelectedItem = "medium";
-            TypeOfMath.SelectedItem = "addition";
+            DifficultySelect.SelectedItem = MathUiMappings.MediumDifficultyLabel;
+            TypeOfMath.SelectedItem = MathUiMappings.AdditionLabel;
             GenerateExercise();
         }
         finally
@@ -58,43 +59,32 @@ public partial class QuickMath : Form
                 operation,
                 difficulty);
 
-            MathToResolveText.Text = operation == MathOperation.Addition
-                ? $"{_currentProblem.LeftOperand} + {_currentProblem.RightOperand}"
-                : $"{_currentProblem.LeftOperand} - {_currentProblem.RightOperand}";
+            MathToResolveText.Text = MathUiMappings.FormatProblem(_currentProblem);
         }
         catch (Exception exception)
         {
             MessageBox.Show(exception.Message, "Exercise error", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            DifficultySelect.SelectedItem = "medium";
+            DifficultySelect.SelectedItem = MathUiMappings.MediumDifficultyLabel;
         }
     }
 
-    private MathOperation GetSelectedOperation()
-    {
-        return TypeOfMath.SelectedItem?.ToString() switch
-        {
-            "addition" => MathOperation.Addition,
-            "subtraction" => MathOperation.Subtraction,
-            _ => throw new InvalidOperationException("Please select a supported math operation."),
-        };
-    }
+    private MathOperation GetSelectedOperation() =>
+        MathUiMappings.ParseOperation(TypeOfMath.SelectedItem?.ToString());
 
-    private DifficultyLevel GetSelectedDifficulty()
-    {
-        return DifficultySelect.SelectedItem?.ToString() switch
-        {
-            "easy++" => DifficultyLevel.EasyPlusPlus,
-            "easy" => DifficultyLevel.Easy,
-            "medium" => DifficultyLevel.Medium,
-            "hard" => DifficultyLevel.Hard,
-            "insane" => DifficultyLevel.Insane,
-            _ => throw new InvalidOperationException("Please select a difficulty."),
-        };
-    }
+    private DifficultyLevel GetSelectedDifficulty() =>
+        MathUiMappings.ParseDifficulty(DifficultySelect.SelectedItem?.ToString());
 
     private void TrySubmitAnswer()
     {
         if (_currentProblem is null || !int.TryParse(MathUserIntupt.Text, out var submittedAnswer))
+        {
+            return;
+        }
+
+        // While the user is typing, intermediate numeric values must not be stored
+        // as failed attempts. We only persist the attempt once the full expected
+        // answer has been entered.
+        if (submittedAnswer != _currentProblem.ExpectedAnswer)
         {
             return;
         }
@@ -123,10 +113,10 @@ public partial class QuickMath : Form
             return;
         }
 
-        if (TypeOfMath.SelectedItem?.ToString() == "more coming !")
+        if (TypeOfMath.SelectedItem?.ToString() == MathUiMappings.ComingSoonLabel)
         {
             MessageBox.Show("More math operations will be added in the future!");
-            TypeOfMath.SelectedItem = "addition";
+            TypeOfMath.SelectedItem = MathUiMappings.AdditionLabel;
             return;
         }
 
