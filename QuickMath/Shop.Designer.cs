@@ -113,6 +113,7 @@
             shopItem3.TabIndex = 7;
             shopItem3.Text = "shopItem3";
             shopItem3.UseVisualStyleBackColor = true;
+            shopItem3.CheckedChanged += shopItem3_CheckedChanged;
             // 
             // shopItem4
             // 
@@ -123,6 +124,7 @@
             shopItem4.TabIndex = 8;
             shopItem4.Text = "shopItem4";
             shopItem4.UseVisualStyleBackColor = true;
+            shopItem4.CheckedChanged += shopItem4_CheckedChanged;
             // 
             // shopItem5
             // 
@@ -133,6 +135,7 @@
             shopItem5.TabIndex = 9;
             shopItem5.Text = "shopItem5";
             shopItem5.UseVisualStyleBackColor = true;
+            shopItem5.CheckedChanged += shopItem5_CheckedChanged;
             // 
             // CartListBox
             // 

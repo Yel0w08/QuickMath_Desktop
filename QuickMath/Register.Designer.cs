@@ -83,7 +83,6 @@
 
         #endregion
 
-        private Label label1;
         private TextBox UsernameIntupt;
         private Button Register;
         private Button SkipRegisterButton;

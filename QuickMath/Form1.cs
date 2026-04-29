@@ -1,338 +1,186 @@
-using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
+using QuickMath.Domain;
+using QuickMath.Services;
 
-namespace QuickMath
+namespace QuickMath;
+
+public partial class QuickMath : Form
 {
-    public partial class QuickMath : Form
+    private readonly ApplicationServices _services;
+    private ExerciseProblem? _currentProblem;
+
+    public QuickMath(ApplicationServices services)
     {
-        private int result;
-        public bool DebugMode = false; // turn thath shi off before sending it to the prod!!
-        public int NumberOfXpGivenForAddition = 10;
-        public int NumberOfXpGivenForSubtraction = 10;//XP given for each correct answer for subtraction.
-        public QuickMath()
+        _services = services;
+        InitializeComponent();
+        InitializeGui();
+        _ = CheckForUpdates();
+    }
+
+    private async Task CheckForUpdates()
+    {
+        try
         {
-            InitializeComponent();
-            if (DebugMode == true)
+            using HttpClient client = new();
+            client.DefaultRequestHeaders.Add("User-Agent", "QuickMath-Desktop");
+
+            const string url = "https://api.github.com/repos/Yel0w08/QuickMath_Desktop/releases/latest";
+            var json = await client.GetStringAsync(url);
+            var doc = JsonDocument.Parse(json);
+            var latestVersion = doc.RootElement.GetProperty("tag_name").GetString();
+
+            if (!string.IsNullOrWhiteSpace(latestVersion) && latestVersion != AppInfo.Version)
             {
-                GrettingLabel.Text = $"DEBUG MODE ON | Saves are diabled";
-                GrettingLabel.ForeColor = Color.Red;
-            }
-            else
-            {
-                LiveAppData.Load();
-                InitializeGUI();
-            }
-            CheckForUpdates();
-        }
-
-        private async Task CheckForUpdates()
-        {
-            try
-            {
-                using HttpClient client = new HttpClient();
-                client.DefaultRequestHeaders.Add("User-Agent", "QuickMath-Desktop");
-
-                string url = "https://api.github.com/repos/Yel0w08/QuickMath_Desktop/releases/latest";
-                string json = await client.GetStringAsync(url);
-                var doc = JsonDocument.Parse(json);
-                string latestVersion = doc.RootElement.GetProperty("tag_name").GetString();
-
-                if (latestVersion != AppInfo.Version)
-                {
-                    MessageBox.Show($"New version available : {latestVersion} !\nCurrent version : {AppInfo.Version}");
-                }
-            }
-            catch { } // No Wifi ? allright then..
-        }
-        private void InitializeGUI()
-        {
-            GrettingLabel.Text = $"Welcome back {LiveAppData.Current.UserName} !"; GrettingLabel.ForeColor = Color.Black;
-
-
-        }
-
-        bool DoAwserIsCorect;
-
-        private void MathToResolveText_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TypeOfMath_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (TypeOfMath.SelectedItem == string.Empty) { }//why dont it work
-            else if (TypeOfMath.SelectedItem == "more coming !") { MessageBox.Show("More math operations will be added in the future !"); TypeOfMath.Text = ""; } //tell the user more is coming if selecter more is coming....
-            else if (TypeOfMath.SelectedItem.ToString() == "addition") { DifficultySelect.Show(); StartMath_addition(); }
-            else if (TypeOfMath.SelectedItem.ToString() == "subtraction") { DifficultySelect.Show(); StartMath_subtraction(); }
-        }
-
-        private void label1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e) //start_button
-        {
-            StartMath();
-        }
-
-        private void StartMath()
-        {
-            if (TypeOfMath.SelectedItem == string.Empty) { }//why dont it work
-            else if (TypeOfMath.SelectedItem == "addition")
-            {
-
-                StartMath_addition();
-                DifficultySelect.Enabled = true;
-
-            }
-            else if (TypeOfMath.SelectedItem == "subtraction")
-            {
-
-                StartMath_subtraction();
-            }
-            else if (TypeOfMath.SelectedItem == "multiplication")
-            {
-                LockGUI();
-
-            }
-            else if (TypeOfMath.SelectedItem == "division")
-            {
-
-                LockGUI();
-
-            }
-            else if (TypeOfMath.SelectedItem == null) { MessageBox.Show("Please select a math operation before starting !"); }
-            else { MessageBox.Show("Please select a math operation before starting !"); }//to chekc if thez intput isint null 
-        }
-
-        public async Task StartMath_addition()
-        {
-
-            DifficultySelect.Enabled = true;
-            int min_number_addition = 1;
-            int max_number_addition = 100;
-
-
-
-            if (DifficultySelect.SelectedItem == "medium")
-            {
-                min_number_addition = 1; max_number_addition = 100; NumberOfXpGivenForAddition = 10; LiveAppData.Current.Coins += 1;
-            }
-
-            else if (DifficultySelect.SelectedItem == "easy")
-            {
-                min_number_addition = 1; max_number_addition = 50; NumberOfXpGivenForAddition = 5; LiveAppData.Current.Coins += 0.5f;
-            }
-
-            else if (DifficultySelect.SelectedItem == "easy++")
-            {
-                min_number_addition = 1; max_number_addition = 10; NumberOfXpGivenForAddition = 1; LiveAppData.Current.Coins += 0.25f;
-            }
-
-            else if (DifficultySelect.SelectedItem == "hard")
-            {
-                if (!LiveAppData.Current.Difficulty_Hard_addition_unlocked)
-                {
-                    MessageBox.Show("You need to unlock this difficulty in the shop first !");
-                    DifficultySelect.SelectedItem = "medium";
-                    return;
-                }
-                min_number_addition = 50; max_number_addition = 500; NumberOfXpGivenForAddition = 20; LiveAppData.Current.Coins += 2;
-            }
-
-            else if (DifficultySelect.SelectedItem == "insane")
-            {
-                if (!LiveAppData.Current.Difficulty_Insane_addition_unlocked)
-                {
-                    MessageBox.Show("You need to unlock this difficulty in the shop first !");
-                    DifficultySelect.SelectedItem = "medium";
-                    return;
-                }
-                min_number_addition = 100; max_number_addition = 1000; NumberOfXpGivenForAddition = 40; LiveAppData.Current.Coins += 4;
-            }
-
-            Random random = new Random();
-            int random_1 = random.Next(min_number_addition, max_number_addition);
-            int random_2 = random.Next(min_number_addition, max_number_addition);
-            result = random_1 + random_2;
-            MathToResolveText.Text = $"{random_1} + {random_2}";
-
-            CheckAwser(result);
-
-
-
-
-
-
-
-
-
-
-
-        }
-        public async Task StartMath_subtraction()
-        {
-
-            DifficultySelect.Enabled = true;
-            int min_number_addition = 1;
-            int max_number_addition = 100;
-
-
-
-            if (DifficultySelect.SelectedItem == "medium")
-            {
-                min_number_addition = 1; max_number_addition = 100; NumberOfXpGivenForSubtraction = 15; LiveAppData.Current.Coins += 1.5f;
-            }
-
-            else if (DifficultySelect.SelectedItem == "easy")
-            {
-                min_number_addition = 1; max_number_addition = 50; NumberOfXpGivenForSubtraction = 10; LiveAppData.Current.Coins += 1f;
-            }
-
-            else if (DifficultySelect.SelectedItem == "easy++")
-            {
-                min_number_addition = 1; max_number_addition = 10; NumberOfXpGivenForSubtraction = 2; LiveAppData.Current.Coins += 0.5f;
-            }
-
-            else if (DifficultySelect.SelectedItem == "hard")
-            {
-
-                if (!LiveAppData.Current.Difficulty_Hard_subtraction_unlocked)
-                {
-                    MessageBox.Show("You need to unlock this difficulty in the shop first !");
-                    DifficultySelect.SelectedItem = "medium (1 - 100)";
-                    return;
-                }
-                min_number_addition = 50; max_number_addition = 500; NumberOfXpGivenForSubtraction = 20; LiveAppData.Current.Coins += 2;
-            }
-
-            else if (DifficultySelect.SelectedItem == "insane")
-            {
-                if (!LiveAppData.Current.Difficulty_Insane_subtraction_unlocked)
-                {
-                    MessageBox.Show("You need to unlock this difficulty in the shop first !");
-                    DifficultySelect.SelectedItem = "medium (1 - 100)";
-                    return;
-                }
-                min_number_addition = 100; max_number_addition = 1000; NumberOfXpGivenForSubtraction = 40; LiveAppData.Current.Coins += 4;
-            }
-
-            Random random = new Random();
-            int random_1 = random.Next(min_number_addition, max_number_addition);
-            int random_2 = random.Next(min_number_addition, max_number_addition);
-            result = random_1 - random_2;
-            MathToResolveText.Text = $"{random_1} - {random_2}";
-
-            CheckAwser(result);
-        }
-
-
-        private void CheckAwser(int result)
-        {
-            if (MathUserIntupt.Text == result.ToString())
-            {
-                DoAwserIsCorect = true;
-                LiveAppData.Current.TotalMathDone++;
-                if (TypeOfMath.SelectedItem.ToString() == "addition") { LiveAppData.Current.TotalAdditionDone++; }
-                else if (TypeOfMath.SelectedItem.ToString() == "subtraction") { LiveAppData.Current.TotalSubtractionDone++; }
+                MessageBox.Show($"New version available: {latestVersion}\nCurrent version: {AppInfo.Version}");
             }
         }
-
-
-
-        void ResetGUI()
+        catch
         {
-            DifficultySelect.Enabled = false;
+        }
+    }
 
+    private void InitializeGui()
+    {
+        RefreshUserSummary();
+        TypeOfMath.SelectedItem = "addition";
+        DifficultySelect.SelectedItem = "medium";
+        GenerateExercise();
+    }
 
+    private void RefreshUserSummary()
+    {
+        var user = _services.UserService.RefreshCurrentUser();
+        GrettingLabel.Text = $"Welcome back {user.UserName}!";
+        GrettingLabel.ForeColor = Color.Black;
+        XPpointLabel.Text = user.XP.ToString();
+        CoinsLabel.Text = user.Coins.ToString("0.##");
+    }
+
+    private void GenerateExercise()
+    {
+        try
+        {
+            var operation = GetSelectedOperation();
+            var difficulty = GetSelectedDifficulty();
+
+            _currentProblem = _services.MathEngineService.CreateExercise(
+                _services.UserSession.CurrentUserId,
+                operation,
+                difficulty);
+
+            MathToResolveText.Text = operation == MathOperation.Addition
+                ? $"{_currentProblem.LeftOperand} + {_currentProblem.RightOperand}"
+                : $"{_currentProblem.LeftOperand} - {_currentProblem.RightOperand}";
+        }
+        catch (Exception exception)
+        {
+            MessageBox.Show(exception.Message, "Exercise error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            DifficultySelect.SelectedItem = "medium";
+        }
+    }
+
+    private MathOperation GetSelectedOperation()
+    {
+        return TypeOfMath.SelectedItem?.ToString() switch
+        {
+            "addition" => MathOperation.Addition,
+            "subtraction" => MathOperation.Subtraction,
+            _ => throw new InvalidOperationException("Please select a supported math operation."),
+        };
+    }
+
+    private DifficultyLevel GetSelectedDifficulty()
+    {
+        return DifficultySelect.SelectedItem?.ToString() switch
+        {
+            "easy++" => DifficultyLevel.EasyPlusPlus,
+            "easy" => DifficultyLevel.Easy,
+            "medium" => DifficultyLevel.Medium,
+            "hard" => DifficultyLevel.Hard,
+            "insane" => DifficultyLevel.Insane,
+            _ => throw new InvalidOperationException("Please select a difficulty."),
+        };
+    }
+
+    private void TrySubmitAnswer()
+    {
+        if (_currentProblem is null || !int.TryParse(MathUserIntupt.Text, out var submittedAnswer))
+        {
+            return;
         }
 
+        var result = _services.MathEngineService.SubmitAnswer(
+            _services.UserSession.CurrentUserId,
+            _currentProblem,
+            submittedAnswer);
 
-        void ReLoadGUI()
+        if (!result.IsCorrect)
         {
-
-            XPpointLabel.Text = LiveAppData.Current.XP.ToString();
-
-            CoinsLabel.Text = LiveAppData.Current.Coins.ToString();
-            LiveAppData.Save();
-        }
-        private void UnlockGUI()
-        {
-            TypeOfMath.Enabled = true;
-            DifficultySelect.Enabled = true;
+            return;
         }
 
-        private void LockGUI()
-        {
-            TypeOfMath.Enabled = false;
-            DifficultySelect.Enabled = false;
+        _services.UserSession.SetCurrentUser(result.UpdatedUser);
+        RefreshUserSummary();
+        MathUserIntupt.Text = string.Empty;
+        GenerateExercise();
+    }
 
+    private void TypeOfMath_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (TypeOfMath.SelectedItem?.ToString() == "more coming !")
+        {
+            MessageBox.Show("More math operations will be added in the future!");
+            TypeOfMath.SelectedItem = "addition";
+            return;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
+        GenerateExercise();
+    }
 
-        }
+    private void Difficulty_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        GenerateExercise();
+    }
 
-        private void stopbutton_Click(object sender, EventArgs e)
-        {
-            UnlockGUI();
+    private void MathUserIntupt_TextChanged(object sender, EventArgs e)
+    {
+        TrySubmitAnswer();
+    }
 
-        }
+    private void OpenShopButton_Click(object sender, EventArgs e)
+    {
+        using var shop = new Shop(_services.ShopService, _services.UserService, _services.UserSession);
+        shop.ShowDialog();
+        RefreshUserSummary();
+        GenerateExercise();
+    }
 
-        private void MathUserIntupt_TextChanged(object sender, EventArgs e)
-        {
-            if (MathUserIntupt.Text == result.ToString())
-            {
-                DoAwserIsCorect = true;
-                LiveAppData.Current.XP += NumberOfXpGivenForAddition;
-                ReLoadGUI();
-                MathUserIntupt.Text = string.Empty;
+    private void statistic_button_Click(object sender, EventArgs e)
+    {
+        using var statistics = new Statistics(_services.ScoreService, _services.UserSession);
+        statistics.ShowDialog();
+        RefreshUserSummary();
+    }
 
+    private void ReSetButton_Click(object sender, EventArgs e)
+    {
+        MathUserIntupt.Text = string.Empty;
+        GenerateExercise();
+    }
 
-                if (TypeOfMath.SelectedItem.ToString() == "addition") StartMath_addition();
-                else if (TypeOfMath.SelectedItem.ToString() == "subtraction") StartMath_subtraction();
-            }
-        }
+    private void MathToResolveText_Click(object sender, EventArgs e)
+    {
+    }
 
-        private void Verify_button_Click(object sender, EventArgs e)
-        {
-            CheckAwser(result);
-        }
+    private void label1_Click(object sender, EventArgs e)
+    {
+    }
 
-        private void MinimumRandomNumber_intupt_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
-        {
+    private void label1_Click_1(object sender, EventArgs e)
+    {
+    }
 
-        }
-
-        private void Difficulty_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (TypeOfMath.SelectedItem?.ToString() == "addition") StartMath_addition();
-            else if (TypeOfMath.SelectedItem?.ToString() == "subtraction") StartMath_subtraction();
-        }
-        private void OpenShopButton_Click(object sender, EventArgs e)
-        {
-            Shop shop = new Shop();
-            shop.ShowDialog();
-            LiveAppData.Load();
-        }
-
-        private void statistic_button_Click(object sender, EventArgs e)
-        {
-            Statistics statistics = new Statistics();
-            statistics.ShowDialog();
-            LiveAppData.Load();
-        }
-
-        private void ReSetButton_Click(object sender, EventArgs e)
-        {
-            StartMath();
-        }
+    private void Form1_Load(object sender, EventArgs e)
+    {
     }
 }

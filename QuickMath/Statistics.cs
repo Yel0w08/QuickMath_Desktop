@@ -1,127 +1,44 @@
-﻿using static QuickMath.AppInfo;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Text.Json;
-using System.Windows.Forms;
+using QuickMath.Services;
 
-namespace QuickMath
+namespace QuickMath;
+
+public partial class Statistics : Form
 {
+    private readonly ScoreService _scoreService;
+    private readonly UserSession _userSession;
 
-    public partial class Statistics : Form
+    public Statistics(ScoreService scoreService, UserSession userSession)
     {
+        _scoreService = scoreService;
+        _userSession = userSession;
+        InitializeComponent();
+        LoadStats();
+        VersionLabel.Text = $"v{AppInfo.Version} | By {AppInfo.Author} | {AppInfo.Name}";
+    }
 
-        int XP;
-        float coins;
-        string UserData_UserName;
-        bool Difficulty_Insane_addition_unlocked;
-        bool Difficulty_Hard_addition_unlocked;
-        public int totalNumberOfMathDone ;
-        public int totalNumberOfAdditionDone ;
-        public int totalNumberOfSubtractionDone ;
-        public bool Difficulty_Insane_subtraction_unlocked;
-        public bool Difficulty_Hard_subtraction_unlocked;
-        public Statistics()
-        {
-            InitializeComponent();
-            LoadUserData();
-            VersionLabel.Text = $"v{AppInfo.Version} | By {AppInfo.Author} | {AppInfo.Name}";
-        }
+    private void LoadStats()
+    {
+        var stats = _scoreService.GetStatistics(_userSession.CurrentUserId);
 
-        void LoadStats()
-        {
+        StatsTreeView.Nodes[3].Nodes[0].Text = $"XP: {stats.XP}";
+        StatsTreeView.Nodes[3].Nodes[1].Text = $"Username: {stats.UserName}";
+        StatsTreeView.Nodes[0].Nodes[0].Text = $"Total Math done: {stats.TotalMathDone}";
+        StatsTreeView.Nodes[0].Nodes[1].Text = $"Total Addition done: {stats.TotalAdditionDone}";
+        StatsTreeView.Nodes[0].Nodes[2].Text = $"Total Subtraction done: {stats.TotalSubtractionDone}";
+        StatsTreeView.Nodes[1].Nodes[0].Text = $"Total coins spent: {stats.TotalCoinsSpent:0.##}";
+        StatsTreeView.Nodes[1].Nodes[1].Text = $"Total coins earned: {stats.TotalCoinsEarned:0.##}";
+        StatsTreeView.Nodes[2].Nodes[0].Nodes[0].Text = $"Red Star: {stats.RedStars}";
+        StatsTreeView.Nodes[2].Nodes[0].Nodes[1].Text = $"Blue Star: {stats.BlueStars}";
+        StatsTreeView.Nodes[2].Nodes[0].Nodes[2].Text = $"Yellow Star: {stats.YellowStars}";
+        StatsTreeView.Nodes[2].Nodes[0].Nodes[3].Text = $"Purple Star: {stats.PurpleStars}";
+        StatsTreeView.Nodes[2].Nodes[1].Text = $"Dark Matter: {stats.DarkMatter}";
+    }
 
-            StatsTreeView.Nodes[3].Nodes[0].Text = $"XP: {XP.ToString()}";
-            StatsTreeView.Nodes[3].Nodes[1].Text = $"Username: {UserData_UserName}";
-            StatsTreeView.Nodes[0].Nodes[0].Text = $"Total Math done: {totalNumberOfMathDone}";
-            StatsTreeView.Nodes[0].Nodes[0].Text = $"Total Math done: {totalNumberOfMathDone}";
-            StatsTreeView.Nodes[0].Nodes[1].Text = $"Total Addtiton done: {totalNumberOfAdditionDone}";
-        }
-        void LoadUserData()
-        {
-           
-                string fileName = "QuickMath_UserData.json";
-                if (File.Exists(fileName))
-                {
-                    string jsonString = File.ReadAllText(fileName);
-                    var doc = JsonDocument.Parse(jsonString);
+    private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+    {
+    }
 
-                    if (doc.RootElement.TryGetProperty("XP", out var xpProp))
-                        XP = xpProp.GetInt32();
-
-                    if (doc.RootElement.TryGetProperty("coins", out var coinsProp))
-                        coins = coinsProp.GetSingle();
-
-                    if (doc.RootElement.TryGetProperty("UserName", out var userNameProp))
-                        UserData_UserName = userNameProp.GetString();
-
-                    if (UserData_UserName == string.Empty || UserData_UserName == null)
-                    {
-                        RegisterForm form2 = new RegisterForm();
-                        form2.ShowDialog();
-                        return;
-                    }
-
-                    if (doc.RootElement.TryGetProperty("Difficulty_Insane_addition_unlocked", out var insaneAdd))
-                        Difficulty_Insane_addition_unlocked = insaneAdd.GetBoolean();
-
-                    if (doc.RootElement.TryGetProperty("Difficulty_Hard_addition_unlocked", out var hardAdd))
-                        Difficulty_Hard_addition_unlocked = hardAdd.GetBoolean();
-
-                    if (doc.RootElement.TryGetProperty("Difficulty_Hard_subtraction_unlocked", out var hardSub))
-                        Difficulty_Hard_subtraction_unlocked = hardSub.GetBoolean();
-
-                    if (doc.RootElement.TryGetProperty("Difficulty_Insane_subtraction_unlocked", out var insaneSub))
-                        Difficulty_Insane_subtraction_unlocked = insaneSub.GetBoolean();
-
-                    if (doc.RootElement.TryGetProperty("totalNumberOfMathDone", out var totalMath))
-                        totalNumberOfMathDone = totalMath.GetInt32();
-
-                    if (doc.RootElement.TryGetProperty("totalNumberOfAdditionDone", out var totalAdd))
-                        totalNumberOfAdditionDone = totalAdd.GetInt32();
-
-                    if (doc.RootElement.TryGetProperty("totalNumberOfSubtractionDone", out var totalSub))
-                        totalNumberOfSubtractionDone = totalSub.GetInt32();
-
-                }
-            string fileName_Stats = "QuickMath_UserStats.json";
-            if (File.Exists(fileName))
-            {
-
-                if (UserData_UserName == string.Empty || UserData_UserName == null)
-                {
-                    File.Create(fileName_Stats).Close();
-                    return;
-                }
-
-      
-
-                //if (doc.RootElement.TryGetProperty("totalNumberOfMathDone", out var totalMath))
-                //    totalNumberOfMathDone = totalMath.GetInt32();
-
-                //if (doc.RootElement.TryGetProperty("totalNumberOfAdditionDone", out var totalAdd))
-                //    totalNumberOfAdditionDone = totalAdd.GetInt32();
-
-                //if (doc.RootElement.TryGetProperty("totalNumberOfSubtractionDone", out var totalSub))
-                //    totalNumberOfSubtractionDone = totalSub.GetInt32();
-
-            }
-
-            LoadStats();
-            
-        }
-
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-
-        }
-
-        private void Statistics_Load(object sender, EventArgs e)
-        {
-
-        }
+    private void Statistics_Load(object sender, EventArgs e)
+    {
     }
 }

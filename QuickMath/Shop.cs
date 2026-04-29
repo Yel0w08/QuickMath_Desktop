@@ -1,336 +1,130 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Text.Json;
-using System.Windows.Forms;
+using QuickMath.Domain;
+using QuickMath.Services;
 
-namespace QuickMath
+namespace QuickMath;
+
+public partial class Shop : Form
 {
+    private readonly ShopService _shopService;
+    private readonly UserService _userService;
+    private readonly UserSession _userSession;
+    private readonly CheckBox[] _shopItemCheckboxes;
+    private IReadOnlyList<ShopCatalogItem> _currentItems = Array.Empty<ShopCatalogItem>();
 
-
-    public partial class Shop : Form
+    public Shop(ShopService shopService, UserService userService, UserSession userSession)
     {
-        
-        public int total = 0;
-        public string UserData_UserName;
-        public int XP;
-        public float userCoins;
-        public bool DebugMode = false; // turn thath shi off before sending it to the prod!!
-        public bool Difficulty_Insane_addition_unlocked;
-        public bool Difficulty_Hard_addition_unlocked;
-        public bool Difficulty_Insane_subtraction_unlocked;
-        public bool Difficulty_Hard_subtraction_unlocked;
-        public int RedStarNumber;
-        public Shop()
+        _shopService = shopService;
+        _userService = userService;
+        _userSession = userSession;
+
+        InitializeComponent();
+
+        _shopItemCheckboxes = [shopItem1, shopItem2, shopItem3, shopItem4, shopItem5];
+        Shop_Select_Category.SelectedIndex = 0;
+        LoadCategory(ShopCategory.Difficulty);
+    }
+
+    private void Shop_Select_Category_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        var category = Shop_Select_Category.SelectedItem?.ToString() == "Stars"
+            ? ShopCategory.Stars
+            : ShopCategory.Difficulty;
+
+        LoadCategory(category);
+    }
+
+    private void LoadCategory(ShopCategory category)
+    {
+        _currentItems = _shopService.GetCatalog(_userSession.CurrentUserId, category);
+
+        for (var index = 0; index < _shopItemCheckboxes.Length; index++)
         {
-            InitializeComponent(); // toujours EN PREMIER
-            ShopItems_HideList();
-            ShopItems_ClearList();
-
-            if (DebugMode == true)
+            var checkBox = _shopItemCheckboxes[index];
+            if (index >= _currentItems.Count)
             {
-                XP = 99999999;
-                userCoins = 99999999;
-            }
-            else
-            {
-                AutoLoadUserData();
-            }
-
-            ReLoadGUI();
-        }
-
-        public class ShopItem
-        {
-            public string Name { get; set; }
-            public int Price { get; set; }
-            public string Description { get; set; }
-        }
-
-        private void Shop_Select_Category_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (Shop_Select_Category.SelectedItem.ToString() == "Difficulty")
-            {
-
-                ShopItems_ClearList();
-                ShopItems_ShowList(2);
-                //shopItem1.ForeColor = Color.Blue;
-                //shopItem2.ForeColor = Color.Orange;
-                if (Difficulty_Hard_addition_unlocked == true)
-                {
-                    shopItem1.ForeColor = Color.Green;
-                    shopItem1.Text = "Hard Difficulty for addition (Owned)";
-                    shopItem1.Enabled = false;
-                }
-                else
-                    shopItem2.Enabled = true;
-
-
-                shopItem1.Text = "Hard Difficulty for addition";
-                if (Difficulty_Insane_addition_unlocked == true)
-                {
-
-                    shopItem2.ForeColor = Color.Green;
-                    shopItem2.Text = "Insane Difficulty for addition (Owned)";
-                    shopItem2.Enabled = false;
-                }
-                else
-                {
-                    shopItem2.Enabled = true;
-                    shopItem2.Text = "Insane Difficulty for addition";
-                }
+                checkBox.Visible = false;
+                checkBox.Checked = false;
+                checkBox.Text = string.Empty;
+                continue;
             }
 
-
-            else if (Shop_Select_Category.SelectedItem.ToString() == "Stars")
-                if (XP <= 100)
-                {
-                    MessageBox.Show("You need at least 100 XP to unlock Stars, you need at least " + (100 - XP) + " more XP.");
-                    Shop_Select_Category.Items.Remove("Stars");
-                    Shop_Select_Category.Items.Add("Stars");
-                }
-                else if (XP >= 100)
-                {
-
-                    {
-
-                        ShopItems_ShowList(2);
-                        ShopItems_ClearList();
-                        shopItem1.Text = "Red Star";
-                        shopItem2.Text = "Blu Star";
-                        shopItem3.Text = "Yellow Star";
-                        shopItem4.Text = "Purpule Star";
-                        shopItem5.Text = "Dark Matter";
-
-
-                    }
-                }
-
-                else
-                {
-                    ShopItems_ClearList();
-                }
-
-            UpdateCart();
-        }
-        void ShopItems_ClearList()
-        {
-            shopItem1.Text = "";
-            shopItem2.Text = "";
-            shopItem3.Text = "";
-            shopItem4.Text = "";
-            shopItem5.Text = "";
-            shopItem1.ForeColor = Color.Black;
-            shopItem2.ForeColor = Color.Black;
-            shopItem3.ForeColor = Color.Black;
-            shopItem4.ForeColor = Color.Black;
-            shopItem5.ForeColor = Color.Black;
-
-        }
-        void ShopItems_ResetChecked()
-        {
-            shopItem1.Checked = false;
-            shopItem2.Checked = false;
-            shopItem3.Checked = false;
-            shopItem4.Checked = false;
-            shopItem5.Checked = false;
-        }
-        void ShopItems_HideList()
-        {
-            shopItem1.Visible = false;
-            shopItem2.Visible = false;
-            shopItem3.Visible = false;
-            shopItem4.Visible = false;
-            shopItem5.Visible = false;
-
-        }
-        void ShopItems_ShowList(int ItemShowNumber)
-        {
-            if (ItemShowNumber >= 1) { shopItem1.Visible = true; }
-            if (ItemShowNumber >= 2) { shopItem1.Visible = true; shopItem2.Visible = true; }
-            if (ItemShowNumber >= 3) { shopItem1.Visible = true; shopItem2.Visible = true; shopItem3.Visible = true; }
-            if (ItemShowNumber >= 4) { shopItem1.Visible = true; shopItem2.Visible = true; shopItem3.Visible = true; shopItem4.Visible = true; }
-            if (ItemShowNumber >= 5) { shopItem1.Visible = true; shopItem2.Visible = true; shopItem3.Visible = true; shopItem4.Visible = true; shopItem5.Visible = true; }
-
+            var item = _currentItems[index];
+            checkBox.Visible = true;
+            checkBox.Checked = false;
+            checkBox.Enabled = item.IsRepeatable || !item.IsOwned;
+            checkBox.ForeColor = item.IsOwned && !item.IsRepeatable ? Color.Green : Color.Black;
+            checkBox.Text = item.IsOwned && !item.IsRepeatable
+                ? $"{item.DisplayName} (Owned)"
+                : item.DisplayName;
         }
 
-        private void shopItem1_CheckedChanged(object sender, EventArgs e)
+        if (_currentItems.Count == 0)
         {
-            UpdateCart();
-        }
-        void UpdateCart()
-        {
-            CartListBox.Items.Clear();
-            total = 0;
-
-            if (shopItem1.Checked == true) { CartListBox.Items.Add(shopItem1.Text + " [" + GetItemPrice(shopItem1.Text) + "]"); total += GetItemPrice(shopItem1.Text); }
-            if (shopItem2.Checked == true) { CartListBox.Items.Add(shopItem2.Text + " [" + GetItemPrice(shopItem2.Text) + "]"); total += GetItemPrice(shopItem2.Text); }
-            if (shopItem3.Checked == true) { CartListBox.Items.Add(shopItem3.Text + " [" + GetItemPrice(shopItem3.Text) + "]"); total += GetItemPrice(shopItem3.Text); }
-            if (shopItem4.Checked == true) { CartListBox.Items.Add(shopItem4.Text + " [" + GetItemPrice(shopItem4.Text) + "]"); total += GetItemPrice(shopItem4.Text); }
-            if (shopItem5.Checked == true) { CartListBox.Items.Add(shopItem5.Text + " [" + GetItemPrice(shopItem5.Text) + "]"); total += GetItemPrice(shopItem5.Text); }
-            ReLoadGUI();
+            MessageBox.Show("No items are currently available in this category for your XP level.");
         }
 
-        private void CartListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        UpdateCart();
+        ReloadGui();
+    }
 
-        }
+    private void UpdateCart()
+    {
+        CartListBox.Items.Clear();
+        decimal total = 0m;
 
-        private void shopItem2_CheckedChanged(object sender, EventArgs e)
+        for (var index = 0; index < _currentItems.Count && index < _shopItemCheckboxes.Length; index++)
         {
-            UpdateCart();
-        }
-
-        private void shopItem3_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateCart();
-        }
-
-        private void shopItem4_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateCart();
-        }
-
-        private void shopItem5_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateCart();
-        }
-
-        private void Shop_Load(object sender, EventArgs e)
-        {
-
-        }
-        void AutoLoadUserData()
-        {
-            string fileName = "QuickMath_UserData.json";
-            if (File.Exists(fileName))
+            if (!_shopItemCheckboxes[index].Checked)
             {
-                string jsonString = File.ReadAllText(fileName);
-                var doc = JsonDocument.Parse(jsonString);
-
-                if (doc.RootElement.TryGetProperty("XP", out var xpProp))
-                    XP = xpProp.GetInt32();
-
-                if (doc.RootElement.TryGetProperty("coins", out var coinsProp))
-                    userCoins = coinsProp.GetSingle();
-
-                if (doc.RootElement.TryGetProperty("UserName", out var userNameProp))
-                    UserData_UserName = userNameProp.GetString();
-
-                if (UserData_UserName == string.Empty || UserData_UserName == null)
-                {
-                    RegisterForm form2 = new RegisterForm();
-                    form2.ShowDialog();
-                    return;
-                }
-
-                if (doc.RootElement.TryGetProperty("Difficulty_Insane_addition_unlocked", out var insaneAdd))
-                    Difficulty_Insane_addition_unlocked = insaneAdd.GetBoolean();
-
-                if (doc.RootElement.TryGetProperty("Difficulty_Hard_addition_unlocked", out var hardAdd))
-                    Difficulty_Hard_addition_unlocked = hardAdd.GetBoolean();
-
-                if (doc.RootElement.TryGetProperty("Difficulty_Hard_subtraction_unlocked", out var hardSub))
-                    Difficulty_Hard_subtraction_unlocked = hardSub.GetBoolean();
-
-                if (doc.RootElement.TryGetProperty("Difficulty_Insane_subtraction_unlocked", out var insaneSub))
-                    Difficulty_Insane_subtraction_unlocked = insaneSub.GetBoolean();
-
-        
-
-                ReLoadGUI();
+                continue;
             }
-            else
-            {
-                RegisterForm form2 = new RegisterForm();
-                form2.ShowDialog();
-            }
+
+            var item = _currentItems[index];
+            CartListBox.Items.Add($"{item.DisplayName} [{item.PriceCoins:0.##}]");
+            total += item.PriceCoins;
         }
 
-        void ReLoadGUI()
+        Total_Shop_Label.Text = $"Total = {total:0.##} coins";
+    }
+
+    private void ReloadGui()
+    {
+        var user = _userService.RefreshCurrentUser();
+        MoneyInAccountLabel.Text = $"Money = {user.Coins:0.##} coins";
+    }
+
+    private void Shop_buy_button(object sender, EventArgs e)
+    {
+        try
         {
-            
-            Total_Shop_Label.Text = "Total = " + total.ToString() + " ∑∑";
-            MoneyInAccountLabel.Text = "Money = " + userCoins.ToString() + " ∑∑";
+            var selectedIds = _currentItems
+                .Select((item, index) => new { item.ShopItemId, Selected = _shopItemCheckboxes[index].Checked })
+                .Where(static selection => selection.Selected)
+                .Select(static selection => selection.ShopItemId)
+                .ToArray();
+
+            var result = _shopService.Purchase(_userSession.CurrentUserId, selectedIds);
+            MessageBox.Show(result.Message, "Shop", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            LoadCategory(Shop_Select_Category.SelectedItem?.ToString() == "Stars" ? ShopCategory.Stars : ShopCategory.Difficulty);
         }
-
-        private Dictionary<string, int> itemPrices = new Dictionary<string, int>
-{
-    { "Hard Difficulty for addition", 5 },
-    { "Insane Difficulty for addition", 10 },
-    { "Red Star", 100 },
-    { "Blu Star", 100 },
-    { "Yellow Star", 150 },
-    { "Purple Star", 150 },
-    { "Dark Matter", 1000 },
-};
-
-        int GetItemPrice(string itemName)
+        catch (Exception exception)
         {
-            if (itemPrices.ContainsKey(itemName))
-                return itemPrices[itemName];
-            return 0;
+            MessageBox.Show(exception.Message, "Purchase error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
+    }
 
-        private void Shop_buy_button(object sender, EventArgs e)
-        {
-            BuyTheCart("", total);
-        }
+    private void shopItem1_CheckedChanged(object sender, EventArgs e) => UpdateCart();
+    private void shopItem2_CheckedChanged(object sender, EventArgs e) => UpdateCart();
+    private void shopItem2_CheckedChanged_1(object sender, EventArgs e) => UpdateCart();
+    private void shopItem3_CheckedChanged(object sender, EventArgs e) => UpdateCart();
+    private void shopItem4_CheckedChanged(object sender, EventArgs e) => UpdateCart();
+    private void shopItem5_CheckedChanged(object sender, EventArgs e) => UpdateCart();
 
-        private void shopItem2_CheckedChanged_1(object sender, EventArgs e)
-        {
-            UpdateCart();
-        }
-        void BuyTheCart(string itemName, int total)
-        {
-            if (total == 0) { MessageBox.Show("Your cart is empty!"); return; }
-            if (userCoins < total) { MessageBox.Show("Not enough ∑∑ ! You need " + (total - userCoins) + " more ∑∑"); }
-            else if (userCoins >= total)
-            {
-                userCoins -= total;
-                if (shopItem1.Checked && shopItem1.Text == "Hard Difficulty for addition")
-                {
-                   Difficulty_Hard_addition_unlocked = true;
-                }
-                if (shopItem2.Checked && shopItem2.Text == "Insane Difficulty for addition")
-                {
-                    Difficulty_Insane_addition_unlocked = true;
-                }
-                if (shopItem1.Checked && shopItem1.Text == "Red Star")
-                {
-                    RedStarNumber++;
+    private void CartListBox_SelectedIndexChanged(object sender, EventArgs e)
+    {
+    }
 
-                }
-                MessageBox.Show("You bought " + CartListBox.Items.Count + " items for a total of " + total + " ∑∑!");
-                saveUserData_Local();
-                CartListBox.Items.Clear();
-                ShopItems_ResetChecked();
-                ReLoadGUI();
-                AutoLoadUserData();
-
-            }
-        }
-        private void saveUserData_Local()
-        {
-            var SaveData = new
-            {
-                XP = XP,
-                coins = userCoins,
-                UserName = UserData_UserName,
-                Difficulty_Insane_addition_unlocked = Difficulty_Insane_addition_unlocked,
-                Difficulty_Hard_addition_unlocked = Difficulty_Hard_addition_unlocked,
-                Difficulty_Insane_subtraction_unlocked = Difficulty_Insane_subtraction_unlocked,
-                RedStarNumber = RedStarNumber
-            };
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            string jsonString = JsonSerializer.Serialize(SaveData, options);
-            string fileName = "QuickMath_UserData.json";
-            File.WriteAllText(fileName, jsonString);
-        }
-
-       
+    private void Shop_Load(object sender, EventArgs e)
+    {
     }
 }
