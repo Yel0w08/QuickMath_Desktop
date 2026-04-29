@@ -2,11 +2,17 @@ using QuickMath.Services;
 
 namespace QuickMath;
 
+/// <summary>
+/// Read-only statistics dialog backed by aggregated SQL queries.
+/// </summary>
 public partial class Statistics : Form
 {
     private readonly ScoreService _scoreService;
     private readonly UserSession _userSession;
 
+    /// <summary>
+    /// Builds the dialog with the score service and the active user session.
+    /// </summary>
     public Statistics(ScoreService scoreService, UserSession userSession)
     {
         _scoreService = scoreService;
@@ -18,6 +24,8 @@ public partial class Statistics : Form
 
     private void LoadStats()
     {
+        // The statistics model is already aggregated by the repository, so the
+        // form only maps values to the existing tree structure.
         var stats = _scoreService.GetStatistics(_userSession.CurrentUserId);
 
         StatsTreeView.Nodes[3].Nodes[0].Text = $"XP: {stats.XP}";

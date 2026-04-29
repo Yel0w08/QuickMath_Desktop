@@ -1,5 +1,8 @@
 namespace QuickMath.Domain;
 
+/// <summary>
+/// Aggregated statistics displayed in the statistics dialog.
+/// </summary>
 public sealed class UserStatistics
 {
     public string UserName { get; init; } = string.Empty;

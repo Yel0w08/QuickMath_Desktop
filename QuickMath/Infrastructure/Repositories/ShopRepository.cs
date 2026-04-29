@@ -4,6 +4,9 @@ using QuickMath.Infrastructure.Data;
 
 namespace QuickMath.Infrastructure.Repositories;
 
+/// <summary>
+/// Encapsulates all SQL access for the local in-game shop.
+/// </summary>
 public sealed class ShopRepository
 {
     private readonly ISqlConnectionFactory _connectionFactory;
@@ -13,6 +16,9 @@ public sealed class ShopRepository
         _connectionFactory = connectionFactory;
     }
 
+    /// <summary>
+    /// Returns the SQL-backed catalog visible to the current player for one category.
+    /// </summary>
     public IReadOnlyList<ShopCatalogItem> GetCatalog(int userId, ShopCategory category)
     {
         using var connection = _connectionFactory.Create();
@@ -116,6 +122,8 @@ public sealed class ShopRepository
 
         foreach (var item in items)
         {
+            // Inventory updates are idempotent at the SQL level: unique ownership
+            // for unlocks, quantity increments for repeatable collectibles.
             connection.Execute(
                 """
                 MERGE qm.UserInventory AS target

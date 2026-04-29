@@ -3,6 +3,9 @@ using QuickMath.Services;
 
 namespace QuickMath;
 
+/// <summary>
+/// Shop dialog that displays SQL-backed catalog items and delegates checkout to the service layer.
+/// </summary>
 public partial class Shop : Form
 {
     private readonly ShopService _shopService;
@@ -35,6 +38,8 @@ public partial class Shop : Form
 
     private void LoadCategory(ShopCategory category)
     {
+        // The shop never caches business data outside the dialog lifetime: each
+        // category load comes from SQL through the service layer.
         _currentItems = _shopService.GetCatalog(_userSession.CurrentUserId, category);
 
         for (var index = 0; index < _shopItemCheckboxes.Length; index++)
@@ -72,6 +77,8 @@ public partial class Shop : Form
         CartListBox.Items.Clear();
         decimal total = 0m;
 
+        // The UI cart is only a transient projection; prices are always revalidated
+        // in the repository before a purchase is committed.
         for (var index = 0; index < _currentItems.Count && index < _shopItemCheckboxes.Length; index++)
         {
             if (!_shopItemCheckboxes[index].Checked)
@@ -89,6 +96,8 @@ public partial class Shop : Form
 
     private void ReloadGui()
     {
+        // Refresh from SQL after a purchase so the visible balance always matches
+        // the persisted value used by the repositories.
         var user = _userService.RefreshCurrentUser();
         MoneyInAccountLabel.Text = $"Money = {user.Coins:0.##} coins";
     }

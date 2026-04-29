@@ -31,3 +31,12 @@
 - WinForms now calls only services.
 - Services call repositories.
 - Repositories encapsulate all SQL.
+
+## Local runtime mode
+
+- Runtime target is now **mono-user, 100% local**.
+- No remote SQL Server is required.
+- The application creates and uses a **SQL Server LocalDB** database inside:
+  - `%LocalAppData%\\QuickMath\\QuickMath_Local.mdf`
+- Data remains local to the Windows user profile.
+- No JSON, XML, SQLite or custom local persistence remains in the application code.

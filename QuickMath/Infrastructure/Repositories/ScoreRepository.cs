@@ -4,20 +4,31 @@ using QuickMath.Infrastructure.Data;
 
 namespace QuickMath.Infrastructure.Repositories;
 
+/// <summary>
+/// Encapsulates SQL queries that aggregate player statistics for the statistics screen.
+/// </summary>
 public sealed class ScoreRepository
 {
     private readonly ISqlConnectionFactory _connectionFactory;
 
+    /// <summary>
+    /// Creates the repository with the shared SQL connection factory.
+    /// </summary>
     public ScoreRepository(ISqlConnectionFactory connectionFactory)
     {
         _connectionFactory = connectionFactory;
     }
 
+    /// <summary>
+    /// Loads the aggregated statistics snapshot displayed by the statistics form.
+    /// </summary>
     public UserStatistics GetStatistics(int userId)
     {
         using var connection = _connectionFactory.Create();
         connection.Open();
 
+        // The statistics screen prefers one SQL roundtrip over a sequence of small
+        // calls to keep the UI responsive and avoid N+1 query patterns.
         return connection.QuerySingle<UserStatistics>(
             """
             SELECT

@@ -1,4 +1,3 @@
-using System.Text.Json;
 using QuickMath.Domain;
 using QuickMath.Services;
 
@@ -8,47 +7,36 @@ public partial class QuickMath : Form
 {
     private readonly ApplicationServices _services;
     private ExerciseProblem? _currentProblem;
+    private bool _isInitializing;
 
     public QuickMath(ApplicationServices services)
     {
         _services = services;
         InitializeComponent();
         InitializeGui();
-        _ = CheckForUpdates();
-    }
-
-    private async Task CheckForUpdates()
-    {
-        try
-        {
-            using HttpClient client = new();
-            client.DefaultRequestHeaders.Add("User-Agent", "QuickMath-Desktop");
-
-            const string url = "https://api.github.com/repos/Yel0w08/QuickMath_Desktop/releases/latest";
-            var json = await client.GetStringAsync(url);
-            var doc = JsonDocument.Parse(json);
-            var latestVersion = doc.RootElement.GetProperty("tag_name").GetString();
-
-            if (!string.IsNullOrWhiteSpace(latestVersion) && latestVersion != AppInfo.Version)
-            {
-                MessageBox.Show($"New version available: {latestVersion}\nCurrent version: {AppInfo.Version}");
-            }
-        }
-        catch
-        {
-        }
     }
 
     private void InitializeGui()
     {
-        RefreshUserSummary();
-        TypeOfMath.SelectedItem = "addition";
-        DifficultySelect.SelectedItem = "medium";
-        GenerateExercise();
+        _isInitializing = true;
+
+        try
+        {
+            RefreshUserSummary();
+            DifficultySelect.SelectedItem = "medium";
+            TypeOfMath.SelectedItem = "addition";
+            GenerateExercise();
+        }
+        finally
+        {
+            _isInitializing = false;
+        }
     }
 
     private void RefreshUserSummary()
     {
+        // The form never mutates coins or XP directly; it always refreshes the
+        // current snapshot from the service layer after a business operation.
         var user = _services.UserService.RefreshCurrentUser();
         GrettingLabel.Text = $"Welcome back {user.UserName}!";
         GrettingLabel.ForeColor = Color.Black;
@@ -63,6 +51,8 @@ public partial class QuickMath : Form
             var operation = GetSelectedOperation();
             var difficulty = GetSelectedDifficulty();
 
+            // Difficulty checks stay in the service/repository path so unlock
+            // rules are enforced consistently across the whole app.
             _currentProblem = _services.MathEngineService.CreateExercise(
                 _services.UserSession.CurrentUserId,
                 operation,
@@ -109,6 +99,7 @@ public partial class QuickMath : Form
             return;
         }
 
+        // A submission writes the attempt and reward transaction atomically in SQL.
         var result = _services.MathEngineService.SubmitAnswer(
             _services.UserSession.CurrentUserId,
             _currentProblem,
@@ -127,6 +118,11 @@ public partial class QuickMath : Form
 
     private void TypeOfMath_SelectedIndexChanged(object sender, EventArgs e)
     {
+        if (_isInitializing)
+        {
+            return;
+        }
+
         if (TypeOfMath.SelectedItem?.ToString() == "more coming !")
         {
             MessageBox.Show("More math operations will be added in the future!");
@@ -139,6 +135,11 @@ public partial class QuickMath : Form
 
     private void Difficulty_SelectedIndexChanged(object sender, EventArgs e)
     {
+        if (_isInitializing)
+        {
+            return;
+        }
+
         GenerateExercise();
     }
 

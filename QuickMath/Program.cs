@@ -4,6 +4,9 @@ using QuickMath.Services;
 
 namespace QuickMath;
 
+/// <summary>
+/// Desktop application entry point and local composition root.
+/// </summary>
 internal static class Program
 {
     [STAThread]
@@ -14,7 +17,11 @@ internal static class Program
         try
         {
             var appServices = BuildServices();
-            EnsureUserRegistration(appServices);
+            if (!EnsureUserRegistration(appServices))
+            {
+                return;
+            }
+
             Application.Run(new QuickMath(appServices));
         }
         catch (Exception exception)
@@ -29,6 +36,8 @@ internal static class Program
 
     private static ApplicationServices BuildServices()
     {
+        // Dependency wiring stays here so the WinForms layer only receives
+        // fully built service objects and never knows how SQL components are created.
         var userSession = new UserSession();
         var connectionFactory = new SqlConnectionFactory();
         var initializer = new DatabaseInitializer(connectionFactory);
@@ -52,14 +61,20 @@ internal static class Program
             userSession);
     }
 
-    private static void EnsureUserRegistration(ApplicationServices appServices)
+    private static bool EnsureUserRegistration(ApplicationServices appServices)
     {
         if (!appServices.UserService.HasRegisteredUsers())
         {
+            // First launch must produce a persisted user before the main form
+            // can start, otherwise the session layer has nothing to load.
             using var registerForm = new RegisterForm(appServices.UserService);
-            registerForm.ShowDialog();
+            if (registerForm.ShowDialog() != DialogResult.OK)
+            {
+                return false;
+            }
         }
 
         appServices.UserService.EnsureActiveUser();
+        return true;
     }
 }

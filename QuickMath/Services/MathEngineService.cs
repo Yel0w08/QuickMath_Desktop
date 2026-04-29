@@ -3,16 +3,25 @@ using QuickMath.Infrastructure.Repositories;
 
 namespace QuickMath.Services;
 
+/// <summary>
+/// Contains the gameplay logic for generating exercises and submitting answers.
+/// </summary>
 public sealed class MathEngineService
 {
     private readonly ExerciseRepository _exerciseRepository;
     private readonly Random _random = new();
 
+    /// <summary>
+    /// Creates the service with the repository responsible for persistence and unlock checks.
+    /// </summary>
     public MathEngineService(ExerciseRepository exerciseRepository)
     {
         _exerciseRepository = exerciseRepository;
     }
 
+    /// <summary>
+    /// Generates one exercise instance for the given user, operation and difficulty.
+    /// </summary>
     public ExerciseProblem CreateExercise(int userId, MathOperation operation, DifficultyLevel difficulty)
     {
         var definition = _exerciseRepository.GetDifficultyForUser(userId, operation, difficulty);
@@ -40,6 +49,9 @@ public sealed class MathEngineService
         };
     }
 
+    /// <summary>
+    /// Stores the attempt and applies any rewards in the persistence layer.
+    /// </summary>
     public ExerciseSubmissionResult SubmitAnswer(int userId, ExerciseProblem problem, int submittedAnswer)
     {
         return _exerciseRepository.SaveAttempt(userId, problem, submittedAnswer);

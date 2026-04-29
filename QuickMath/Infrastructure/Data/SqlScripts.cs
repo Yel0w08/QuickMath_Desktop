@@ -1,5 +1,8 @@
 namespace QuickMath.Infrastructure.Data;
 
+/// <summary>
+/// Contains the idempotent SQL schema and seed script executed on local startup.
+/// </summary>
 internal static class SqlScripts
 {
     public const string InitialSchema = """

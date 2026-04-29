@@ -4,6 +4,9 @@ using QuickMath.Infrastructure.Data;
 
 namespace QuickMath.Infrastructure.Repositories;
 
+/// <summary>
+/// Encapsulates SQL access for difficulty rules and exercise attempt persistence.
+/// </summary>
 public sealed class ExerciseRepository
 {
     private readonly ISqlConnectionFactory _connectionFactory;
@@ -13,6 +16,9 @@ public sealed class ExerciseRepository
         _connectionFactory = connectionFactory;
     }
 
+    /// <summary>
+    /// Loads the difficulty definition for one user and resolves whether it is unlocked.
+    /// </summary>
     public DifficultyDefinition GetDifficultyForUser(int userId, MathOperation operation, DifficultyLevel difficulty)
     {
         using var connection = _connectionFactory.Create();
@@ -133,6 +139,8 @@ public sealed class ExerciseRepository
 
         if (isCorrect)
         {
+            // Rewards and ledger entries must stay in the same transaction as the
+            // attempt itself so that gameplay progression cannot drift from history.
             connection.Execute(
                 """
                 UPDATE qm.Users

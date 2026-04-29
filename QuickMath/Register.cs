@@ -2,10 +2,16 @@ using QuickMath.Services;
 
 namespace QuickMath;
 
+/// <summary>
+/// Collects the local username used to create or reactivate a mono-user profile.
+/// </summary>
 public partial class RegisterForm : Form
 {
     private readonly UserService _userService;
 
+    /// <summary>
+    /// Initializes the registration dialog with the user service.
+    /// </summary>
     public RegisterForm(UserService userService)
     {
         _userService = userService;
@@ -27,6 +33,8 @@ public partial class RegisterForm : Form
     {
         try
         {
+            // Registration is persisted immediately so the rest of the app can rely
+            // on a valid active user stored in SQL.
             _userService.RegisterOrActivate(userName);
             DialogResult = DialogResult.OK;
             Close();
