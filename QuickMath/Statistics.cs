@@ -87,7 +87,30 @@ namespace QuickMath
                         totalNumberOfSubtractionDone = totalSub.GetInt32();
 
                 }
-                LoadStats();
+            string fileName_Stats = "QuickMath_UserStats.json";
+            if (File.Exists(fileName))
+            {
+
+                if (UserData_UserName == string.Empty || UserData_UserName == null)
+                {
+                    File.Create(fileName_Stats).Close();
+                    return;
+                }
+
+      
+
+                //if (doc.RootElement.TryGetProperty("totalNumberOfMathDone", out var totalMath))
+                //    totalNumberOfMathDone = totalMath.GetInt32();
+
+                //if (doc.RootElement.TryGetProperty("totalNumberOfAdditionDone", out var totalAdd))
+                //    totalNumberOfAdditionDone = totalAdd.GetInt32();
+
+                //if (doc.RootElement.TryGetProperty("totalNumberOfSubtractionDone", out var totalSub))
+                //    totalNumberOfSubtractionDone = totalSub.GetInt32();
+
+            }
+
+            LoadStats();
             
         }
 

@@ -11,7 +11,16 @@ namespace QuickMath
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
+            DatabaseManager.Initialize();
+            DatabaseManager.Load();
+            if (!DatabaseManager.Exists() && File.Exists("QuickMath_UserData.json"))
+            {
+                DatabaseManager.MigrateJsonToDatabase();
+            }
             Application.Run(new QuickMath());
+
+         
+
         }
     }
 }

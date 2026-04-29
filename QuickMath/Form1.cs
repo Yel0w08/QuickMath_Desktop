@@ -6,40 +6,24 @@ namespace QuickMath
     public partial class QuickMath : Form
     {
         private int result;
-        public int XP; //public stuff
-        public float coins;
-        public int totalNumberOfMathDone;
-        public int totalNumberOfAdditionDone;
-        public int totalNumberOfSubtractionDone;
         public bool DebugMode = false; // turn thath shi off before sending it to the prod!!
-        public bool Difficulty_Insane_addition_unlocked = false;
-        public bool Difficulty_Hard_addition_unlocked = false;
-        public bool Difficulty_Hard_subtraction_unlocked = false;
-        public bool Difficulty_Insane_subtraction_unlocked = false;
         public int NumberOfXpGivenForAddition = 10;
         public int NumberOfXpGivenForSubtraction = 10;//XP given for each correct answer for subtraction.
-
-
-
         public QuickMath()
-
         {
             InitializeComponent();
             if (DebugMode == true)
             {
                 GrettingLabel.Text = $"DEBUG MODE ON | Saves are diabled";
                 GrettingLabel.ForeColor = Color.Red;
-
             }
             else
             {
-                AutoLoadUserData();
+                LiveAppData.Load();
                 InitializeGUI();
-
             }
             CheckForUpdates();
         }
-
 
         private async Task CheckForUpdates()
         {
@@ -62,13 +46,13 @@ namespace QuickMath
         }
         private void InitializeGUI()
         {
-            GrettingLabel.Text = $"Welcome back {UserData_UserName} !"; GrettingLabel.ForeColor = Color.Black;
+            GrettingLabel.Text = $"Welcome back {LiveAppData.Current.UserName} !"; GrettingLabel.ForeColor = Color.Black;
 
 
         }
 
         bool DoAwserIsCorect;
-        string UserData_UserName;
+
         private void MathToResolveText_Click(object sender, EventArgs e)
         {
 
@@ -95,7 +79,6 @@ namespace QuickMath
         private void button1_Click(object sender, EventArgs e) //start_button
         {
             StartMath();
-
         }
 
         private void StartMath()
@@ -139,39 +122,39 @@ namespace QuickMath
 
             if (DifficultySelect.SelectedItem == "medium")
             {
-                min_number_addition = 1; max_number_addition = 100; NumberOfXpGivenForAddition = 10; coins += 1;
+                min_number_addition = 1; max_number_addition = 100; NumberOfXpGivenForAddition = 10; LiveAppData.Current.Coins += 1;
             }
 
             else if (DifficultySelect.SelectedItem == "easy")
             {
-                min_number_addition = 1; max_number_addition = 50; NumberOfXpGivenForAddition = 5; coins += 0.5f;
+                min_number_addition = 1; max_number_addition = 50; NumberOfXpGivenForAddition = 5; LiveAppData.Current.Coins += 0.5f;
             }
 
             else if (DifficultySelect.SelectedItem == "easy++")
             {
-                min_number_addition = 1; max_number_addition = 10; NumberOfXpGivenForAddition = 1; coins += 0.25f;
+                min_number_addition = 1; max_number_addition = 10; NumberOfXpGivenForAddition = 1; LiveAppData.Current.Coins += 0.25f;
             }
 
             else if (DifficultySelect.SelectedItem == "hard")
             {
-                if (Difficulty_Hard_addition_unlocked == false)
+                if (!LiveAppData.Current.Difficulty_Hard_addition_unlocked)
                 {
                     MessageBox.Show("You need to unlock this difficulty in the shop first !");
                     DifficultySelect.SelectedItem = "medium";
                     return;
                 }
-                min_number_addition = 50; max_number_addition = 500; NumberOfXpGivenForAddition = 20; coins += 2;
+                min_number_addition = 50; max_number_addition = 500; NumberOfXpGivenForAddition = 20; LiveAppData.Current.Coins += 2;
             }
 
             else if (DifficultySelect.SelectedItem == "insane")
             {
-                if (Difficulty_Insane_addition_unlocked == false)
+                if (!LiveAppData.Current.Difficulty_Insane_addition_unlocked)
                 {
                     MessageBox.Show("You need to unlock this difficulty in the shop first !");
                     DifficultySelect.SelectedItem = "medium";
                     return;
                 }
-                min_number_addition = 100; max_number_addition = 1000; NumberOfXpGivenForAddition = 40; coins += 4;
+                min_number_addition = 100; max_number_addition = 1000; NumberOfXpGivenForAddition = 40; LiveAppData.Current.Coins += 4;
             }
 
             Random random = new Random();
@@ -204,40 +187,40 @@ namespace QuickMath
 
             if (DifficultySelect.SelectedItem == "medium")
             {
-                min_number_addition = 1; max_number_addition = 100; NumberOfXpGivenForSubtraction = 15; coins += 1.5f;
+                min_number_addition = 1; max_number_addition = 100; NumberOfXpGivenForSubtraction = 15; LiveAppData.Current.Coins += 1.5f;
             }
 
             else if (DifficultySelect.SelectedItem == "easy")
             {
-                min_number_addition = 1; max_number_addition = 50; NumberOfXpGivenForSubtraction = 10; coins += 1f;
+                min_number_addition = 1; max_number_addition = 50; NumberOfXpGivenForSubtraction = 10; LiveAppData.Current.Coins += 1f;
             }
 
             else if (DifficultySelect.SelectedItem == "easy++")
             {
-                min_number_addition = 1; max_number_addition = 10; NumberOfXpGivenForSubtraction = 2; coins += 0.5f;
+                min_number_addition = 1; max_number_addition = 10; NumberOfXpGivenForSubtraction = 2; LiveAppData.Current.Coins += 0.5f;
             }
 
             else if (DifficultySelect.SelectedItem == "hard")
             {
 
-                if (Difficulty_Hard_subtraction_unlocked == false)
+                if (!LiveAppData.Current.Difficulty_Hard_subtraction_unlocked)
                 {
                     MessageBox.Show("You need to unlock this difficulty in the shop first !");
                     DifficultySelect.SelectedItem = "medium (1 - 100)";
                     return;
                 }
-                min_number_addition = 50; max_number_addition = 500; NumberOfXpGivenForSubtraction = 20; coins += 2;
+                min_number_addition = 50; max_number_addition = 500; NumberOfXpGivenForSubtraction = 20; LiveAppData.Current.Coins += 2;
             }
 
             else if (DifficultySelect.SelectedItem == "insane")
             {
-                if (Difficulty_Insane_subtraction_unlocked == false)
+                if (!LiveAppData.Current.Difficulty_Insane_subtraction_unlocked)
                 {
                     MessageBox.Show("You need to unlock this difficulty in the shop first !");
                     DifficultySelect.SelectedItem = "medium (1 - 100)";
                     return;
                 }
-                min_number_addition = 100; max_number_addition = 1000; NumberOfXpGivenForSubtraction = 40; coins += 4;
+                min_number_addition = 100; max_number_addition = 1000; NumberOfXpGivenForSubtraction = 40; LiveAppData.Current.Coins += 4;
             }
 
             Random random = new Random();
@@ -255,9 +238,9 @@ namespace QuickMath
             if (MathUserIntupt.Text == result.ToString())
             {
                 DoAwserIsCorect = true;
-                totalNumberOfMathDone++;
-                if (TypeOfMath.SelectedItem.ToString() == "addition") { totalNumberOfAdditionDone++; }
-                else if (TypeOfMath.SelectedItem.ToString() == "subtraction") { totalNumberOfSubtractionDone++; }
+                LiveAppData.Current.TotalMathDone++;
+                if (TypeOfMath.SelectedItem.ToString() == "addition") { LiveAppData.Current.TotalAdditionDone++; }
+                else if (TypeOfMath.SelectedItem.ToString() == "subtraction") { LiveAppData.Current.TotalSubtractionDone++; }
             }
         }
 
@@ -274,10 +257,10 @@ namespace QuickMath
         void ReLoadGUI()
         {
 
-            XPpointLabel.Text = XP.ToString();
+            XPpointLabel.Text = LiveAppData.Current.XP.ToString();
 
-            CoinsLabel.Text = coins.ToString();
-            saveUserData_Local();
+            CoinsLabel.Text = LiveAppData.Current.Coins.ToString();
+            LiveAppData.Save();
         }
         private void UnlockGUI()
         {
@@ -303,85 +286,12 @@ namespace QuickMath
 
         }
 
-        private void saveUserData_Local()
-        {
-            var SaveData = new
-            {
-                XP = XP,
-                coins = coins,
-                UserName = UserData_UserName,
-                totalNumberOfMathDone = totalNumberOfMathDone,
-                totalNumberOfSubtractionDone = totalNumberOfSubtractionDone,
-                totalNumberOfAdditionDone = totalNumberOfAdditionDone
-
-            };
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            string jsonString = JsonSerializer.Serialize(SaveData, options);
-            string fileName = "QuickMath_UserData.json";
-            File.WriteAllText(fileName, jsonString);
-        }
-
-        void AutoLoadUserData()
-        {
-            string fileName = "QuickMath_UserData.json";
-            if (File.Exists(fileName))
-            {
-                string jsonString = File.ReadAllText(fileName);
-                var doc = JsonDocument.Parse(jsonString);
-
-                if (doc.RootElement.TryGetProperty("XP", out var xpProp))
-                    XP = xpProp.GetInt32();
-
-                if (doc.RootElement.TryGetProperty("coins", out var coinsProp))
-                    coins = coinsProp.GetSingle();
-
-                if (doc.RootElement.TryGetProperty("UserName", out var userNameProp))
-                    UserData_UserName = userNameProp.GetString();
-
-                if (UserData_UserName == string.Empty || UserData_UserName == null)
-                {
-                    RegisterForm form2 = new RegisterForm();
-                    form2.ShowDialog();
-                    return;
-                }
-
-                if (doc.RootElement.TryGetProperty("Difficulty_Insane_addition_unlocked", out var insaneAdd))
-                    Difficulty_Insane_addition_unlocked = insaneAdd.GetBoolean();
-
-                if (doc.RootElement.TryGetProperty("Difficulty_Hard_addition_unlocked", out var hardAdd))
-                    Difficulty_Hard_addition_unlocked = hardAdd.GetBoolean();
-
-                if (doc.RootElement.TryGetProperty("Difficulty_Hard_subtraction_unlocked", out var hardSub))
-                    Difficulty_Hard_subtraction_unlocked = hardSub.GetBoolean();
-
-                if (doc.RootElement.TryGetProperty("Difficulty_Insane_subtraction_unlocked", out var insaneSub))
-                    Difficulty_Insane_subtraction_unlocked = insaneSub.GetBoolean();
-
-                if (doc.RootElement.TryGetProperty("totalNumberOfMathDone", out var totalMath))
-                    totalNumberOfMathDone = totalMath.GetInt32();
-
-                if (doc.RootElement.TryGetProperty("totalNumberOfAdditionDone", out var totalAdd))
-                    totalNumberOfAdditionDone = totalAdd.GetInt32();
-
-                if (doc.RootElement.TryGetProperty("totalNumberOfSubtractionDone", out var totalSub))
-                    totalNumberOfSubtractionDone = totalSub.GetInt32();
-
-                InitializeGUI();
-                ReLoadGUI();
-            }
-            else
-            {
-                RegisterForm form2 = new RegisterForm();
-                form2.ShowDialog();
-            }
-        }
-
         private void MathUserIntupt_TextChanged(object sender, EventArgs e)
         {
             if (MathUserIntupt.Text == result.ToString())
             {
                 DoAwserIsCorect = true;
-                XP += NumberOfXpGivenForAddition;
+                LiveAppData.Current.XP += NumberOfXpGivenForAddition;
                 ReLoadGUI();
                 MathUserIntupt.Text = string.Empty;
 
@@ -410,14 +320,14 @@ namespace QuickMath
         {
             Shop shop = new Shop();
             shop.ShowDialog();
-            AutoLoadUserData();
+            LiveAppData.Load();
         }
 
         private void statistic_button_Click(object sender, EventArgs e)
         {
             Statistics statistics = new Statistics();
             statistics.ShowDialog();
-            AutoLoadUserData();
+            LiveAppData.Load();
         }
 
         private void ReSetButton_Click(object sender, EventArgs e)

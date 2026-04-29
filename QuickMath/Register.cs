@@ -21,6 +21,8 @@ namespace QuickMath
         {
             InitializeComponent();
             UsernameIntupt.Text = Environment.UserName;
+        
+
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -31,6 +33,7 @@ namespace QuickMath
         private void Register_Click(object sender, EventArgs e)
         {
             UserData_UserName = UsernameIntupt.Text.ToString();
+
             SaveDataLocal();
             this.Close();
         }
@@ -58,10 +61,25 @@ namespace QuickMath
                 DarkMatterNumber = 0,
 
             };
-            var options = new JsonSerializerOptions { WriteIndented = true };
+            var SaveData_stats = new
+            {
+                totalNumberOfMathDone = totalNumberOfMathDone,
+                totalNumberOfAdditionDone = totalNumberOfAdditionDone,
+                totalNumberOfSubtractionDone = totalNumberOfSubtractionDone,
+            };
+
+            var options = new JsonSerializerOptions { WriteIndented = true, PropertyNameCaseInsensitive = true };
             string jsonString = JsonSerializer.Serialize(SaveData, options);
+            string stats_json_string = JsonSerializer.Serialize(SaveData_stats, options);
             string fileName = "QuickMath_UserData.json";
+            string stats_fileName = "QuickMath_UserStats.json";
+    
+    
             File.WriteAllText(fileName, jsonString);
+            File.WriteAllText(stats_fileName, stats_json_string);
+
+
+
         }
 
         private void SkipRegisterButton_Click(object sender, EventArgs e)
