@@ -8,7 +8,7 @@ public static class AppInfo
     /// <summary>
     /// Current application version displayed in the UI.
     /// </summary>
-    public const string Version = "0.3.3";
+    public const string Version = "0.3.3-F.SQL";//forbiden version of quickmath using sql 0.3.3-F.SQL,
 
     /// <summary>
     /// Product name shown in dialogs and informational screens.
