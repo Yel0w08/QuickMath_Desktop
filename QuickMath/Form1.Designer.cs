@@ -50,10 +50,9 @@
             // 
             TypeOfMath.FormattingEnabled = true;
             TypeOfMath.Items.AddRange(new object[] { "addition", "subtraction", "more coming !" });
-            TypeOfMath.Location = new Point(14, 16);
-            TypeOfMath.Margin = new Padding(3, 4, 3, 4);
+            TypeOfMath.Location = new Point(12, 12);
             TypeOfMath.Name = "TypeOfMath";
-            TypeOfMath.Size = new Size(138, 28);
+            TypeOfMath.Size = new Size(121, 23);
             TypeOfMath.TabIndex = 0;
             TypeOfMath.SelectedIndexChanged += TypeOfMath_SelectedIndexChanged;
             // 
@@ -61,9 +60,9 @@
             // 
             MathToResolveText.AutoSize = true;
             MathToResolveText.Font = new Font("Segoe UI", 16F);
-            MathToResolveText.Location = new Point(3, 352);
+            MathToResolveText.Location = new Point(3, 264);
             MathToResolveText.Name = "MathToResolveText";
-            MathToResolveText.Size = new Size(65, 37);
+            MathToResolveText.Size = new Size(52, 30);
             MathToResolveText.TabIndex = 1;
             MathToResolveText.Text = "1+1";
             MathToResolveText.Click += MathToResolveText_Click;
@@ -71,10 +70,9 @@
             // MathUserIntupt
             // 
             MathUserIntupt.Font = new Font("Segoe UI", 16F);
-            MathUserIntupt.Location = new Point(42, 417);
-            MathUserIntupt.Margin = new Padding(3, 4, 3, 4);
+            MathUserIntupt.Location = new Point(37, 313);
             MathUserIntupt.Name = "MathUserIntupt";
-            MathUserIntupt.Size = new Size(434, 43);
+            MathUserIntupt.Size = new Size(380, 36);
             MathUserIntupt.TabIndex = 2;
             MathUserIntupt.TextChanged += MathUserIntupt_TextChanged;
             // 
@@ -82,9 +80,9 @@
             // 
             MidelTextBetweenUserIntuptAndMath.AutoSize = true;
             MidelTextBetweenUserIntuptAndMath.Font = new Font("Segoe UI", 16F);
-            MidelTextBetweenUserIntuptAndMath.Location = new Point(3, 417);
+            MidelTextBetweenUserIntuptAndMath.Location = new Point(3, 313);
             MidelTextBetweenUserIntuptAndMath.Name = "MidelTextBetweenUserIntuptAndMath";
-            MidelTextBetweenUserIntuptAndMath.Size = new Size(35, 37);
+            MidelTextBetweenUserIntuptAndMath.Size = new Size(28, 30);
             MidelTextBetweenUserIntuptAndMath.TabIndex = 3;
             MidelTextBetweenUserIntuptAndMath.Text = "=";
             MidelTextBetweenUserIntuptAndMath.Click += label1_Click;
@@ -93,9 +91,9 @@
             // 
             XPEqualLabel.AutoSize = true;
             XPEqualLabel.Font = new Font("Segoe UI", 12F);
-            XPEqualLabel.Location = new Point(14, 95);
+            XPEqualLabel.Location = new Point(12, 71);
             XPEqualLabel.Name = "XPEqualLabel";
-            XPEqualLabel.Size = new Size(54, 28);
+            XPEqualLabel.Size = new Size(43, 21);
             XPEqualLabel.TabIndex = 4;
             XPEqualLabel.Text = "XP =";
             XPEqualLabel.Click += label1_Click_1;
@@ -104,37 +102,36 @@
             // 
             XPpointLabel.AutoSize = true;
             XPpointLabel.Font = new Font("Segoe UI", 12F);
-            XPpointLabel.Location = new Point(64, 95);
+            XPpointLabel.Location = new Point(56, 71);
             XPpointLabel.Name = "XPpointLabel";
-            XPpointLabel.Size = new Size(23, 28);
+            XPpointLabel.Size = new Size(19, 21);
             XPpointLabel.TabIndex = 5;
             XPpointLabel.Text = "0";
             // 
             // _trackbar
             // 
             _trackbar.AutoSize = true;
-            _trackbar.Location = new Point(818, 56);
+            _trackbar.Location = new Point(716, 42);
             _trackbar.Name = "_trackbar";
-            _trackbar.Size = new Size(0, 20);
+            _trackbar.Size = new Size(0, 15);
             _trackbar.TabIndex = 11;
             // 
             // DifficultySelect
             // 
             DifficultySelect.FormattingEnabled = true;
             DifficultySelect.Items.AddRange(new object[] { "easy++", "easy", "medium", "hard", "insane" });
-            DifficultySelect.Location = new Point(14, 52);
-            DifficultySelect.Margin = new Padding(3, 4, 3, 4);
+            DifficultySelect.Location = new Point(12, 39);
             DifficultySelect.Name = "DifficultySelect";
-            DifficultySelect.Size = new Size(138, 28);
+            DifficultySelect.Size = new Size(121, 23);
             DifficultySelect.TabIndex = 12;
             DifficultySelect.SelectedIndexChanged += Difficulty_SelectedIndexChanged;
             // 
             // GrettingLabel
             // 
             GrettingLabel.AutoSize = true;
-            GrettingLabel.Location = new Point(159, 56);
+            GrettingLabel.Location = new Point(139, 42);
             GrettingLabel.Name = "GrettingLabel";
-            GrettingLabel.Size = new Size(33, 20);
+            GrettingLabel.Size = new Size(28, 15);
             GrettingLabel.TabIndex = 14;
             GrettingLabel.Text = "Hi...";
             // 
@@ -142,9 +139,9 @@
             // 
             CoinsEqualStaticLabel.AutoSize = true;
             CoinsEqualStaticLabel.Font = new Font("Segoe UI", 12F);
-            CoinsEqualStaticLabel.Location = new Point(14, 123);
+            CoinsEqualStaticLabel.Location = new Point(12, 92);
             CoinsEqualStaticLabel.Name = "CoinsEqualStaticLabel";
-            CoinsEqualStaticLabel.Size = new Size(50, 28);
+            CoinsEqualStaticLabel.Size = new Size(41, 21);
             CoinsEqualStaticLabel.TabIndex = 15;
             CoinsEqualStaticLabel.Text = "∑∑=";
             // 
@@ -152,18 +149,17 @@
             // 
             CoinsLabel.AutoSize = true;
             CoinsLabel.Font = new Font("Segoe UI", 12F);
-            CoinsLabel.Location = new Point(64, 123);
+            CoinsLabel.Location = new Point(56, 92);
             CoinsLabel.Name = "CoinsLabel";
-            CoinsLabel.Size = new Size(23, 28);
+            CoinsLabel.Size = new Size(19, 21);
             CoinsLabel.TabIndex = 16;
             CoinsLabel.Text = "0";
             // 
             // OpenShopButton
             // 
-            OpenShopButton.Location = new Point(350, 16);
-            OpenShopButton.Margin = new Padding(3, 4, 3, 4);
+            OpenShopButton.Location = new Point(306, 12);
             OpenShopButton.Name = "OpenShopButton";
-            OpenShopButton.Size = new Size(126, 28);
+            OpenShopButton.Size = new Size(110, 21);
             OpenShopButton.TabIndex = 17;
             OpenShopButton.Text = " shop ";
             OpenShopButton.UseVisualStyleBackColor = true;
@@ -171,10 +167,9 @@
             // 
             // statistic_button
             // 
-            statistic_button.Location = new Point(158, 16);
-            statistic_button.Margin = new Padding(3, 4, 3, 4);
+            statistic_button.Location = new Point(138, 12);
             statistic_button.Name = "statistic_button";
-            statistic_button.Size = new Size(75, 28);
+            statistic_button.Size = new Size(66, 21);
             statistic_button.TabIndex = 18;
             statistic_button.Text = "stats";
             statistic_button.UseVisualStyleBackColor = true;
@@ -183,9 +178,10 @@
             // button1
             // 
             button1.Enabled = false;
-            button1.Location = new Point(239, 16);
+            button1.Location = new Point(209, 12);
+            button1.Margin = new Padding(3, 2, 3, 2);
             button1.Name = "button1";
-            button1.Size = new Size(105, 29);
+            button1.Size = new Size(92, 22);
             button1.TabIndex = 19;
             button1.Text = "WIP";
             button1.UseVisualStyleBackColor = true;
@@ -196,10 +192,9 @@
             ReSetButton.FlatAppearance.BorderColor = Color.White;
             ReSetButton.FlatAppearance.BorderSize = 0;
             ReSetButton.FlatStyle = FlatStyle.Flat;
-            ReSetButton.Location = new Point(443, 381);
-            ReSetButton.Margin = new Padding(3, 4, 3, 4);
+            ReSetButton.Location = new Point(392, 284);
             ReSetButton.Name = "ReSetButton";
-            ReSetButton.Size = new Size(33, 28);
+            ReSetButton.Size = new Size(25, 23);
             ReSetButton.TabIndex = 20;
             ReSetButton.Text = "🔄️";
             ReSetButton.UseVisualStyleBackColor = false;
@@ -207,10 +202,9 @@
             // 
             // QuickMath
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             BackColor = SystemColors.Control;
-            ClientSize = new Size(488, 481);
+            ClientSize = new Size(427, 361);
             Controls.Add(ReSetButton);
             Controls.Add(button1);
             Controls.Add(statistic_button);
@@ -227,7 +221,6 @@
             Controls.Add(MathToResolveText);
             Controls.Add(TypeOfMath);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(3, 4, 3, 4);
             Name = "QuickMath";
             Text = "QuickMath";
             Load += Form1_Load;

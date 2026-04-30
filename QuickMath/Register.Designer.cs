@@ -33,6 +33,7 @@
             UsernameIntupt = new TextBox();
             Register = new Button();
             SkipRegisterButton = new Button();
+            RegisterButton_v2 = new MaterialSkin.Controls.MaterialButton();
             label1 = new Label();
             SuspendLayout();
             // 
@@ -65,11 +66,27 @@
             SkipRegisterButton.UseVisualStyleBackColor = true;
             SkipRegisterButton.Click += SkipRegisterButton_Click;
             // 
+            // RegisterButton_v2
+            // 
+            resources.ApplyResources(RegisterButton_v2, "RegisterButton_v2");
+            RegisterButton_v2.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            RegisterButton_v2.Depth = 0;
+            RegisterButton_v2.HighEmphasis = true;
+            RegisterButton_v2.Icon = null;
+            RegisterButton_v2.MouseState = MaterialSkin.MouseState.HOVER;
+            RegisterButton_v2.Name = "RegisterButton_v2";
+            RegisterButton_v2.NoAccentTextColor = Color.Empty;
+            RegisterButton_v2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            RegisterButton_v2.UseAccentColor = false;
+            RegisterButton_v2.UseVisualStyleBackColor = true;
+            RegisterButton_v2.Click += RegisterButton_v2_Click;
+            // 
             // RegisterForm
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Window;
+            Controls.Add(RegisterButton_v2);
             Controls.Add(SkipRegisterButton);
             Controls.Add(Register);
             Controls.Add(UsernameIntupt);
@@ -86,5 +103,6 @@
         private TextBox UsernameIntupt;
         private Button Register;
         private Button SkipRegisterButton;
+        private MaterialSkin.Controls.MaterialButton RegisterButton_v2;
     }
 }

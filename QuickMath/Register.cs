@@ -56,4 +56,9 @@ public partial class RegisterForm : Form
     private void UsernameIntupt_TextChanged(object sender, EventArgs e)
     {
     }
+
+    private void RegisterButton_v2_Click(object sender, EventArgs e)
+    {
+        SaveUser(UsernameIntupt.Text);
+    }
 }

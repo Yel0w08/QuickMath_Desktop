@@ -44,9 +44,10 @@
             // 
             // shop_Buy_Button
             // 
-            shop_Buy_Button.Location = new Point(585, 398);
+            shop_Buy_Button.Location = new Point(512, 298);
+            shop_Buy_Button.Margin = new Padding(3, 2, 3, 2);
             shop_Buy_Button.Name = "shop_Buy_Button";
-            shop_Buy_Button.Size = new Size(203, 40);
+            shop_Buy_Button.Size = new Size(178, 30);
             shop_Buy_Button.TabIndex = 1;
             shop_Buy_Button.Text = "buy";
             shop_Buy_Button.UseVisualStyleBackColor = true;
@@ -56,9 +57,9 @@
             // 
             Nshop_Label.AutoSize = true;
             Nshop_Label.Font = new Font("Cascadia Code", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            Nshop_Label.Location = new Point(12, 9);
+            Nshop_Label.Location = new Point(10, 7);
             Nshop_Label.Name = "Nshop_Label";
-            Nshop_Label.Size = new Size(72, 27);
+            Nshop_Label.Size = new Size(55, 21);
             Nshop_Label.TabIndex = 2;
             Nshop_Label.Text = "NShop";
             // 
@@ -66,18 +67,19 @@
             // 
             Total_Shop_Label.AutoSize = true;
             Total_Shop_Label.BackColor = Color.Aquamarine;
-            Total_Shop_Label.Location = new Point(585, 375);
+            Total_Shop_Label.Location = new Point(512, 281);
             Total_Shop_Label.Name = "Total_Shop_Label";
-            Total_Shop_Label.Size = new Size(200, 20);
+            Total_Shop_Label.Size = new Size(176, 15);
             Total_Shop_Label.TabIndex = 3;
-            Total_Shop_Label.Text = "Total = 0                                 ";
+            Total_Shop_Label.Text = "Total = 0                                         ";
             // 
             // shopItem1
             // 
             shopItem1.AutoSize = true;
-            shopItem1.Location = new Point(12, 110);
+            shopItem1.Location = new Point(10, 82);
+            shopItem1.Margin = new Padding(3, 2, 3, 2);
             shopItem1.Name = "shopItem1";
-            shopItem1.Size = new Size(101, 24);
+            shopItem1.Size = new Size(82, 19);
             shopItem1.TabIndex = 4;
             shopItem1.Text = "shopItem1";
             shopItem1.UseVisualStyleBackColor = true;
@@ -87,18 +89,20 @@
             // 
             Shop_Select_Category.FormattingEnabled = true;
             Shop_Select_Category.Items.AddRange(new object[] { "Difficulty", "Stars" });
-            Shop_Select_Category.Location = new Point(12, 76);
+            Shop_Select_Category.Location = new Point(10, 57);
+            Shop_Select_Category.Margin = new Padding(3, 2, 3, 2);
             Shop_Select_Category.Name = "Shop_Select_Category";
-            Shop_Select_Category.Size = new Size(150, 28);
+            Shop_Select_Category.Size = new Size(132, 23);
             Shop_Select_Category.TabIndex = 5;
             Shop_Select_Category.SelectedIndexChanged += Shop_Select_Category_SelectedIndexChanged;
             // 
             // shopItem2
             // 
             shopItem2.AutoSize = true;
-            shopItem2.Location = new Point(12, 140);
+            shopItem2.Location = new Point(10, 105);
+            shopItem2.Margin = new Padding(3, 2, 3, 2);
             shopItem2.Name = "shopItem2";
-            shopItem2.Size = new Size(101, 24);
+            shopItem2.Size = new Size(82, 19);
             shopItem2.TabIndex = 6;
             shopItem2.Text = "shopItem2";
             shopItem2.UseVisualStyleBackColor = true;
@@ -107,9 +111,10 @@
             // shopItem3
             // 
             shopItem3.AutoSize = true;
-            shopItem3.Location = new Point(12, 170);
+            shopItem3.Location = new Point(10, 128);
+            shopItem3.Margin = new Padding(3, 2, 3, 2);
             shopItem3.Name = "shopItem3";
-            shopItem3.Size = new Size(101, 24);
+            shopItem3.Size = new Size(82, 19);
             shopItem3.TabIndex = 7;
             shopItem3.Text = "shopItem3";
             shopItem3.UseVisualStyleBackColor = true;
@@ -118,9 +123,10 @@
             // shopItem4
             // 
             shopItem4.AutoSize = true;
-            shopItem4.Location = new Point(12, 200);
+            shopItem4.Location = new Point(10, 150);
+            shopItem4.Margin = new Padding(3, 2, 3, 2);
             shopItem4.Name = "shopItem4";
-            shopItem4.Size = new Size(101, 24);
+            shopItem4.Size = new Size(82, 19);
             shopItem4.TabIndex = 8;
             shopItem4.Text = "shopItem4";
             shopItem4.UseVisualStyleBackColor = true;
@@ -129,9 +135,10 @@
             // shopItem5
             // 
             shopItem5.AutoSize = true;
-            shopItem5.Location = new Point(12, 230);
+            shopItem5.Location = new Point(10, 172);
+            shopItem5.Margin = new Padding(3, 2, 3, 2);
             shopItem5.Name = "shopItem5";
-            shopItem5.Size = new Size(101, 24);
+            shopItem5.Size = new Size(82, 19);
             shopItem5.TabIndex = 9;
             shopItem5.Text = "shopItem5";
             shopItem5.UseVisualStyleBackColor = true;
@@ -141,26 +148,27 @@
             // 
             CartListBox.Font = new Font("Segoe UI", 8F);
             CartListBox.FormattingEnabled = true;
-            CartListBox.Location = new Point(585, 18);
+            CartListBox.Location = new Point(512, 14);
+            CartListBox.Margin = new Padding(3, 2, 3, 2);
             CartListBox.Name = "CartListBox";
-            CartListBox.Size = new Size(203, 344);
+            CartListBox.Size = new Size(178, 251);
             CartListBox.TabIndex = 10;
             CartListBox.SelectedIndexChanged += CartListBox_SelectedIndexChanged;
             // 
             // MoneyInAccountLabel
             // 
             MoneyInAccountLabel.AutoSize = true;
-            MoneyInAccountLabel.Location = new Point(12, 36);
+            MoneyInAccountLabel.Location = new Point(10, 27);
             MoneyInAccountLabel.Name = "MoneyInAccountLabel";
-            MoneyInAccountLabel.Size = new Size(80, 20);
+            MoneyInAccountLabel.Size = new Size(64, 15);
             MoneyInAccountLabel.TabIndex = 11;
             MoneyInAccountLabel.Text = "Money = 0";
             // 
             // Shop
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(700, 338);
             Controls.Add(MoneyInAccountLabel);
             Controls.Add(CartListBox);
             Controls.Add(shopItem5);
@@ -173,6 +181,7 @@
             Controls.Add(Nshop_Label);
             Controls.Add(shop_Buy_Button);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Shop";
             Text = "Shop";
             Load += Shop_Load;

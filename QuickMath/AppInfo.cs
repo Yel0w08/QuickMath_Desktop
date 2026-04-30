@@ -8,7 +8,7 @@ public static class AppInfo
     /// <summary>
     /// Current application version displayed in the UI.
     /// </summary>
-    public const string Version = "0.3.2";
+    public const string Version = "0.3.3";
 
     /// <summary>
     /// Product name shown in dialogs and informational screens.
