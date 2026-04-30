@@ -14,4 +14,9 @@
     <Content Include="QuickMath-Win.ico" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="LiveCharts.WinForms" Version="0.9.7.1" />
+    <PackageReference Include="LiveChartsCore" Version="2.0.2" />
+  </ItemGroup>
+
 </Project>
