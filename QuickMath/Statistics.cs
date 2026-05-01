@@ -11,7 +11,7 @@ using System.Windows.Forms;
 namespace QuickMath
 {
 
-    public partial class Statistics : Form
+    public partial class Statistics : MaterialSkin.Controls.MaterialForm
     {
 
         int XP;
@@ -28,7 +28,7 @@ namespace QuickMath
         {
             InitializeComponent();
             LoadUserData();
-
+            MaterialSkin.MaterialSkinManager.Instance.Theme = MaterialSkin.MaterialSkinManager.Themes.LIGHT;
         }
 
         void LoadStats()
@@ -103,7 +103,7 @@ namespace QuickMath
 
         private void OpenInfoButton_Click(object sender, EventArgs e)
         {
-            AboutBox aboutBoxForm = new AboutBox();
+            AboutBox1 aboutBoxForm = new AboutBox1();
             aboutBoxForm.ShowDialog();
         }
     }

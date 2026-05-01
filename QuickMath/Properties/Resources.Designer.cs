@@ -59,5 +59,15 @@ namespace QuickMath.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap QuickMath_Win {
+            get {
+                object obj = ResourceManager.GetObject("QuickMath-Win", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

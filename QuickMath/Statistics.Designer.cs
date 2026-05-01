@@ -56,7 +56,7 @@
             // 
             // StatsTreeView
             // 
-            StatsTreeView.Location = new Point(10, 11);
+            StatsTreeView.Location = new Point(7, 80);
             StatsTreeView.Margin = new Padding(3, 2, 3, 2);
             StatsTreeView.Name = "StatsTreeView";
             treeNode1.Name = "Total";
@@ -102,7 +102,7 @@
             treeNode21.Name = "Player";
             treeNode21.Text = "Player";
             StatsTreeView.Nodes.AddRange(new TreeNode[] { treeNode8, treeNode11, treeNode18, treeNode21 });
-            StatsTreeView.Size = new Size(312, 291);
+            StatsTreeView.Size = new Size(384, 345);
             StatsTreeView.TabIndex = 0;
             StatsTreeView.AfterSelect += treeView1_AfterSelect;
             // 
@@ -115,7 +115,7 @@
             OpenInfoButton.Font = new Font("Segoe UI", 8F);
             OpenInfoButton.HighEmphasis = true;
             OpenInfoButton.Icon = null;
-            OpenInfoButton.Location = new Point(252, 310);
+            OpenInfoButton.Location = new Point(339, 455);
             OpenInfoButton.Margin = new Padding(4, 6, 4, 6);
             OpenInfoButton.MouseState = MaterialSkin.MouseState.HOVER;
             OpenInfoButton.Name = "OpenInfoButton";
@@ -130,30 +130,32 @@
             // 
             // materialButton1
             // 
+            materialButton1.AutoSize = false;
             materialButton1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            materialButton1.CharacterCasing = MaterialSkin.Controls.MaterialButton.CharacterCasingEnum.Title;
+            materialButton1.BackColor = SystemColors.ActiveCaptionText;
+            materialButton1.CharacterCasing = MaterialSkin.Controls.MaterialButton.CharacterCasingEnum.Normal;
             materialButton1.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             materialButton1.Depth = 0;
             materialButton1.Font = new Font("Segoe UI", 8F);
             materialButton1.HighEmphasis = true;
             materialButton1.Icon = null;
-            materialButton1.Location = new Point(133, 162);
+            materialButton1.Location = new Point(7, 455);
             materialButton1.Margin = new Padding(4, 6, 4, 6);
             materialButton1.MouseState = MaterialSkin.MouseState.HOVER;
             materialButton1.Name = "materialButton1";
             materialButton1.NoAccentTextColor = Color.Empty;
-            materialButton1.Size = new Size(69, 36);
+            materialButton1.Size = new Size(324, 36);
             materialButton1.TabIndex = 2;
-            materialButton1.Text = "About";
+            materialButton1.Text = "🚧 Work in progress 🚧";
             materialButton1.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             materialButton1.UseAccentColor = false;
-            materialButton1.UseVisualStyleBackColor = true;
+            materialButton1.UseVisualStyleBackColor = false;
             // 
             // Statistics
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(334, 361);
+            ClientSize = new Size(418, 503);
             Controls.Add(materialButton1);
             Controls.Add(OpenInfoButton);
             Controls.Add(StatsTreeView);

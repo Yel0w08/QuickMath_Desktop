@@ -25,9 +25,11 @@ namespace QuickMath
 
         {
             InitializeComponent();
+            MaterialSkin.MaterialSkinManager.Instance.Theme = MaterialSkin.MaterialSkinManager.Themes.LIGHT;
             AutoLoadUserData();
             InitializeGUI();
             CheckForUpdates();
+
         }
 
 
