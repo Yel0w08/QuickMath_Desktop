@@ -50,12 +50,14 @@
             TreeNode treeNode20 = new TreeNode("Username");
             TreeNode treeNode21 = new TreeNode("Player", new TreeNode[] { treeNode19, treeNode20 });
             StatsTreeView = new TreeView();
-            VersionLabel = new Label();
+            OpenInfoButton = new MaterialSkin.Controls.MaterialButton();
+            materialButton1 = new MaterialSkin.Controls.MaterialButton();
             SuspendLayout();
             // 
             // StatsTreeView
             // 
-            StatsTreeView.Location = new Point(12, 9);
+            StatsTreeView.Location = new Point(10, 11);
+            StatsTreeView.Margin = new Padding(3, 2, 3, 2);
             StatsTreeView.Name = "StatsTreeView";
             treeNode1.Name = "Total";
             treeNode1.Text = "Total";
@@ -100,28 +102,63 @@
             treeNode21.Name = "Player";
             treeNode21.Text = "Player";
             StatsTreeView.Nodes.AddRange(new TreeNode[] { treeNode8, treeNode11, treeNode18, treeNode21 });
-            StatsTreeView.Size = new Size(358, 412);
+            StatsTreeView.Size = new Size(312, 291);
             StatsTreeView.TabIndex = 0;
             StatsTreeView.AfterSelect += treeView1_AfterSelect;
             // 
-            // VersionLabel
+            // OpenInfoButton
             // 
-            VersionLabel.AutoSize = true;
-            VersionLabel.Location = new Point(12, 424);
-            VersionLabel.Name = "VersionLabel";
-            VersionLabel.Size = new Size(43, 20);
-            VersionLabel.TabIndex = 1;
-            VersionLabel.Text = "Build";
-            VersionLabel.TextAlign = ContentAlignment.MiddleCenter;
+            OpenInfoButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            OpenInfoButton.CharacterCasing = MaterialSkin.Controls.MaterialButton.CharacterCasingEnum.Title;
+            OpenInfoButton.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            OpenInfoButton.Depth = 0;
+            OpenInfoButton.Font = new Font("Segoe UI", 8F);
+            OpenInfoButton.HighEmphasis = true;
+            OpenInfoButton.Icon = null;
+            OpenInfoButton.Location = new Point(252, 310);
+            OpenInfoButton.Margin = new Padding(4, 6, 4, 6);
+            OpenInfoButton.MouseState = MaterialSkin.MouseState.HOVER;
+            OpenInfoButton.Name = "OpenInfoButton";
+            OpenInfoButton.NoAccentTextColor = Color.Empty;
+            OpenInfoButton.Size = new Size(69, 36);
+            OpenInfoButton.TabIndex = 1;
+            OpenInfoButton.Text = "About";
+            OpenInfoButton.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            OpenInfoButton.UseAccentColor = false;
+            OpenInfoButton.UseVisualStyleBackColor = true;
+            OpenInfoButton.Click += OpenInfoButton_Click;
+            // 
+            // materialButton1
+            // 
+            materialButton1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            materialButton1.CharacterCasing = MaterialSkin.Controls.MaterialButton.CharacterCasingEnum.Title;
+            materialButton1.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            materialButton1.Depth = 0;
+            materialButton1.Font = new Font("Segoe UI", 8F);
+            materialButton1.HighEmphasis = true;
+            materialButton1.Icon = null;
+            materialButton1.Location = new Point(133, 162);
+            materialButton1.Margin = new Padding(4, 6, 4, 6);
+            materialButton1.MouseState = MaterialSkin.MouseState.HOVER;
+            materialButton1.Name = "materialButton1";
+            materialButton1.NoAccentTextColor = Color.Empty;
+            materialButton1.Size = new Size(69, 36);
+            materialButton1.TabIndex = 2;
+            materialButton1.Text = "About";
+            materialButton1.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            materialButton1.UseAccentColor = false;
+            materialButton1.UseVisualStyleBackColor = true;
             // 
             // Statistics
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(382, 453);
-            Controls.Add(VersionLabel);
+            ClientSize = new Size(334, 361);
+            Controls.Add(materialButton1);
+            Controls.Add(OpenInfoButton);
             Controls.Add(StatsTreeView);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Statistics";
             Text = "Statistics";
             Load += Statistics_Load;
@@ -130,8 +167,8 @@
         }
 
         #endregion
-
         private TreeView StatsTreeView;
-        private Label VersionLabel;
+        private MaterialSkin.Controls.MaterialButton OpenInfoButton;
+        private MaterialSkin.Controls.MaterialButton materialButton1;
     }
 }

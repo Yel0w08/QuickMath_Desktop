@@ -12,6 +12,8 @@ namespace QuickMath
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new QuickMath());
+            MaterialSkin.MaterialSkinManager.Instance.Theme = MaterialSkin.MaterialSkinManager.Themes.DARK;
+                
         }
     }
 }

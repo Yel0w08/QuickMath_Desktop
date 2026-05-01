@@ -4,6 +4,9 @@
     <_LastSelectedProfileId>D:\Dev\C#\QuickMath_Desktop\QuickMath\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Update="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="form1.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -25,18 +25,8 @@ namespace QuickMath
 
         {
             InitializeComponent();
-            if (DebugMode == true)
-            {
-                GrettingLabel.Text = $"DEBUG MODE ON | Saves are diabled";
-                GrettingLabel.ForeColor = Color.Red;
-
-            }
-            else
-            {
-                AutoLoadUserData();
-                InitializeGUI();
-
-            }
+            AutoLoadUserData();
+            InitializeGUI();
             CheckForUpdates();
         }
 
