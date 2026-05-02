@@ -56,7 +56,7 @@
             // 
             // StatsTreeView
             // 
-            StatsTreeView.Location = new Point(7, 80);
+            StatsTreeView.Location = new Point(6, 102);
             StatsTreeView.Margin = new Padding(3, 2, 3, 2);
             StatsTreeView.Name = "StatsTreeView";
             treeNode1.Name = "Total";
@@ -102,7 +102,7 @@
             treeNode21.Name = "Player";
             treeNode21.Text = "Player";
             StatsTreeView.Nodes.AddRange(new TreeNode[] { treeNode8, treeNode11, treeNode18, treeNode21 });
-            StatsTreeView.Size = new Size(384, 345);
+            StatsTreeView.Size = new Size(402, 345);
             StatsTreeView.TabIndex = 0;
             StatsTreeView.AfterSelect += treeView1_AfterSelect;
             // 
@@ -155,7 +155,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(418, 503);
+            ClientSize = new Size(415, 500);
             Controls.Add(materialButton1);
             Controls.Add(OpenInfoButton);
             Controls.Add(StatsTreeView);
