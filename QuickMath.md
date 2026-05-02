@@ -2,7 +2,7 @@
 
 ## Platforms & ordre de build
 
-1. **Windows Forms** — prototype, test gameplay en cours
+1. **Windows Forms** — Full lokal, QuickMath-Desktop
 2. **Web** — version principale (React)
 3. **Android** — React Native (même codebase que le web quasi)
 
@@ -26,11 +26,11 @@ Donc le plan est :
 
 ## Hosting (tout gratuit)
 
-| Option           | Gratuit | Domaine custom |
-| ---------------- | ------- | -------------- |
-| Firebase Hosting | ✅       | (payant)       |
-| GitHub Pages     | ✅       | (gratuit)      |
-| Vercel           | ✅       | (gratuit)      |
+| Option           | Prix | Domaine custom |
+| ---------------- | ---- | -------------- |
+| Firebase Hosting | 0€   | (payant)       |
+| GitHub Pages     | 0€   | (gratuit)      |
+| Vercel           | 0€   | (gratuit)      |
 
 **Recommandation : Firebase Hosting** — tout au même endroit (auth + db + hosting)
 
@@ -88,7 +88,6 @@ Donc le plan est :
 - [ ] Badges / succès
 - [ ] Modes de jeu (contre la montre, survie)
 - [ ] Leaderboard global
-- [ ] ~~App iOS (compte dev Apple = 99€/an, décider plus tard)~~
 
 ---
 
