@@ -266,6 +266,8 @@ namespace QuickMath
     { "Yellow Star", 150 },
     { "Purple Star", 150 },
     { "Dark Matter", 1000 },
+    { "Hard Difficulty for subtraction", 10 },
+    { "Insane Difficulty for subtraction", 20 }
 };
 
         int GetItemPrice(string itemName)
@@ -298,6 +300,14 @@ namespace QuickMath
                 if (shopItem2.Checked && shopItem2.Text == "Insane Difficulty for addition")
                 {
                     Difficulty_Insane_addition_unlocked = true;
+                }
+                if (shopItem1.Checked && shopItem1.Text == "Hard Difficulty for subtraction")
+                {
+                    Difficulty_Hard_subtraction_unlocked = true;
+                }
+                if (shopItem2.Checked && shopItem2.Text == "Insane Difficulty for subtraction")
+                {
+                    Difficulty_Insane_subtraction_unlocked = true;
                 }
                 if (shopItem1.Checked && shopItem1.Text == "Red Star")
                 {
