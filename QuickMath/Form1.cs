@@ -21,6 +21,13 @@ namespace QuickMath
         public int NumberOfXpGivenForAddition = 10;
         public int NumberOfXpGivenForSubtraction = 10;
 
+        // Star cosmetics (shared with Shop for save/load consistency)
+        public int RedStarNumber;
+        public int BlueStarNumber;
+        public int YellowStarNumber;
+        public int PurpleStarNumber;
+        public int DarkMatterNumber;
+
         public QuickMath()
         {
             InitializeComponent();
@@ -30,6 +37,8 @@ namespace QuickMath
             AutoLoadUserData();
             InitializeGUI();
             CheckForUpdates();
+
+           DebugService.Log("App started");
         }
 
         // ── Update Checker ──────────────────────────────────────────────
@@ -139,6 +148,8 @@ namespace QuickMath
 
             MathToResolveText.Text = $"{random_1} + {random_2}";
             CheckAnswer(result);
+
+           DebugService.Log($"Addition problem: {random_1}+{random_2} diff={DifficultySelect.SelectedItem}");
         }
 
         private (int min, int max, int xp, float coins) GetAdditionLevel(string difficulty)
@@ -256,6 +267,7 @@ namespace QuickMath
             if (MathUserIntupt.Text == result.ToString())
             {
                 XP += NumberOfXpGivenForAddition;
+               DebugService.Log($"Correct answer! XP={XP} coins={coins}");
                 ReLoadGUI();
                 MathUserIntupt.Text = string.Empty;
 
@@ -315,14 +327,24 @@ namespace QuickMath
                 XP,
                 coins,
                 UserName = UserData_UserName,
+                Difficulty_Insane_addition_unlocked,
+                Difficulty_Hard_addition_unlocked,
+                Difficulty_Insane_subtraction_unlocked,
+                Difficulty_Hard_subtraction_unlocked,
                 totalNumberOfMathDone,
+                totalNumberOfAdditionDone,
                 totalNumberOfSubtractionDone,
-                totalNumberOfAdditionDone
+                RedStarNumber,
+                BlueStarNumber,
+                YellowStarNumber,
+                PurpleStarNumber,
+                DarkMatterNumber
             };
 
             var options = new JsonSerializerOptions { WriteIndented = true };
             string jsonString = JsonSerializer.Serialize(SaveData, options);
             File.WriteAllText(FileConfig.SaveFileName, jsonString);
+           DebugService.Log($"User data saved — XP={XP} coins={coins} math={totalNumberOfMathDone}");
             DebugService.Log("User data saved");
         }
 
@@ -349,6 +371,8 @@ namespace QuickMath
 
             if (doc.RootElement.TryGetProperty("UserName", out var userNameProp))
                 UserData_UserName = userNameProp.GetString();
+
+           DebugService.Log($"User data loaded — user: {UserData_UserName}");
 
             if (string.IsNullOrEmpty(UserData_UserName))
             {
@@ -377,6 +401,21 @@ namespace QuickMath
 
             if (doc.RootElement.TryGetProperty("totalNumberOfSubtractionDone", out var totalSub))
                 totalNumberOfSubtractionDone = totalSub.GetInt32();
+
+            if (doc.RootElement.TryGetProperty("RedStarNumber", out var redStar))
+                RedStarNumber = redStar.GetInt32();
+
+            if (doc.RootElement.TryGetProperty("BlueStarNumber", out var blueStar))
+                BlueStarNumber = blueStar.GetInt32();
+
+            if (doc.RootElement.TryGetProperty("YellowStarNumber", out var yellowStar))
+                YellowStarNumber = yellowStar.GetInt32();
+
+            if (doc.RootElement.TryGetProperty("PurpleStarNumber", out var purpleStar))
+                PurpleStarNumber = purpleStar.GetInt32();
+
+            if (doc.RootElement.TryGetProperty("DarkMatterNumber", out var darkMatter))
+                DarkMatterNumber = darkMatter.GetInt32();
 
             DebugService.Log("User data loaded successfully");
             InitializeGUI();

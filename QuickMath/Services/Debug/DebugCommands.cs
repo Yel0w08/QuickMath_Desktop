@@ -334,6 +334,9 @@ namespace QuickMath.Services.Debug
                 "unlock_all" or "unlock_addition" or "unlock_subtraction" => "UNLOCK",
                 "reload_userdata" or "save_userdata" or "reset_stats" or "reload_gui" => "GAME STATE",
                 "clear" or "help" or "exit" => "SYSTEM",
+                "log" or "log_filter" or "log_clear" => "LOGGING",
+                "inspect" => "INSPECTION",
+                "form" or "math_test" => "TOOLS",
                 _ => "OTHER"
             };
         }

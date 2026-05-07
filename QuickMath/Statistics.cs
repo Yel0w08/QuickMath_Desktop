@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using QuickMath.Services.Debug;
+using System.Text.Json;
 
 namespace QuickMath
 {
@@ -15,31 +16,53 @@ namespace QuickMath
         public int totalNumberOfAdditionDone;
         public int totalNumberOfSubtractionDone;
 
+        // Star cosmetics
+        int RedStarNumber;
+        int BlueStarNumber;
+        int YellowStarNumber;
+        int PurpleStarNumber;
+        int DarkMatterNumber;
+
         // TreeView node indices (must match designer layout)
-        // Math[0] → Total[0], Additions[1]
-        // Economy[1] → Total coins spent[0], Total coins earn[1]
-        // Special[2] → Stars[0] → Red Star[0], Blu star[1], Yellow Star[2], Purpule Star[3]
-        //             → Dark Matter[1]
-        // Player[3] → Total XP[0], Username[1]
+        // Math[0]        → Total[0], Additions[1]
+        // Economy[1]     → Total coins spent[0], Total coins earn[1]
+        // Special[2]     → Stars[0], Dark Matter[1]
+        //   Stars[0]     → Red Star[0], Blu star[1], Yellow Star[2], Purpule Star[3]
+        // Player[3]      → Total XP[0], Username[1]
 
         public Statistics()
         {
             InitializeComponent();
+         
             LoadUserData();
+           DebugService.Log("Statistics opened");
         }
 
         void LoadStats()
         {
-            // Player section
+            // ── Player section ──────────────────────────────────────────
             StatsTreeView.Nodes[3].Nodes[0].Text = $"XP: {XP}";
             StatsTreeView.Nodes[3].Nodes[1].Text = $"Username: {UserData_UserName}";
 
-            // Math section
+            // ── Math section ────────────────────────────────────────────
             StatsTreeView.Nodes[0].Nodes[0].Text = $"Total Math done: {totalNumberOfMathDone}";
-            StatsTreeView.Nodes[0].Nodes[1].Text = $"Total Addition done: {totalNumberOfAdditionDone}";
+            StatsTreeView.Nodes[0].Nodes[1].Text = $"Addition: {totalNumberOfAdditionDone}";
 
-            // Economy section
-            StatsTreeView.Nodes[1].Nodes[0].Text = $"Total coins: {coins}";
+            // Show subtraction in the Additions > Total subnode
+            StatsTreeView.Nodes[0].Nodes[1].Nodes[0].Text = $"Subtraction: {totalNumberOfSubtractionDone}";
+
+            // ── Economy section ─────────────────────────────────────────
+            StatsTreeView.Nodes[1].Nodes[0].Text = $"Current coins: {coins}";
+
+            // ── Special section (Stars) ─────────────────────────────────
+            StatsTreeView.Nodes[2].Nodes[0].Nodes[0].Text = $"Red Star: {RedStarNumber}";
+            StatsTreeView.Nodes[2].Nodes[0].Nodes[1].Text = $"Blue Star: {BlueStarNumber}";
+            StatsTreeView.Nodes[2].Nodes[0].Nodes[2].Text = $"Yellow Star: {YellowStarNumber}";
+            StatsTreeView.Nodes[2].Nodes[0].Nodes[3].Text = $"Purple Star: {PurpleStarNumber}";
+            StatsTreeView.Nodes[2].Nodes[1].Text = $"Dark Matter: {DarkMatterNumber}";
+
+            // ── Difficulty unlocks ──────────────────────────────────────
+            StatsTreeView.Nodes[1].Nodes[1].Text = $"Addition Hard: {Difficulty_Hard_addition_unlocked}";
         }
 
         void LoadUserData()
@@ -90,6 +113,21 @@ namespace QuickMath
 
             if (doc.RootElement.TryGetProperty("totalNumberOfSubtractionDone", out var totalSub))
                 totalNumberOfSubtractionDone = totalSub.GetInt32();
+
+            if (doc.RootElement.TryGetProperty("RedStarNumber", out var redStar))
+                RedStarNumber = redStar.GetInt32();
+
+            if (doc.RootElement.TryGetProperty("BlueStarNumber", out var blueStar))
+                BlueStarNumber = blueStar.GetInt32();
+
+            if (doc.RootElement.TryGetProperty("YellowStarNumber", out var yellowStar))
+                YellowStarNumber = yellowStar.GetInt32();
+
+            if (doc.RootElement.TryGetProperty("PurpleStarNumber", out var purpleStar))
+                PurpleStarNumber = purpleStar.GetInt32();
+
+            if (doc.RootElement.TryGetProperty("DarkMatterNumber", out var darkMatter))
+                DarkMatterNumber = darkMatter.GetInt32();
 
             LoadStats();
         }

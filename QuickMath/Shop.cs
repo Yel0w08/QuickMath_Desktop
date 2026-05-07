@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using QuickMath.Services.Debug;
+using System.Text.Json;
 
 namespace QuickMath
 {
@@ -18,6 +19,11 @@ namespace QuickMath
         public int PurpleStarNumber;
         public int DarkMatterNumber;
 
+        // Stats totals (shared with Form1 for save/load consistency)
+        public int totalNumberOfMathDone;
+        public int totalNumberOfAdditionDone;
+        public int totalNumberOfSubtractionDone;
+
         public Shop()
         {
             InitializeComponent();
@@ -26,10 +32,13 @@ namespace QuickMath
 
             AutoLoadUserData();
             ReLoadGUI();
+
+            DebugService.Log("Shop opened");
         }
 
         public class ShopItem
         {
+
             public string Name { get; set; } = "";
             public int Price { get; set; }
             public string Description { get; set; } = "";
@@ -259,6 +268,7 @@ namespace QuickMath
             }
 
             MessageBox.Show($"You bought {CartListBox.Items.Count} items for a total of {total} ∑∑!");
+           DebugService.Log($"Shop purchase — items={CartListBox.Items.Count} total={total}");
             saveUserData_Local();
             CartListBox.Items.Clear();
             ShopItems_ResetChecked();
@@ -336,6 +346,15 @@ namespace QuickMath
             if (doc.RootElement.TryGetProperty("DarkMatterNumber", out var darkMatter))
                 DarkMatterNumber = darkMatter.GetInt32();
 
+            if (doc.RootElement.TryGetProperty("totalNumberOfMathDone", out var totalMath))
+                totalNumberOfMathDone = totalMath.GetInt32();
+
+            if (doc.RootElement.TryGetProperty("totalNumberOfAdditionDone", out var totalAdd))
+                totalNumberOfAdditionDone = totalAdd.GetInt32();
+
+            if (doc.RootElement.TryGetProperty("totalNumberOfSubtractionDone", out var totalSub))
+                totalNumberOfSubtractionDone = totalSub.GetInt32();
+
             ReLoadGUI();
         }
 
@@ -350,6 +369,9 @@ namespace QuickMath
                 Difficulty_Hard_addition_unlocked,
                 Difficulty_Insane_subtraction_unlocked,
                 Difficulty_Hard_subtraction_unlocked,
+                totalNumberOfMathDone,
+                totalNumberOfAdditionDone,
+                totalNumberOfSubtractionDone,
                 RedStarNumber,
                 BlueStarNumber,
                 YellowStarNumber,
@@ -360,6 +382,7 @@ namespace QuickMath
             var options = new JsonSerializerOptions { WriteIndented = true };
             string jsonString = JsonSerializer.Serialize(SaveData, options);
             File.WriteAllText(FileConfig.SaveFileName, jsonString);
+           DebugService.Log($"Shop saved — coins={userCoins} redStar={RedStarNumber}");
         }
 
         // Designer-wired empty handlers
