@@ -60,7 +60,7 @@ namespace QuickMath
             };
             var options = new JsonSerializerOptions { WriteIndented = true };
             string jsonString = JsonSerializer.Serialize(SaveData, options);
-            string fileName = "QuickMath_UserData.json";
+            string fileName = "QuickMath_UserData.qms";
             File.WriteAllText(fileName, jsonString);
         }
 

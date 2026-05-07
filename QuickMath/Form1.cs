@@ -25,7 +25,7 @@ namespace QuickMath
 
         {
             InitializeComponent();
-            MaterialSkin.MaterialSkinManager.Instance.Theme = MaterialSkin.MaterialSkinManager.Themes.LIGHT;
+
             AutoLoadUserData();
             InitializeGUI();
             CheckForUpdates();
@@ -309,13 +309,13 @@ namespace QuickMath
             };
             var options = new JsonSerializerOptions { WriteIndented = true };
             string jsonString = JsonSerializer.Serialize(SaveData, options);
-            string fileName = "QuickMath_UserData.json";
+            string fileName = "QuickMath_UserData.qms";
             File.WriteAllText(fileName, jsonString);
         }
 
         void AutoLoadUserData()
         {
-            string fileName = "QuickMath_UserData.json";
+            string fileName = "QuickMath_UserData.qms";
             if (File.Exists(fileName))
             {
                 string jsonString = File.ReadAllText(fileName);

@@ -11,7 +11,7 @@ using System.Windows.Forms;
 namespace QuickMath
 {
 
-    public partial class Statistics : MaterialSkin.Controls.MaterialForm
+    public partial class Statistics : Form
     {
 
         int XP;
@@ -28,7 +28,7 @@ namespace QuickMath
         {
             InitializeComponent();
             LoadUserData();
-            MaterialSkin.MaterialSkinManager.Instance.Theme = MaterialSkin.MaterialSkinManager.Themes.LIGHT;
+
         }
 
         void LoadStats()
@@ -43,7 +43,7 @@ namespace QuickMath
         void LoadUserData()
         {
 
-            string fileName = "QuickMath_UserData.json";
+            string fileName = "QuickMath_UserData.qms";
             if (File.Exists(fileName))
             {
                 string jsonString = File.ReadAllText(fileName);
@@ -101,7 +101,9 @@ namespace QuickMath
 
         }
 
-        private void OpenInfoButton_Click(object sender, EventArgs e)
+      
+
+        private void AboutButtonOpenPopup_Click(object sender, EventArgs e)
         {
             AboutBox1 aboutBoxForm = new AboutBox1();
             aboutBoxForm.ShowDialog();

@@ -28,136 +28,101 @@
         /// </summary>
         private void InitializeComponent()
         {
-            TreeNode treeNode1 = new TreeNode("Total");
-            TreeNode treeNode2 = new TreeNode("Total");
-            TreeNode treeNode3 = new TreeNode("easy");
-            TreeNode treeNode4 = new TreeNode("medium");
-            TreeNode treeNode5 = new TreeNode("Hard");
-            TreeNode treeNode6 = new TreeNode("Incsane");
-            TreeNode treeNode7 = new TreeNode("Additions", new TreeNode[] { treeNode2, treeNode3, treeNode4, treeNode5, treeNode6 });
-            TreeNode treeNode8 = new TreeNode("Math", new TreeNode[] { treeNode1, treeNode7 });
-            TreeNode treeNode9 = new TreeNode("Total coins spent");
-            TreeNode treeNode10 = new TreeNode("Total coins earn");
-            TreeNode treeNode11 = new TreeNode("Economy", new TreeNode[] { treeNode9, treeNode10 });
-            TreeNode treeNode12 = new TreeNode("Red Star");
-            TreeNode treeNode13 = new TreeNode("Blu star");
-            TreeNode treeNode14 = new TreeNode("Yellow Star");
-            TreeNode treeNode15 = new TreeNode("Purpule Star");
-            TreeNode treeNode16 = new TreeNode("Stars", new TreeNode[] { treeNode12, treeNode13, treeNode14, treeNode15 });
-            TreeNode treeNode17 = new TreeNode("Dark Matter");
-            TreeNode treeNode18 = new TreeNode("Special", new TreeNode[] { treeNode16, treeNode17 });
-            TreeNode treeNode19 = new TreeNode("Total XP");
-            TreeNode treeNode20 = new TreeNode("Username");
-            TreeNode treeNode21 = new TreeNode("Player", new TreeNode[] { treeNode19, treeNode20 });
+            TreeNode treeNode43 = new TreeNode("Total");
+            TreeNode treeNode44 = new TreeNode("Total");
+            TreeNode treeNode45 = new TreeNode("easy");
+            TreeNode treeNode46 = new TreeNode("medium");
+            TreeNode treeNode47 = new TreeNode("Hard");
+            TreeNode treeNode48 = new TreeNode("Incsane");
+            TreeNode treeNode49 = new TreeNode("Additions", new TreeNode[] { treeNode44, treeNode45, treeNode46, treeNode47, treeNode48 });
+            TreeNode treeNode50 = new TreeNode("Math", new TreeNode[] { treeNode43, treeNode49 });
+            TreeNode treeNode51 = new TreeNode("Total coins spent");
+            TreeNode treeNode52 = new TreeNode("Total coins earn");
+            TreeNode treeNode53 = new TreeNode("Economy", new TreeNode[] { treeNode51, treeNode52 });
+            TreeNode treeNode54 = new TreeNode("Red Star");
+            TreeNode treeNode55 = new TreeNode("Blu star");
+            TreeNode treeNode56 = new TreeNode("Yellow Star");
+            TreeNode treeNode57 = new TreeNode("Purpule Star");
+            TreeNode treeNode58 = new TreeNode("Stars", new TreeNode[] { treeNode54, treeNode55, treeNode56, treeNode57 });
+            TreeNode treeNode59 = new TreeNode("Dark Matter");
+            TreeNode treeNode60 = new TreeNode("Special", new TreeNode[] { treeNode58, treeNode59 });
+            TreeNode treeNode61 = new TreeNode("Total XP");
+            TreeNode treeNode62 = new TreeNode("Username");
+            TreeNode treeNode63 = new TreeNode("Player", new TreeNode[] { treeNode61, treeNode62 });
             StatsTreeView = new TreeView();
-            OpenInfoButton = new MaterialSkin.Controls.MaterialButton();
-            materialButton1 = new MaterialSkin.Controls.MaterialButton();
+            AboutButtonOpenPopup = new Button();
             SuspendLayout();
             // 
             // StatsTreeView
             // 
-            StatsTreeView.Location = new Point(6, 102);
+            StatsTreeView.Location = new Point(12, 11);
             StatsTreeView.Margin = new Padding(3, 2, 3, 2);
             StatsTreeView.Name = "StatsTreeView";
-            treeNode1.Name = "Total";
-            treeNode1.Text = "Total";
-            treeNode2.Name = "Total";
-            treeNode2.Text = "Total";
-            treeNode3.Name = "easy";
-            treeNode3.Text = "easy";
-            treeNode4.Name = "medium";
-            treeNode4.Text = "medium";
-            treeNode5.Name = "Hard";
-            treeNode5.Text = "Hard";
-            treeNode6.Name = "Incsane";
-            treeNode6.Text = "Incsane";
-            treeNode7.Name = "additions";
-            treeNode7.Text = "Additions";
-            treeNode8.Name = "Math";
-            treeNode8.Text = "Math";
-            treeNode9.Name = "Total coins spent";
-            treeNode9.Text = "Total coins spent";
-            treeNode10.Name = "Total coins earn";
-            treeNode10.Text = "Total coins earn";
-            treeNode11.Name = "Economy";
-            treeNode11.Text = "Economy";
-            treeNode12.Name = "Red Star";
-            treeNode12.Text = "Red Star";
-            treeNode13.Name = "Blu star";
-            treeNode13.Text = "Blu star";
-            treeNode14.Name = "Yellow Star";
-            treeNode14.Text = "Yellow Star";
-            treeNode15.Name = "Purpule Star";
-            treeNode15.Text = "Purpule Star";
-            treeNode16.Name = "Stars";
-            treeNode16.Text = "Stars";
-            treeNode17.Name = "Dark Matter";
-            treeNode17.Text = "Dark Matter";
-            treeNode18.Name = "Special";
-            treeNode18.Text = "Special";
-            treeNode19.Name = "Total XP";
-            treeNode19.Text = "Total XP";
-            treeNode20.Name = "Username";
-            treeNode20.Text = "Username";
-            treeNode21.Name = "Player";
-            treeNode21.Text = "Player";
-            StatsTreeView.Nodes.AddRange(new TreeNode[] { treeNode8, treeNode11, treeNode18, treeNode21 });
-            StatsTreeView.Size = new Size(402, 345);
+            treeNode43.Name = "Total";
+            treeNode43.Text = "Total";
+            treeNode44.Name = "Total";
+            treeNode44.Text = "Total";
+            treeNode45.Name = "easy";
+            treeNode45.Text = "easy";
+            treeNode46.Name = "medium";
+            treeNode46.Text = "medium";
+            treeNode47.Name = "Hard";
+            treeNode47.Text = "Hard";
+            treeNode48.Name = "Incsane";
+            treeNode48.Text = "Incsane";
+            treeNode49.Name = "additions";
+            treeNode49.Text = "Additions";
+            treeNode50.Name = "Math";
+            treeNode50.Text = "Math";
+            treeNode51.Name = "Total coins spent";
+            treeNode51.Text = "Total coins spent";
+            treeNode52.Name = "Total coins earn";
+            treeNode52.Text = "Total coins earn";
+            treeNode53.Name = "Economy";
+            treeNode53.Text = "Economy";
+            treeNode54.Name = "Red Star";
+            treeNode54.Text = "Red Star";
+            treeNode55.Name = "Blu star";
+            treeNode55.Text = "Blu star";
+            treeNode56.Name = "Yellow Star";
+            treeNode56.Text = "Yellow Star";
+            treeNode57.Name = "Purpule Star";
+            treeNode57.Text = "Purpule Star";
+            treeNode58.Name = "Stars";
+            treeNode58.Text = "Stars";
+            treeNode59.Name = "Dark Matter";
+            treeNode59.Text = "Dark Matter";
+            treeNode60.Name = "Special";
+            treeNode60.Text = "Special";
+            treeNode61.Name = "Total XP";
+            treeNode61.Text = "Total XP";
+            treeNode62.Name = "Username";
+            treeNode62.Text = "Username";
+            treeNode63.Name = "Player";
+            treeNode63.Text = "Player";
+            StatsTreeView.Nodes.AddRange(new TreeNode[] { treeNode50, treeNode53, treeNode60, treeNode63 });
+            StatsTreeView.Size = new Size(389, 377);
             StatsTreeView.TabIndex = 0;
             StatsTreeView.AfterSelect += treeView1_AfterSelect;
             // 
-            // OpenInfoButton
+            // AboutButtonOpenPopup
             // 
-            OpenInfoButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            OpenInfoButton.CharacterCasing = MaterialSkin.Controls.MaterialButton.CharacterCasingEnum.Title;
-            OpenInfoButton.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            OpenInfoButton.Depth = 0;
-            OpenInfoButton.Font = new Font("Segoe UI", 8F);
-            OpenInfoButton.HighEmphasis = true;
-            OpenInfoButton.Icon = null;
-            OpenInfoButton.Location = new Point(339, 455);
-            OpenInfoButton.Margin = new Padding(4, 6, 4, 6);
-            OpenInfoButton.MouseState = MaterialSkin.MouseState.HOVER;
-            OpenInfoButton.Name = "OpenInfoButton";
-            OpenInfoButton.NoAccentTextColor = Color.Empty;
-            OpenInfoButton.Size = new Size(69, 36);
-            OpenInfoButton.TabIndex = 1;
-            OpenInfoButton.Text = "About";
-            OpenInfoButton.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            OpenInfoButton.UseAccentColor = false;
-            OpenInfoButton.UseVisualStyleBackColor = true;
-            OpenInfoButton.Click += OpenInfoButton_Click;
-            // 
-            // materialButton1
-            // 
-            materialButton1.AutoSize = false;
-            materialButton1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            materialButton1.BackColor = SystemColors.ActiveCaptionText;
-            materialButton1.CharacterCasing = MaterialSkin.Controls.MaterialButton.CharacterCasingEnum.Normal;
-            materialButton1.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            materialButton1.Depth = 0;
-            materialButton1.Font = new Font("Segoe UI", 8F);
-            materialButton1.HighEmphasis = true;
-            materialButton1.Icon = null;
-            materialButton1.Location = new Point(7, 455);
-            materialButton1.Margin = new Padding(4, 6, 4, 6);
-            materialButton1.MouseState = MaterialSkin.MouseState.HOVER;
-            materialButton1.Name = "materialButton1";
-            materialButton1.NoAccentTextColor = Color.Empty;
-            materialButton1.Size = new Size(324, 36);
-            materialButton1.TabIndex = 2;
-            materialButton1.Text = "🚧 Work in progress 🚧";
-            materialButton1.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            materialButton1.UseAccentColor = false;
-            materialButton1.UseVisualStyleBackColor = false;
+            AboutButtonOpenPopup.Font = new Font("Segoe UI Emoji", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            AboutButtonOpenPopup.ForeColor = SystemColors.ActiveCaptionText;
+            AboutButtonOpenPopup.Location = new Point(12, 393);
+            AboutButtonOpenPopup.Name = "AboutButtonOpenPopup";
+            AboutButtonOpenPopup.Size = new Size(389, 26);
+            AboutButtonOpenPopup.TabIndex = 1;
+            AboutButtonOpenPopup.Text = "About ";
+            AboutButtonOpenPopup.UseVisualStyleBackColor = true;
+            AboutButtonOpenPopup.Click += AboutButtonOpenPopup_Click;
             // 
             // Statistics
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(415, 500);
-            Controls.Add(materialButton1);
-            Controls.Add(OpenInfoButton);
+            ClientSize = new Size(413, 431);
+            Controls.Add(AboutButtonOpenPopup);
             Controls.Add(StatsTreeView);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Margin = new Padding(3, 2, 3, 2);
@@ -165,12 +130,10 @@
             Text = "Statistics";
             Load += Statistics_Load;
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
         private TreeView StatsTreeView;
-        private MaterialSkin.Controls.MaterialButton OpenInfoButton;
-        private MaterialSkin.Controls.MaterialButton materialButton1;
+        private Button AboutButtonOpenPopup;
     }
 }
