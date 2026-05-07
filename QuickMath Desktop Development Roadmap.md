@@ -60,6 +60,7 @@ To:
 **What to Do:**
 
 1. Remove the public `DebugMode` boolean fields
+
 2. If debug features needed, use conditional compilation instead:
    
    ```csharp
@@ -67,6 +68,7 @@ To:
        // Debug-only code here
    #endif
    ```
+
 3. Or use an environment variable check instead of public field
 
 **How to Implement:**

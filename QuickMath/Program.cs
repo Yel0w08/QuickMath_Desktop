@@ -13,6 +13,7 @@ namespace QuickMath
             ApplicationConfiguration.Initialize();
             Application.Run(new QuickMath());
           
+
                 
         }
     }

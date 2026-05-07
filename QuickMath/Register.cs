@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Text.Json;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+﻿using System.Text.Json;
 
 namespace QuickMath
 {
@@ -15,33 +7,34 @@ namespace QuickMath
         public int totalNumberOfMathDone = 0;
         public int totalNumberOfAdditionDone = 0;
         public int totalNumberOfSubtractionDone = 0;
-        public string UserData_UserName;
+        public string UserData_UserName = "Player";
         float Coins = 0;
+
         public RegisterForm()
         {
             InitializeComponent();
             UsernameIntupt.Text = Environment.UserName;
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Register_Click(object sender, EventArgs e)
         {
-            UserData_UserName = UsernameIntupt.Text.ToString();
+            UserData_UserName = UsernameIntupt.Text;
+            SaveDataLocal();
+            this.Close();
+        }
+
+        private void SkipRegisterButton_Click(object sender, EventArgs e)
+        {
+            UserData_UserName = Environment.UserName;
             SaveDataLocal();
             this.Close();
         }
 
         private void SaveDataLocal()
         {
-            int XP = 0; // Initialize XP to 0 for new users
-
             var SaveData = new
             {
-                XP = XP,
+                XP = 0,
                 UserName = UserData_UserName,
                 coins = Coins,
                 Difficulty_Insane_addition_unlocked = false,
@@ -52,42 +45,20 @@ namespace QuickMath
                 totalNumberOfAdditionDone = totalNumberOfAdditionDone,
                 totalNumberOfSubtractionDone = totalNumberOfSubtractionDone,
                 RedStarNumber = 0,
-                BluStarNumber = 0,
+                BlueStarNumber = 0,
                 YellowStarNumber = 0,
                 PurpleStarNumber = 0,
                 DarkMatterNumber = 0,
-
             };
+
             var options = new JsonSerializerOptions { WriteIndented = true };
             string jsonString = JsonSerializer.Serialize(SaveData, options);
-            string fileName = "QuickMath_UserData.qms";
-            File.WriteAllText(fileName, jsonString);
+            File.WriteAllText(FileConfig.SaveFileName, jsonString);
         }
 
-        private void SkipRegisterButton_Click(object sender, EventArgs e)
-        {
-            UserData_UserName = Environment.UserName;
-
-            SaveDataLocal();
-            this.Close();
-
-
-
-        }
-
-        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
-        private void RegisterForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void UsernameIntupt_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+        // Designer-wired empty handlers
+        private void label1_Click(object sender, EventArgs e) { }
+        private void UsernameIntupt_TextChanged(object sender, EventArgs e) { }
+        private void RegisterForm_Load(object sender, EventArgs e) { }
     }
 }
