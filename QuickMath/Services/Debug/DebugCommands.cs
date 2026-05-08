@@ -102,7 +102,9 @@ namespace QuickMath.Services.Debug
 
         public SetXPCommand(QuickMath form) => _form = form;
 
-        public void Execute(string args, IDebugLogger logger)
+       
+
+            public void Execute(string args, IDebugLogger logger)
         {
             if (string.IsNullOrWhiteSpace(args))
             {
@@ -121,6 +123,7 @@ namespace QuickMath.Services.Debug
             }
         }
     }
+
 
     // ==================== UNLOCK COMMANDS ====================
 
@@ -184,7 +187,9 @@ namespace QuickMath.Services.Debug
 
     public class ReloadUserDataCommand : IDebugCommand
     {
+
         private readonly QuickMath _form;
+
 
         public string Name => "reload_userdata";
         public string Description => "Reload user data from save file";
@@ -199,7 +204,7 @@ namespace QuickMath.Services.Debug
         }
     }
 
-    public class SaveUserDataCommand : IDebugCommand
+        public class SaveUserDataCommand : IDebugCommand
     {
         private readonly QuickMath _form;
 
@@ -354,6 +359,263 @@ namespace QuickMath.Services.Debug
             logger.LogWarning("Debug console closing...");
             Application.Exit();
 #endif
+        }
+    }
+
+    // ==================== LOGGING COMMANDS ====================
+
+    public class LogCommand : IDebugCommand
+    {
+        public string Name => "log";
+        public string Description => "Show recent log entries";
+        public string Parameters => "[count=10]";
+
+        public void Execute(string args, IDebugLogger logger)
+        {
+#if DEBUG
+            int count = 10;
+            if (!string.IsNullOrWhiteSpace(args))
+                int.TryParse(args, out count);
+
+            var lines = AppLogger.ReadLast(count);
+            if (lines.Length == 0)
+            {
+                logger.LogWarning("No log entries found");
+                return;
+            }
+
+            foreach (var line in lines)
+                Console.WriteLine($"  {line}");
+
+            logger.LogSuccess($"Displayed {lines.Length} log entries");
+#endif
+        }
+    }
+
+    public class LogFilterCommand : IDebugCommand
+    {
+        public string Name => "log_filter";
+        public string Description => "Set minimum log level (Info, Warning, Error, Debug)";
+        public string Parameters => "[level]";
+
+        public void Execute(string args, IDebugLogger logger)
+        {
+#if DEBUG
+            if (string.IsNullOrWhiteSpace(args))
+            {
+                logger.LogError("Usage: log_filter [Info|Warning|Error|Debug]");
+                return;
+            }
+
+            string level = args.Trim();
+            AppLogger.SetMinimumLevel(level);
+            logger.LogSuccess($"Log filter set to {level}");
+#endif
+        }
+    }
+
+    public class LogClearCommand : IDebugCommand
+    {
+        public string Name => "log_clear";
+        public string Description => "Clear all log entries";
+        public string Parameters => "";
+
+        public void Execute(string args, IDebugLogger logger)
+        {
+#if DEBUG
+            AppLogger.Clear();
+            logger.LogSuccess("Log file cleared");
+#endif
+        }
+    }
+
+    // ==================== INSPECTION COMMAND ====================
+
+    public class InspectCommand : IDebugCommand
+    {
+        private readonly QuickMath _form;
+
+        public string Name => "inspect";
+        public string Description => "Inspect current player state";
+        public string Parameters => "";
+
+        public InspectCommand(QuickMath form) => _form = form;
+
+        public void Execute(string args, IDebugLogger logger)
+        {
+#if DEBUG
+            Console.WriteLine();
+            Console.WriteLine("╔══════════════════════════════════════════════╗");
+            Console.WriteLine("║           Player State Inspection           ║");
+            Console.WriteLine("╠══════════════════════════════════════════════╣");
+            Console.WriteLine($"║ XP:              {_form.XP,-18} ║");
+            Console.WriteLine($"║ Coins:           {_form.coins,-18} ║");
+            Console.WriteLine($"║ Username:        {_form.UserData_UserName,-18} ║");
+            Console.WriteLine($"║ Math Done:       {_form.totalNumberOfMathDone,-18} ║");
+            Console.WriteLine($"║ Additions:       {_form.totalNumberOfAdditionDone,-18} ║");
+            Console.WriteLine($"║ Subtractions:    {_form.totalNumberOfSubtractionDone,-18} ║");
+            Console.WriteLine("╠══════════════════════════════════════════════╣");
+            Console.WriteLine($"║ Hard Add:        {_form.Difficulty_Hard_addition_unlocked,-18} ║");
+            Console.WriteLine($"║ Insane Add:      {_form.Difficulty_Insane_addition_unlocked,-18} ║");
+            Console.WriteLine($"║ Hard Sub:        {_form.Difficulty_Hard_subtraction_unlocked,-18} ║");
+            Console.WriteLine($"║ Insane Sub:      {_form.Difficulty_Insane_subtraction_unlocked,-18} ║");
+            Console.WriteLine("╠══════════════════════════════════════════════╣");
+            Console.WriteLine($"║ Red Stars:       {_form.RedStarNumber,-18} ║");
+            Console.WriteLine($"║ Blue Stars:      {_form.BlueStarNumber,-18} ║");
+            Console.WriteLine($"║ Yellow Stars:    {_form.YellowStarNumber,-18} ║");
+            Console.WriteLine($"║ Purple Stars:    {_form.PurpleStarNumber,-18} ║");
+            Console.WriteLine($"║ Dark Matter:     {_form.DarkMatterNumber,-18} ║");
+            Console.WriteLine("╚══════════════════════════════════════════════╝");
+            Console.WriteLine();
+
+            logger.LogSuccess("Inspection complete");
+#endif
+        }
+    }
+
+    // ==================== FORM COMMAND ====================
+
+    public class FormCommand : IDebugCommand
+    {
+        private readonly QuickMath _form;
+
+        public string Name => "form";
+        public string Description => "Open a game form (shop, stats, about)";
+        public string Parameters => "[shop|stats|about]";
+
+        public FormCommand(QuickMath form) => _form = form;
+
+        public void Execute(string args, IDebugLogger logger)
+        {
+#if DEBUG
+            if (string.IsNullOrWhiteSpace(args))
+            {
+                logger.LogError("Usage: form [shop|stats|about]");
+                return;
+            }
+
+            string target = args.Trim().ToLower();
+
+            switch (target)
+            {
+                case "shop":
+                    _form.Invoke(() =>
+                    {
+                        Shop shopForm = new Shop();
+                        shopForm.ShowDialog();
+                    });
+                    logger.LogSuccess("Shop form opened");
+                    break;
+
+                case "stats":
+                    _form.Invoke(() =>
+                    {
+                        Statistics statsForm = new Statistics();
+                        statsForm.ShowDialog();
+                    });
+                    logger.LogSuccess("Statistics form opened");
+                    break;
+
+                case "about":
+                    _form.Invoke(() =>
+                    {
+                        AboutBox1 aboutForm = new AboutBox1();
+                        aboutForm.ShowDialog();
+                    });
+                    logger.LogSuccess("About form opened");
+                    break;
+
+                default:
+                    logger.LogError($"Unknown form: {target}. Use shop, stats, or about");
+                    break;
+            }
+#endif
+        }
+    }
+
+    // ==================== MATH TEST COMMAND ====================
+
+    public class MathTestCommand : IDebugCommand
+    {
+        private readonly QuickMath _form;
+
+        public string Name => "math_test";
+        public string Description => "Generate N test problems and log their answers";
+        public string Parameters => "[count=5]";
+
+        public MathTestCommand(QuickMath form) => _form = form;
+
+        public void Execute(string args, IDebugLogger logger)
+        {
+#if DEBUG
+            int count = 5;
+            if (!string.IsNullOrWhiteSpace(args))
+                int.TryParse(args, out count);
+
+            if (count < 1 || count > 100)
+            {
+                logger.LogError("Count must be between 1 and 100");
+                return;
+            }
+
+            string currentDifficulty = "Easy";
+            _form.Invoke(() =>
+            {
+                currentDifficulty = _form.DifficultySelect?.SelectedItem?.ToString() ?? "Easy";
+            });
+
+            Console.WriteLine();
+            Console.WriteLine($"╔══════════════════════════════════════════════╗");
+            Console.WriteLine($"║  Math Test ({count} problems, {currentDifficulty})       ║");
+            Console.WriteLine($"╠══════════════════════════════════════════════╣");
+
+            var rng = new Random();
+            int correct = 0;
+
+            for (int i = 0; i < count; i++)
+            {
+                bool isAddition = rng.Next(2) == 0;
+                (int a, int b) = GenerateOperands(currentDifficulty, isAddition, rng);
+                int answer = isAddition ? a + b : a - b;
+                string op = isAddition ? "+" : "-";
+
+                Console.WriteLine($"║  {i + 1,2}. {a,3} {op} {b,3} = {answer,-5}                ║");
+                correct++;
+            }
+
+            Console.WriteLine($"╠══════════════════════════════════════════════╣");
+            Console.WriteLine($"║  All {count} problems generated (for reference)  ║");
+            Console.WriteLine($"╚══════════════════════════════════════════════╝");
+            Console.WriteLine();
+
+            logger.LogSuccess($"Generated {count} math test problems");
+#endif
+        }
+
+        private static (int, int) GenerateOperands(string difficulty, bool addition, Random rng)
+        {
+            int min = 1, max = 10;
+
+            switch (difficulty.ToLower())
+            {
+                case "hard":
+                    min = 20; max = 100;
+                    break;
+                case "insane":
+                    min = 100; max = 500;
+                    break;
+                default:
+                    min = 1; max = 10;
+                    break;
+            }
+
+            int a = rng.Next(min, max + 1);
+            int b = rng.Next(min, max + 1);
+
+            if (!addition && b > a)
+                (a, b) = (b, a);
+
+            return (a, b);
         }
     }
 }

@@ -12,6 +12,7 @@ namespace QuickMath.Services
     {
         private static readonly string LogFilePath;
         private static readonly object Lock = new();
+        private static LogLevel _minimumLevel = LogLevel.Debug;
 
         static AppLogger()
         {
@@ -36,6 +37,9 @@ namespace QuickMath.Services
 
         private static void Write(LogLevel level, string message)
         {
+            if (level < _minimumLevel)
+                return;
+
             lock (Lock)
             {
                 try
@@ -81,6 +85,19 @@ namespace QuickMath.Services
                 try { File.WriteAllText(LogFilePath, ""); }
                 catch { }
             }
+        }
+
+        public static void SetMinimumLevel(string level)
+        {
+            level = level.Trim().ToLower();
+            _minimumLevel = level switch
+            {
+                "info" => LogLevel.Info,
+                "warning" => LogLevel.Warning,
+                "error" => LogLevel.Error,
+                "debug" => LogLevel.Debug,
+                _ => LogLevel.Debug
+            };
         }
     }
 }

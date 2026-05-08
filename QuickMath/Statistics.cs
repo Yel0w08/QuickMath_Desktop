@@ -1,5 +1,5 @@
 ﻿using QuickMath.Services.Debug;
-using System.Text.Json;
+using QuickMath.Services.DataManager;
 
 namespace QuickMath
 {
@@ -67,24 +67,9 @@ namespace QuickMath
 
         void LoadUserData()
         {
-            if (!File.Exists(FileConfig.SaveFileName))
-            {
-                RegisterForm form2 = new RegisterForm();
-                form2.ShowDialog();
-                return;
-            }
+            var data = DataManagerService.LoadOrCreate(FileConfig.SaveFileName);
 
-            string jsonString = File.ReadAllText(FileConfig.SaveFileName);
-            var doc = JsonDocument.Parse(jsonString);
-
-            if (doc.RootElement.TryGetProperty("XP", out var xpProp))
-                XP = xpProp.GetInt32();
-
-            if (doc.RootElement.TryGetProperty("coins", out var coinsProp))
-                coins = coinsProp.GetSingle();
-
-            if (doc.RootElement.TryGetProperty("UserName", out var userNameProp))
-                UserData_UserName = userNameProp.GetString();
+            UserData_UserName = data.UserName;
 
             if (string.IsNullOrEmpty(UserData_UserName))
             {
@@ -93,41 +78,20 @@ namespace QuickMath
                 return;
             }
 
-            if (doc.RootElement.TryGetProperty("Difficulty_Insane_addition_unlocked", out var insaneAdd))
-                Difficulty_Insane_addition_unlocked = insaneAdd.GetBoolean();
-
-            if (doc.RootElement.TryGetProperty("Difficulty_Hard_addition_unlocked", out var hardAdd))
-                Difficulty_Hard_addition_unlocked = hardAdd.GetBoolean();
-
-            if (doc.RootElement.TryGetProperty("Difficulty_Hard_subtraction_unlocked", out var hardSub))
-                Difficulty_Hard_subtraction_unlocked = hardSub.GetBoolean();
-
-            if (doc.RootElement.TryGetProperty("Difficulty_Insane_subtraction_unlocked", out var insaneSub))
-                Difficulty_Insane_subtraction_unlocked = insaneSub.GetBoolean();
-
-            if (doc.RootElement.TryGetProperty("totalNumberOfMathDone", out var totalMath))
-                totalNumberOfMathDone = totalMath.GetInt32();
-
-            if (doc.RootElement.TryGetProperty("totalNumberOfAdditionDone", out var totalAdd))
-                totalNumberOfAdditionDone = totalAdd.GetInt32();
-
-            if (doc.RootElement.TryGetProperty("totalNumberOfSubtractionDone", out var totalSub))
-                totalNumberOfSubtractionDone = totalSub.GetInt32();
-
-            if (doc.RootElement.TryGetProperty("RedStarNumber", out var redStar))
-                RedStarNumber = redStar.GetInt32();
-
-            if (doc.RootElement.TryGetProperty("BlueStarNumber", out var blueStar))
-                BlueStarNumber = blueStar.GetInt32();
-
-            if (doc.RootElement.TryGetProperty("YellowStarNumber", out var yellowStar))
-                YellowStarNumber = yellowStar.GetInt32();
-
-            if (doc.RootElement.TryGetProperty("PurpleStarNumber", out var purpleStar))
-                PurpleStarNumber = purpleStar.GetInt32();
-
-            if (doc.RootElement.TryGetProperty("DarkMatterNumber", out var darkMatter))
-                DarkMatterNumber = darkMatter.GetInt32();
+            XP = data.XP;
+            coins = data.coins;
+            Difficulty_Insane_addition_unlocked = data.Difficulty_Insane_addition_unlocked;
+            Difficulty_Hard_addition_unlocked = data.Difficulty_Hard_addition_unlocked;
+            Difficulty_Insane_subtraction_unlocked = data.Difficulty_Insane_subtraction_unlocked;
+            Difficulty_Hard_subtraction_unlocked = data.Difficulty_Hard_subtraction_unlocked;
+            totalNumberOfMathDone = data.totalNumberOfMathDone;
+            totalNumberOfAdditionDone = data.totalNumberOfAdditionDone;
+            totalNumberOfSubtractionDone = data.totalNumberOfSubtractionDone;
+            RedStarNumber = data.RedStarNumber;
+            BlueStarNumber = data.BlueStarNumber;
+            YellowStarNumber = data.YellowStarNumber;
+            PurpleStarNumber = data.PurpleStarNumber;
+            DarkMatterNumber = data.DarkMatterNumber;
 
             LoadStats();
         }

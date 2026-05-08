@@ -60,7 +60,7 @@ namespace QuickMath
     public static class FileConfig
     {
         public const string SaveFileName = "QuickMath_UserData.qms";
-        public const string GitHubRepo = "Yel0w08/QuickMath_Desktop";
-        public const string GitHubUserAgent = "QuickMath-Desktop";
+        public const string GitHubRepo = "Yel0w08/QuickMath-XP";
+        public const string GitHubUserAgent = "QuickMath-XP";
     }
 }

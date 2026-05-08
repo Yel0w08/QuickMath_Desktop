@@ -238,7 +238,7 @@
         private Label XPEqualLabel;
         private Label XPpointLabel;
         private Label _trackbar;
-        private ComboBox DifficultySelect;
+        internal ComboBox DifficultySelect;
         private Label GrettingLabel;
         private Label CoinsEqualStaticLabel;
         private Label CoinsLabel;

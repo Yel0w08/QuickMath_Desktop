@@ -1,4 +1,6 @@
+using QuickMath.Services.DataManager;
 using QuickMath.Services.Debug;
+using QuickMath.Services;
 using System.Text.Json;
 
 namespace QuickMath
@@ -17,7 +19,7 @@ namespace QuickMath
         public bool Difficulty_Hard_addition_unlocked = false;
         public bool Difficulty_Hard_subtraction_unlocked = false;
         public bool Difficulty_Insane_subtraction_unlocked = false;
-
+        
         public int NumberOfXpGivenForAddition = 10;
         public int NumberOfXpGivenForSubtraction = 10;
 
@@ -37,8 +39,11 @@ namespace QuickMath
             AutoLoadUserData();
             InitializeGUI();
             CheckForUpdates();
-
-           DebugService.Log("App started");
+#if DEBUG
+            this.Text += " Debug";
+           
+#endif
+            DebugService.Log("App started");
         }
 
         // ── Update Checker ──────────────────────────────────────────────
@@ -67,7 +72,7 @@ namespace QuickMath
 
         // ── GUI Init ────────────────────────────────────────────────────
 
-        private string UserData_UserName;
+        public string UserData_UserName;
 
         private void InitializeGUI()
         {
@@ -322,29 +327,27 @@ namespace QuickMath
 
         public void saveUserData_Local_form1()
         {
-            var SaveData = new
+            var data = new UserDataModel
             {
-                XP,
-                coins,
+                XP = XP,
+                coins = coins,
                 UserName = UserData_UserName,
-                Difficulty_Insane_addition_unlocked,
-                Difficulty_Hard_addition_unlocked,
-                Difficulty_Insane_subtraction_unlocked,
-                Difficulty_Hard_subtraction_unlocked,
-                totalNumberOfMathDone,
-                totalNumberOfAdditionDone,
-                totalNumberOfSubtractionDone,
-                RedStarNumber,
-                BlueStarNumber,
-                YellowStarNumber,
-                PurpleStarNumber,
-                DarkMatterNumber
+                Difficulty_Insane_addition_unlocked = Difficulty_Insane_addition_unlocked,
+                Difficulty_Hard_addition_unlocked = Difficulty_Hard_addition_unlocked,
+                Difficulty_Insane_subtraction_unlocked = Difficulty_Insane_subtraction_unlocked,
+                Difficulty_Hard_subtraction_unlocked = Difficulty_Hard_subtraction_unlocked,
+                totalNumberOfMathDone = totalNumberOfMathDone,
+                totalNumberOfAdditionDone = totalNumberOfAdditionDone,
+                totalNumberOfSubtractionDone = totalNumberOfSubtractionDone,
+                RedStarNumber = RedStarNumber,
+                BlueStarNumber = BlueStarNumber,
+                YellowStarNumber = YellowStarNumber,
+                PurpleStarNumber = PurpleStarNumber,
+                DarkMatterNumber = DarkMatterNumber
             };
 
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            string jsonString = JsonSerializer.Serialize(SaveData, options);
-            File.WriteAllText(FileConfig.SaveFileName, jsonString);
-           DebugService.Log($"User data saved — XP={XP} coins={coins} math={totalNumberOfMathDone}");
+            DataManagerService.Save(data, FileConfig.SaveFileName);
+            AppLogger.Info($"User data saved — XP={XP} coins={coins} math={totalNumberOfMathDone}");
             DebugService.Log("User data saved");
         }
 
@@ -352,27 +355,9 @@ namespace QuickMath
         {
             DebugService.Log("Loading user data...");
 
-            if (!File.Exists(FileConfig.SaveFileName))
-            {
-                RegisterForm form2 = new RegisterForm();
-                form2.ShowDialog();
-                DebugService.Log("User data file not found, showing registration form");
-                return;
-            }
+            var data = DataManagerService.LoadOrCreate(FileConfig.SaveFileName);
 
-            string jsonString = File.ReadAllText(FileConfig.SaveFileName);
-            var doc = JsonDocument.Parse(jsonString);
-
-            if (doc.RootElement.TryGetProperty("XP", out var xpProp))
-                XP = xpProp.GetInt32();
-
-            if (doc.RootElement.TryGetProperty("coins", out var coinsProp))
-                coins = coinsProp.GetSingle();
-
-            if (doc.RootElement.TryGetProperty("UserName", out var userNameProp))
-                UserData_UserName = userNameProp.GetString();
-
-           DebugService.Log($"User data loaded — user: {UserData_UserName}");
+            UserData_UserName = data.UserName;
 
             if (string.IsNullOrEmpty(UserData_UserName))
             {
@@ -381,42 +366,22 @@ namespace QuickMath
                 return;
             }
 
-            if (doc.RootElement.TryGetProperty("Difficulty_Insane_addition_unlocked", out var insaneAdd))
-                Difficulty_Insane_addition_unlocked = insaneAdd.GetBoolean();
+            XP = data.XP;
+            coins = data.coins;
+            Difficulty_Insane_addition_unlocked = data.Difficulty_Insane_addition_unlocked;
+            Difficulty_Hard_addition_unlocked = data.Difficulty_Hard_addition_unlocked;
+            Difficulty_Insane_subtraction_unlocked = data.Difficulty_Insane_subtraction_unlocked;
+            Difficulty_Hard_subtraction_unlocked = data.Difficulty_Hard_subtraction_unlocked;
+            totalNumberOfMathDone = data.totalNumberOfMathDone;
+            totalNumberOfAdditionDone = data.totalNumberOfAdditionDone;
+            totalNumberOfSubtractionDone = data.totalNumberOfSubtractionDone;
+            RedStarNumber = data.RedStarNumber;
+            BlueStarNumber = data.BlueStarNumber;
+            YellowStarNumber = data.YellowStarNumber;
+            PurpleStarNumber = data.PurpleStarNumber;
+            DarkMatterNumber = data.DarkMatterNumber;
 
-            if (doc.RootElement.TryGetProperty("Difficulty_Hard_addition_unlocked", out var hardAdd))
-                Difficulty_Hard_addition_unlocked = hardAdd.GetBoolean();
-
-            if (doc.RootElement.TryGetProperty("Difficulty_Hard_subtraction_unlocked", out var hardSub))
-                Difficulty_Hard_subtraction_unlocked = hardSub.GetBoolean();
-
-            if (doc.RootElement.TryGetProperty("Difficulty_Insane_subtraction_unlocked", out var insaneSub))
-                Difficulty_Insane_subtraction_unlocked = insaneSub.GetBoolean();
-
-            if (doc.RootElement.TryGetProperty("totalNumberOfMathDone", out var totalMath))
-                totalNumberOfMathDone = totalMath.GetInt32();
-
-            if (doc.RootElement.TryGetProperty("totalNumberOfAdditionDone", out var totalAdd))
-                totalNumberOfAdditionDone = totalAdd.GetInt32();
-
-            if (doc.RootElement.TryGetProperty("totalNumberOfSubtractionDone", out var totalSub))
-                totalNumberOfSubtractionDone = totalSub.GetInt32();
-
-            if (doc.RootElement.TryGetProperty("RedStarNumber", out var redStar))
-                RedStarNumber = redStar.GetInt32();
-
-            if (doc.RootElement.TryGetProperty("BlueStarNumber", out var blueStar))
-                BlueStarNumber = blueStar.GetInt32();
-
-            if (doc.RootElement.TryGetProperty("YellowStarNumber", out var yellowStar))
-                YellowStarNumber = yellowStar.GetInt32();
-
-            if (doc.RootElement.TryGetProperty("PurpleStarNumber", out var purpleStar))
-                PurpleStarNumber = purpleStar.GetInt32();
-
-            if (doc.RootElement.TryGetProperty("DarkMatterNumber", out var darkMatter))
-                DarkMatterNumber = darkMatter.GetInt32();
-
+            AppLogger.Info($"User data loaded — user: {UserData_UserName}");
             DebugService.Log("User data loaded successfully");
             InitializeGUI();
             ReLoadGUI();

@@ -19,6 +19,7 @@ namespace QuickMath.Services.Debug
             _form = form;
 
 #if DEBUG
+          
             AllocConsole();
             RegisterCommands();
             StartConsoleThread();
@@ -52,6 +53,18 @@ namespace QuickMath.Services.Debug
             Register(new ClearCommand());
             Register(new HelpCommand(this));
             Register(new ExitCommand());
+
+            // Logging commands
+            Register(new LogCommand());
+            Register(new LogFilterCommand());
+            Register(new LogClearCommand());
+
+            // Inspection commands
+            Register(new InspectCommand(_form));
+
+            // Tool commands
+            Register(new FormCommand(_form));
+            Register(new MathTestCommand(_form));
         }
 
         /// <summary>

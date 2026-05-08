@@ -1,4 +1,4 @@
-﻿using System.Text.Json;
+﻿using QuickMath.Services.DataManager;
 
 namespace QuickMath
 {
@@ -32,28 +32,13 @@ namespace QuickMath
 
         private void SaveDataLocal()
         {
-            var SaveData = new
-            {
-                XP = 0,
-                UserName = UserData_UserName,
-                coins = Coins,
-                Difficulty_Insane_addition_unlocked = false,
-                Difficulty_Hard_addition_unlocked = false,
-                Difficulty_Insane_subtraction_unlocked = false,
-                Difficulty_Hard_subtraction_unlocked = false,
-                totalNumberOfMathDone = totalNumberOfMathDone,
-                totalNumberOfAdditionDone = totalNumberOfAdditionDone,
-                totalNumberOfSubtractionDone = totalNumberOfSubtractionDone,
-                RedStarNumber = 0,
-                BlueStarNumber = 0,
-                YellowStarNumber = 0,
-                PurpleStarNumber = 0,
-                DarkMatterNumber = 0,
-            };
+            var data = UserDataModel.CreateDefault(UserData_UserName);
+            data.coins = Coins;
+            data.totalNumberOfMathDone = totalNumberOfMathDone;
+            data.totalNumberOfAdditionDone = totalNumberOfAdditionDone;
+            data.totalNumberOfSubtractionDone = totalNumberOfSubtractionDone;
 
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            string jsonString = JsonSerializer.Serialize(SaveData, options);
-            File.WriteAllText(FileConfig.SaveFileName, jsonString);
+            DataManagerService.Save(data, FileConfig.SaveFileName);
         }
 
         // Designer-wired empty handlers
