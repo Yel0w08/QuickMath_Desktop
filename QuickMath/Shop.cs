@@ -291,36 +291,36 @@ namespace QuickMath
 
         // ── Save / Load ─────────────────────────────────────────────────
 
-        void AutoLoadUserData()
-        {
-            var data = DataManagerService.LoadOrCreate(FileConfig.SaveFileName);
+        //void AutoLoadUserData()
+        //{
+        //    var data = DataManagerService.LoadOrCreate(FileConfig.SaveFileName);
 
-            UserData_UserName = data.UserName;
+        //    UserData_UserName = data.UserName;
 
-            if (string.IsNullOrEmpty(UserData_UserName))
-            {
-                RegisterForm form2 = new RegisterForm();
-                form2.ShowDialog();
-                return;
-            }
+        //    if (string.IsNullOrEmpty(UserData_UserName))
+        //    {
+        //        RegisterForm form2 = new RegisterForm();
+        //        form2.ShowDialog();
+        //        return;
+        //    }
 
-            XP = data.XP;
-            userCoins = data.coins;
-            Difficulty_Insane_addition_unlocked = data.Difficulty_Insane_addition_unlocked;
-            Difficulty_Hard_addition_unlocked = data.Difficulty_Hard_addition_unlocked;
-            Difficulty_Insane_subtraction_unlocked = data.Difficulty_Insane_subtraction_unlocked;
-            Difficulty_Hard_subtraction_unlocked = data.Difficulty_Hard_subtraction_unlocked;
-            RedStarNumber = data.RedStarNumber;
-            BlueStarNumber = data.BlueStarNumber;
-            YellowStarNumber = data.YellowStarNumber;
-            PurpleStarNumber = data.PurpleStarNumber;
-            DarkMatterNumber = data.DarkMatterNumber;
-            totalNumberOfMathDone = data.totalNumberOfMathDone;
-            totalNumberOfAdditionDone = data.totalNumberOfAdditionDone;
-            totalNumberOfSubtractionDone = data.totalNumberOfSubtractionDone;
+        //    XP = data.XP;
+        //    userCoins = data.coins;
+        //    Difficulty_Insane_addition_unlocked = data.Difficulty_Insane_addition_unlocked;
+        //    Difficulty_Hard_addition_unlocked = data.Difficulty_Hard_addition_unlocked;
+        //    Difficulty_Insane_subtraction_unlocked = data.Difficulty_Insane_subtraction_unlocked;
+        //    Difficulty_Hard_subtraction_unlocked = data.Difficulty_Hard_subtraction_unlocked;
+        //    RedStarNumber = data.RedStarNumber;
+        //    BlueStarNumber = data.BlueStarNumber;
+        //    YellowStarNumber = data.YellowStarNumber;
+        //    PurpleStarNumber = data.PurpleStarNumber;
+        //    DarkMatterNumber = data.DarkMatterNumber;
+        //    totalNumberOfMathDone = data.totalNumberOfMathDone;
+        //    totalNumberOfAdditionDone = data.totalNumberOfAdditionDone;
+        //    totalNumberOfSubtractionDone = data.totalNumberOfSubtractionDone;
 
-            ReLoadGUI();
-        }
+        //    ReLoadGUI();
+        //}
 
         private void saveUserData_Local()
         {
