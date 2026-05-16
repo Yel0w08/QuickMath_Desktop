@@ -1,42 +1,44 @@
+using QuickMath.Service.Data;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
-
+using QuickMath.Service;
 namespace QuickMath
 {
     public partial class QuickMath : Form
     {
         private int result;
-        public int XP; //public stuff
-        public float coins;
-        public int totalNumberOfMathDone;
-        public int totalNumberOfAdditionDone;
-        public int totalNumberOfSubtractionDone;
-        public bool DebugMode = false; // turn thath shi off before sending it to the prod!!
-        public bool Difficulty_Insane_addition_unlocked = false;
-        public bool Difficulty_Hard_addition_unlocked = false;
-        public bool Difficulty_Hard_subtraction_unlocked = false;
-        public bool Difficulty_Insane_subtraction_unlocked = false;
-        public int NumberOfXpGivenForAddition = 10;
-        public int NumberOfXpGivenForSubtraction = 10;//XP given for each correct answer for subtraction.
-
+        //public int XP; //public stuff
+        //public float coins;
+        //public int totalNumberOfMathDone;
+        //public int totalNumberOfAdditionDone;
+        //public int totalNumberOfSubtractionDone;
+        //public bool Difficulty_Insane_addition_unlocked = false;
+        //public bool Difficulty_Hard_addition_unlocked = false;
+        //public bool Difficulty_Hard_subtraction_unlocked = false;
+        //public bool Difficulty_Insane_subtraction_unlocked = false;
+        //public int NumberOfXpGivenForAddition = 10;
+        //public int NumberOfXpGivenForSubtraction = 10;//XP given for each correct answer for subtraction.
+        private Data Data = new Data();
 
 
         public QuickMath()
 
         {
+            Data.InitializeEverything();
             InitializeComponent();
-            if (DebugMode == true)
-            {
-                GrettingLabel.Text = $"DEBUG MODE ON | Saves are diabled";
-                GrettingLabel.ForeColor = Color.Red;
+#if DEBUG
 
-            }
-            else
-            {
+            GrettingLabel.Text = $"QMX - DEBUG";
+            GrettingLabel.ForeColor = Color.Red;
+#endif
+
+
+
+            
                 AutoLoadUserData();
                 InitializeGUI();
 
-            }
+            
             CheckForUpdates();
         }
 
@@ -139,39 +141,39 @@ namespace QuickMath
 
             if (DifficultySelect.SelectedItem == "medium")
             {
-                min_number_addition = 1; max_number_addition = 100; NumberOfXpGivenForAddition = 10; coins += 1;
+                min_number_addition = 1; max_number_addition = 100; Data.NumberOfXpGivenForAddition = 10; Data.coins += 1;
             }
 
             else if (DifficultySelect.SelectedItem == "easy")
             {
-                min_number_addition = 1; max_number_addition = 50; NumberOfXpGivenForAddition = 5; coins += 0.5f;
+                min_number_addition = 1; max_number_addition = 50; Data.NumberOfXpGivenForAddition = 5; Data.coins += 0.5f;
             }
 
             else if (DifficultySelect.SelectedItem == "easy++")
             {
-                min_number_addition = 1; max_number_addition = 10; NumberOfXpGivenForAddition = 1; coins += 0.25f;
+                min_number_addition = 1; max_number_addition = 10; Data.NumberOfXpGivenForAddition = 1; Data.coins += 0.25f;
             }
 
             else if (DifficultySelect.SelectedItem == "hard")
             {
-                if (Difficulty_Hard_addition_unlocked == false)
+                if (Data.Difficulty_Hard_addition_unlocked == false)
                 {
                     MessageBox.Show("You need to unlock this difficulty in the shop first !");
                     DifficultySelect.SelectedItem = "medium";
                     return;
                 }
-                min_number_addition = 50; max_number_addition = 500; NumberOfXpGivenForAddition = 20; coins += 2;
+                min_number_addition = 50; max_number_addition = 500; Data.NumberOfXpGivenForAddition = 20; Data.coins += 2;
             }
 
             else if (DifficultySelect.SelectedItem == "insane")
             {
-                if (Difficulty_Insane_addition_unlocked == false)
+                if (Data.Difficulty_Insane_addition_unlocked == false)
                 {
                     MessageBox.Show("You need to unlock this difficulty in the shop first !");
                     DifficultySelect.SelectedItem = "medium";
                     return;
                 }
-                min_number_addition = 100; max_number_addition = 1000; NumberOfXpGivenForAddition = 40; coins += 4;
+                min_number_addition = 100; max_number_addition = 1000; Data.NumberOfXpGivenForAddition = 40; Data.coins += 4;
             }
 
             Random random = new Random();
@@ -204,40 +206,40 @@ namespace QuickMath
 
             if (DifficultySelect.SelectedItem == "medium")
             {
-                min_number_addition = 1; max_number_addition = 100; NumberOfXpGivenForSubtraction = 15; coins += 1.5f;
+                min_number_addition = 1; max_number_addition = 100; Data.NumberOfXpGivenForSubtraction = 15; Data.coins += 1.5f;
             }
 
             else if (DifficultySelect.SelectedItem == "easy")
             {
-                min_number_addition = 1; max_number_addition = 50; NumberOfXpGivenForSubtraction = 10; coins += 1f;
+                min_number_addition = 1; max_number_addition = 50; Data.NumberOfXpGivenForSubtraction = 10; Data.coins += 1f;
             }
 
             else if (DifficultySelect.SelectedItem == "easy++")
             {
-                min_number_addition = 1; max_number_addition = 10; NumberOfXpGivenForSubtraction = 2; coins += 0.5f;
+                min_number_addition = 1; max_number_addition = 10; Data.NumberOfXpGivenForSubtraction = 2; Data.coins += 0.5f;
             }
 
             else if (DifficultySelect.SelectedItem == "hard")
             {
 
-                if (Difficulty_Hard_subtraction_unlocked == false)
+                if (Data.Difficulty_Hard_subtraction_unlocked == false)
                 {
                     MessageBox.Show("You need to unlock this difficulty in the shop first !");
                     DifficultySelect.SelectedItem = "medium (1 - 100)";
                     return;
                 }
-                min_number_addition = 50; max_number_addition = 500; NumberOfXpGivenForSubtraction = 20; coins += 2;
+                min_number_addition = 50; max_number_addition = 500; Data.NumberOfXpGivenForSubtraction = 20; Data.coins += 2;
             }
 
             else if (DifficultySelect.SelectedItem == "insane")
             {
-                if (Difficulty_Insane_subtraction_unlocked == false)
+                if (Data.Difficulty_Insane_subtraction_unlocked == false)
                 {
                     MessageBox.Show("You need to unlock this difficulty in the shop first !");
                     DifficultySelect.SelectedItem = "medium (1 - 100)";
                     return;
                 }
-                min_number_addition = 100; max_number_addition = 1000; NumberOfXpGivenForSubtraction = 40; coins += 4;
+                min_number_addition = 100; max_number_addition = 1000; Data.NumberOfXpGivenForSubtraction = 40; Data.coins += 4;
             }
 
             Random random = new Random();
@@ -255,9 +257,9 @@ namespace QuickMath
             if (MathUserIntupt.Text == result.ToString())
             {
                 DoAwserIsCorect = true;
-                totalNumberOfMathDone++;
-                if (TypeOfMath.SelectedItem.ToString() == "addition") { totalNumberOfAdditionDone++; }
-                else if (TypeOfMath.SelectedItem.ToString() == "subtraction") { totalNumberOfSubtractionDone++; }
+                Data.totalNumberOfMathDone++;
+                if (TypeOfMath.SelectedItem.ToString() == "addition") { Data.totalNumberOfAdditionDone++; }
+                else if (TypeOfMath.SelectedItem.ToString() == "subtraction") { Data.totalNumberOfSubtractionDone++; }
             }
         }
 
@@ -274,9 +276,9 @@ namespace QuickMath
         void ReLoadGUI()
         {
 
-            XPpointLabel.Text = XP.ToString();
+            XPpointLabel.Text = Data.XP.ToString();
 
-            CoinsLabel.Text = coins.ToString();
+            CoinsLabel.Text = Data.coins.ToString();
             saveUserData_Local();
         }
         private void UnlockGUI()
@@ -307,12 +309,12 @@ namespace QuickMath
         {
             var SaveData = new
             {
-                XP = XP,
-                coins = coins,
+                XP = Data.XP,
+                coins = Data.coins,
                 UserName = UserData_UserName,
-                totalNumberOfMathDone = totalNumberOfMathDone,
-                totalNumberOfSubtractionDone = totalNumberOfSubtractionDone,
-                totalNumberOfAdditionDone = totalNumberOfAdditionDone
+                totalNumberOfMathDone = Data.totalNumberOfMathDone,
+                totalNumberOfSubtractionDone = Data.totalNumberOfSubtractionDone,
+                totalNumberOfAdditionDone = Data.totalNumberOfAdditionDone
 
             };
             var options = new JsonSerializerOptions { WriteIndented = true };
@@ -330,10 +332,10 @@ namespace QuickMath
                 var doc = JsonDocument.Parse(jsonString);
 
                 if (doc.RootElement.TryGetProperty("XP", out var xpProp))
-                    XP = xpProp.GetInt32();
+                    Data.XP = xpProp.GetInt32();
 
                 if (doc.RootElement.TryGetProperty("coins", out var coinsProp))
-                    coins = coinsProp.GetSingle();
+                    Data.coins = coinsProp.GetSingle();
 
                 if (doc.RootElement.TryGetProperty("UserName", out var userNameProp))
                     UserData_UserName = userNameProp.GetString();
@@ -346,25 +348,25 @@ namespace QuickMath
                 }
 
                 if (doc.RootElement.TryGetProperty("Difficulty_Insane_addition_unlocked", out var insaneAdd))
-                    Difficulty_Insane_addition_unlocked = insaneAdd.GetBoolean();
+                    Data.Difficulty_Insane_addition_unlocked = insaneAdd.GetBoolean();
 
                 if (doc.RootElement.TryGetProperty("Difficulty_Hard_addition_unlocked", out var hardAdd))
-                    Difficulty_Hard_addition_unlocked = hardAdd.GetBoolean();
+                    Data.Difficulty_Hard_addition_unlocked = hardAdd.GetBoolean();
 
                 if (doc.RootElement.TryGetProperty("Difficulty_Hard_subtraction_unlocked", out var hardSub))
-                    Difficulty_Hard_subtraction_unlocked = hardSub.GetBoolean();
+                    Data.Difficulty_Hard_subtraction_unlocked = hardSub.GetBoolean();
 
                 if (doc.RootElement.TryGetProperty("Difficulty_Insane_subtraction_unlocked", out var insaneSub))
-                    Difficulty_Insane_subtraction_unlocked = insaneSub.GetBoolean();
+                    Data.Difficulty_Insane_subtraction_unlocked = insaneSub.GetBoolean();
 
                 if (doc.RootElement.TryGetProperty("totalNumberOfMathDone", out var totalMath))
-                    totalNumberOfMathDone = totalMath.GetInt32();
+                    Data.totalNumberOfMathDone = totalMath.GetInt32();
 
                 if (doc.RootElement.TryGetProperty("totalNumberOfAdditionDone", out var totalAdd))
-                    totalNumberOfAdditionDone = totalAdd.GetInt32();
+                    Data.totalNumberOfAdditionDone = totalAdd.GetInt32();
 
                 if (doc.RootElement.TryGetProperty("totalNumberOfSubtractionDone", out var totalSub))
-                    totalNumberOfSubtractionDone = totalSub.GetInt32();
+                    Data.totalNumberOfSubtractionDone = totalSub.GetInt32();
 
                 InitializeGUI();
                 ReLoadGUI();
@@ -381,7 +383,7 @@ namespace QuickMath
             if (MathUserIntupt.Text == result.ToString())
             {
                 DoAwserIsCorect = true;
-                XP += NumberOfXpGivenForAddition;
+                Data.XP += Data.NumberOfXpGivenForAddition;
                 ReLoadGUI();
                 MathUserIntupt.Text = string.Empty;
 
