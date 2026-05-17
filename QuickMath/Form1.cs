@@ -34,11 +34,11 @@ namespace QuickMath
 
 
 
-            
-                AutoLoadUserData();
-                InitializeGUI();
 
-            
+            AutoLoadUserData();
+            InitializeGUI();
+
+
             CheckForUpdates();
         }
 
@@ -425,6 +425,11 @@ namespace QuickMath
         private void ReSetButton_Click(object sender, EventArgs e)
         {
             StartMath();
+        }
+
+        private void GrettingLabel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
